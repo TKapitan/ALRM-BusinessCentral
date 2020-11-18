@@ -35,6 +35,13 @@ table 80003 "C4BC Extension Lines"
             Caption = 'Object Name';
             DataClassification = SystemMetadata;
         }
+        field(100; "Assignable Range Code"; Code[20])
+        {
+            Caption = 'Assignable Range Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Extension Header"."Code" where("Code" = field("Code")));
+        }
     }
 
     keys

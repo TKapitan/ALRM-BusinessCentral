@@ -11,12 +11,6 @@ page 80003 "C4BC Assignable Range Subform"
         {
             repeater(Group)
             {
-                field("Line No."; Rec."Line No.")
-                {
-                    ToolTip = 'Specifies Line No. of the record.';
-                    Visible = false;
-                    ApplicationArea = All;
-                }
                 field("Object Type"; Rec."Object Type")
                 {
                     ToolTip = 'Specifies type of the object for which this range is specified.';

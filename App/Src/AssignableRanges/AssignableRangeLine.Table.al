@@ -10,11 +10,6 @@ table 80002 "C4BC Assignable Range Line"
             Caption = 'Assignable Range Code';
             DataClassification = CustomerContent;
         }
-        field(2; "Line No."; Integer)
-        {
-            Caption = 'Line No.';
-            DataClassification = SystemMetadata;
-        }
         field(3; "Object Type"; Enum "C4BC Object Type")
         {
             Caption = 'Object Type';
@@ -36,7 +31,7 @@ table 80002 "C4BC Assignable Range Line"
 
     keys
     {
-        key(PK; "Assignable Range Code", "Line No.")
+        key(PK; "Assignable Range Code", "Object Type", "Object Range From")
         {
             Clustered = true;
         }

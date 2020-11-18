@@ -78,4 +78,95 @@ table 80001 "C4BC Assignable Range Header"
         if not C4BCExtensionHeader.IsEmpty() then
             Error(CannotDeleteLinkExistsErr, Rec.TableCaption(), C4BCExtensionHeader.TableCaption());
     end;
+
+    /// <summary> 
+    /// Specifies whether the default range should be used for specified object type instead of specific range.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to find out whether the default range should be used.</param>
+    /// <returns>Return variable "Boolean" - whether the default range should be used.</returns>
+    local procedure ShouldUseDefaultRanges(ForObjectType: Enum "C4BC Object Type"): Boolean
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        if C4BCAssignableRangeLine.IsEmpty() then
+            exit(true);
+        exit(false);
+    end;
+
+    /// <summary> 
+    /// Allows to get the very first object ID for specified object type. The ID is returned without checking whether is in use or not.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <returns>Return variable "Integer" - specifies ID of the very first object in the range.</returns>
+    local procedure GetVeryFirstObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        if ShouldUseDefaultRanges(ForObjectType) then
+            exit(Rec."Default Range From");
+
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignablerangeLine.FindFirst();
+        exit(C4BCAssignablerangeLine."Object Range From");
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused ID for specified object type
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
+    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
+    var
+        C4BCExtensionLines: Record "C4BC Extension Lines";
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+
+        LastUsedObjectID: Integer;
+    begin
+        LastUsedObjectID := 0;
+        C4BCExtensionLines.SetCurrentKey("Object Type", "Object ID");
+        C4BCExtensionLines.SetRange("Object Type", ForObjectType);
+        C4BCExtensionLines.SetRange("Assignable Range Code", Rec."Code");
+        if C4BCExtensionLines.FindLast() then begin
+            LastUsedObjectID := C4BCExtensionLines."Object ID";
+            if IsIDFromRange(ForObjectType, LastUsedObjectID + 1) then
+                exit(LastUsedObjectID + 1);
+        end;
+
+        if LastUsedObjectID = 0 then
+            exit(GetVeryFirstObjectID(ForObjectType));
+
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignablerangeLine.SetFilter("Object Range To", '>%1', LastUsedObjectID);
+        C4BCAssignablerangeLine.FindFirst();
+        exit(C4BCAssignablerangeLine."Object Range From");
+    end;
+
+    /// <summary> 
+    /// Specifies whether the combination of the object type and ID is from any range specified by this assignable range code.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to check, whether the ID is within the range.</param> 
+    /// <param name="ID">Integer, specifies ID of the object which we want to check.</param>
+    /// <returns>Return variable "Boolean" - specifies whether the object type/ID is within any range in this assignable range code.</returns>
+    procedure IsIDFromRange(ForObjectType: Enum "C4BC Object Type"; ID: Integer): Boolean
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        if ShouldUseDefaultRanges(ForObjectType) then begin
+            if (Rec."Default Range From" <= ID) and (Rec."Default Range To" >= ID) then
+                exit(true);
+            exit(false);
+        end;
+
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignablerangeLine.SetFilter("Object Range From", '<=%1', ID);
+        C4BCAssignablerangeLine.SetFilter("Object Range To", '>=%1', ID);
+        if not C4BCAssignableRangeLine.IsEmpty() then
+            exit(true);
+        exit(false);
+    end;
 }
