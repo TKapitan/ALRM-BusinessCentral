@@ -17,10 +17,15 @@ table 80001 "C4BC Assignable Range Header"
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
-        field(10; Default; Boolean)
+        field(10; "Ranges per Customer"; Boolean)
+        {
+            Caption = 'Ranges per Customer';
+            DataClassification = SystemMetadata;
+        }
+        field(11; Default; Boolean)
         {
             Caption = 'Default';
-            DataClassification = CustomerContent;
+            DataClassification = SystemMetadata;
 
             trigger OnValidate()
             var
@@ -62,6 +67,5 @@ table 80001 "C4BC Assignable Range Header"
     {
         fieldgroup(DropDown; "Code", Description) { }
     }
-
     // TODO Ondelete/Onmodify Check whether it's used somewhere
 }
