@@ -61,7 +61,14 @@ codeunit 79003 "C4BC Object Range Test Library"
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCExtensionLine: Record "C4BC Extension Line";
     begin
+        C4BCAssignableRangeHeader.DeleteAll();
+        C4BCAssignableRangeLine.DeleteAll();
+        C4BCExtensionHeader.DeleteAll();
+        C4BCExtensionLine.DeleteAll();
+
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_01();
         C4BCAssignableRangeHeader."No. Series" := 'CUST';
@@ -142,8 +149,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
         C4BCAssignableRangeHeader."No. Series" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Range From" := 65000;
-        C4BCAssignableRangeHeader."Default Range To" := 66000;
+        C4BCAssignableRangeHeader."Default Range From" := 66000;
+        C4BCAssignableRangeHeader."Default Range To" := 67000;
         C4BCAssignableRangeHeader."Object Name Template" := '';
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
@@ -157,10 +164,15 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCExtensionLine: Record "C4BC Extension Line";
     begin
+        C4BCExtensionHeader.DeleteAll();
+        C4BCExtensionLine.DeleteAll();
+
+        // First Extension Header
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.Insert();
 
+        // First Extension Lines
         C4BCExtensionLine.Init();
         C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::Table);
@@ -186,7 +198,26 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
         C4BCExtensionLine.Insert();
         Clear(C4BCExtensionLine);
+        C4BCExtensionLine.Init();
+        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"Table Extension");
+        C4BCExtensionLine.Insert();
+        Clear(C4BCExtensionLine);
 
+        // Second Extension Header (same assignable range)
+        Clear(C4BCExtensionHeader);
+        C4BCExtensionHeader.Init();
+        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionHeader.Insert();
+
+        // Second Extension Lines
+        C4BCExtensionLine.Init();
+        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"Table Extension");
+        C4BCExtensionLine.Insert();
+        Clear(C4BCExtensionLine);
+
+        // Third Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_04());
@@ -203,6 +234,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionLine.Insert();
         Clear(C4BCExtensionLine);
 
+        // Fourth Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());
@@ -217,14 +249,47 @@ codeunit 79003 "C4BC Object Range Test Library"
     end;
 
     /// <summary> 
-    /// Set object name template for some headers
+    /// Set object name template for some headers for test scenarious
     /// </summary>
     procedure SetObjectNameTemplate()
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
-        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_05());
+        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_01());
         C4BCAssignableRangeHeader."Object Name Template" := 'C4BC *';
         C4BCAssignableRangeHeader.Modify();
+    end;
+
+    /// <summary> 
+    /// Set usage of some extensions for test scenarious
+    /// </summary>
+    procedure SetExtensionUsage()
+    var
+        C4BCBusinessCentralInstance: Record "C4BC Business Central Instance";
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCExtensionUsage: Record "C4BC Extension Usage";
+    begin
+        C4BCBusinessCentralInstance.DeleteAll();
+        C4BCExtensionUsage.DeleteAll();
+
+        C4BCBusinessCentralInstance.Init();
+        C4BCBusinessCentralInstance.Code := 'KEPTY.CZ';
+        C4BCBusinessCentralInstance.Insert();
+
+        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionHeader.FindSet();
+
+        C4BCExtensionUsage.Init();
+        C4BCExtensionUsage."Business Central Instance Code" := 'KEPTY.CZ';
+        C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
+        C4BCExtensionUsage.Insert();
+        Clear(C4BCExtensionUsage);
+
+        C4BCExtensionHeader.Next(1);
+
+        C4BCExtensionUsage.Init();
+        C4BCExtensionUsage."Business Central Instance Code" := 'KEPTY.CZ';
+        C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
+        C4BCExtensionUsage.Insert();
     end;
 }
