@@ -52,8 +52,8 @@
   "platform": "17.0.0.0",
   "idRanges": [
     {
-      "from": 50100,
-      "to": 50199
+      "from": 50000,
+      "to": 79199
     }
   ],
   "contextSensitiveHelpUrl": "https://Base.com/help/",
