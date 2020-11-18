@@ -37,7 +37,7 @@ page 80005 "C4BC Extension Card"
             {
                 Caption = 'Objects';
                 ApplicationArea = All;
-                SubPageLink = "Extension ID" = field(ID);
+                SubPageLink = "Extension Code" = field(Code);
             }
         }
     }

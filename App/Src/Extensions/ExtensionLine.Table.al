@@ -8,6 +8,7 @@ table 80003 "C4BC Extension Line"
         {
             Caption = 'Extension Code';
             DataClassification = SystemMetadata;
+            TableRelation = "C4BC Extension Header".Code where(Code = field("Extension Code"));
         }
         field(2; "Extension ID"; Guid)
         {
