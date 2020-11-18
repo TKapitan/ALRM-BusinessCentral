@@ -1,0 +1,7 @@
+*.zip
+rad.json
+launch.json
+Base.g.xlf
+*.app
+*.g.xlf
+*alstudio*.json

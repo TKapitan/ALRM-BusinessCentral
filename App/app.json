@@ -1,0 +1,30 @@
+{
+  "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
+  "name": "TemplateApp-Base",
+  "publisher": "default publisher",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+  ],
+  "screenshots": [],
+  "platform": "17.0.0.0",
+  "application": "17.0.0.0",
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 50099
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://Base.com/help/",
+  "showMyCode": true,
+  "runtime": "6.0",
+  "features": [
+    "TranslationFile"
+  ]
+}

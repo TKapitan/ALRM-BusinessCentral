@@ -1,0 +1,1 @@
+A slightly improved copy of https://dev.azure.com/msdyn365bc/WaldoDevOpsDemos/_git/TemplateApp

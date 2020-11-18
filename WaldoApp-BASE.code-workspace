@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "App"
+        },
+        {
+            "path": "Test"
+        }
+    ],
+    "settings": {
+        "al.packageCachePath": ".\\.alpackages",
+    }
+}

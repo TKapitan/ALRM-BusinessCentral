@@ -1,0 +1,3 @@
+{
+    "[azure-pipelines].customSchemaFile": "./.devops/custom-schema.json"
+}
