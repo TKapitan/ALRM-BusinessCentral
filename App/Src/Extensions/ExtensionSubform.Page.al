@@ -3,7 +3,7 @@ page 80004 "C4BC Extension Subform"
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "C4BC Extension Lines";
+    SourceTable = "C4BC Extension Line";
 
     layout
     {
@@ -27,6 +27,11 @@ page 80004 "C4BC Extension Subform"
                     ApplicationArea = All;
                     ToolTip = 'Object Name';
                 }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                }
+
             }
         }
     }
