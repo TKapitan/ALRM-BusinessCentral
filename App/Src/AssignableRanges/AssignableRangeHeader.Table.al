@@ -17,11 +17,9 @@ table 80001 "C4BC Assignable Range Header"
             Caption = 'Description';
             DataClassification = CustomerContent;
         }
-        field(10; "Ranges per Customer"; Boolean)
+        field(10; "Ranges per BC Instance"; Boolean)
         {
-            Caption = 'Ranges per Customer';
-            // TODO NotImplementedYet
-            Editable = false;
+            Caption = 'Ranges per BC Instance';
             DataClassification = SystemMetadata;
         }
         field(11; Default; Boolean)
@@ -119,18 +117,30 @@ table 80001 "C4BC Assignable Range Header"
     /// Allows to get new unused ID for specified object type
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
-    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
+    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
     var
         C4BCExtensionLine: Record "C4BC Extension Line";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
         LastUsedObjectID: Integer;
+
+        MissingParameterErr: Label 'When the range has %1 = Yes, the IDs must be assigned using procedure that specify business central instance ID and the value must not be empty. This is probably programming error.', Comment = '%1 - Ranges per BC Instance field caption';
     begin
+        if Rec."Ranges per BC Instance" and (ForBusinessCentralInstance = '') then
+            Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
+
         LastUsedObjectID := 0;
         C4BCExtensionLine.SetCurrentKey("Object Type", "Object ID");
         C4BCExtensionLine.SetRange("Object Type", ForObjectType);
         C4BCExtensionLine.SetRange("Assignable Range Code", Rec."Code");
+        if Rec."Ranges per BC Instance" then begin
+            // Find extension lines that are installed on specific business central instance
+            C4BCExtensionLine.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
+            C4BCExtensionLine.SetRange("Bus. Central Instance Linked", true);
+        end;
+
         if C4BCExtensionLine.FindLast() then begin
             LastUsedObjectID := C4BCExtensionLine."Object ID";
             if IsIDFromRange(ForObjectType, LastUsedObjectID + 1) then
@@ -145,6 +155,16 @@ table 80001 "C4BC Assignable Range Header"
         C4BCAssignablerangeLine.SetFilter("Object Range To", '>%1', LastUsedObjectID);
         C4BCAssignablerangeLine.FindFirst();
         exit(C4BCAssignablerangeLine."Object Range From");
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused ID for specified object type.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
+    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
+    begin
+        GetNewID(ForObjectType, '');
     end;
 
     /// <summary> 
