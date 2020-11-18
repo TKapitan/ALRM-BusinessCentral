@@ -36,6 +36,18 @@ table 80001 "C4BC Assignable Range Header"
                 end;
             end;
         }
+        field(15; "Default Range From"; Integer)
+        {
+            Caption = 'Default Range From';
+            MinValue = 0;
+            DataClassification = SystemMetadata;
+        }
+        field(16; "Default Range To"; Integer)
+        {
+            Caption = 'Default Range To';
+            MinValue = 0;
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

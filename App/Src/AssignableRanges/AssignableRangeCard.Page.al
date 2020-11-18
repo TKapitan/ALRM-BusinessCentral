@@ -26,6 +26,20 @@ page 80002 "C4BC Assignable Range Card"
                     ToolTip = 'Specifies whether this range should be used when no assignable range is specified in API request to create a new extension.';
                     ApplicationArea = All;
                 }
+                group("Default Ranges")
+                {
+                    Caption = 'Default Ranges';
+                    field("Default Range From"; Rec."Default Range From")
+                    {
+                        ToolTip = 'Specifies ID of the object that is the first assignable ID for all object types that has no detailed specification in the lines.';
+                        ApplicationArea = All;
+                    }
+                    field("Default Range To"; Rec."Default Range To")
+                    {
+                        ToolTip = 'Specifies ID of the object that is the last assignable ID for all object types that has no detailed specification in the lines.';
+                        ApplicationArea = All;
+                    }
+                }
             }
 
             part("C4BC Assignable Range Subform"; "C4BC Assignable Range Subform")
@@ -34,4 +48,17 @@ page 80002 "C4BC Assignable Range Card"
             }
         }
     }
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+        BothOrNoneDefaultRangesMustBeSpecifiedLbl: Label 'Both or none of default range fields must be specified.';
+    begin
+        if (Rec."Default Range From" > 0) and (Rec."Default Range To" > 0) then
+            exit(true);
+        if (Rec."Default Range From" = 0) and (Rec."Default Range To" = 0) then
+            exit(true);
+
+        Message(BothOrNoneDefaultRangesMustBeSpecifiedLbl);
+        exit(false);
+    end;
 }

@@ -23,11 +23,13 @@ table 80002 "C4BC Assignable Range Line"
         field(4; "Object Range From"; Integer)
         {
             Caption = 'Object Range From';
+            MinValue = 0;
             DataClassification = SystemMetadata;
         }
         field(5; "Object Range To"; Integer)
         {
             Caption = 'Object Range To';
+            MinValue = 0;
             DataClassification = SystemMetadata;
         }
     }
