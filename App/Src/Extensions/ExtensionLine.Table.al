@@ -37,6 +37,18 @@ table 80003 "C4BC Extension Line"
             FieldClass = FlowField;
             CalcFormula = lookup(User."User Name" where("User Security ID" = field(SystemCreatedBy)));
         }
+
+
+
+
+
+        field(100; "Assignable Range Code"; Code[20])
+        {
+            Caption = 'Assignable Range Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Extension Header"."Code" where("Code" = field("Extension Code")));
+        }
     }
 
     keys
