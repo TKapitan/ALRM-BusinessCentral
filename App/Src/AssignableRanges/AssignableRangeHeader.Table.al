@@ -120,17 +120,17 @@ table 80001 "C4BC Assignable Range Header"
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
     procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
     var
-        C4BCExtensionLines: Record "C4BC Extension Lines";
+        C4BCExtensionLine: Record "C4BC Extension Line";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
         LastUsedObjectID: Integer;
     begin
         LastUsedObjectID := 0;
-        C4BCExtensionLines.SetCurrentKey("Object Type", "Object ID");
-        C4BCExtensionLines.SetRange("Object Type", ForObjectType);
-        C4BCExtensionLines.SetRange("Assignable Range Code", Rec."Code");
-        if C4BCExtensionLines.FindLast() then begin
-            LastUsedObjectID := C4BCExtensionLines."Object ID";
+        C4BCExtensionLine.SetCurrentKey("Object Type", "Object ID");
+        C4BCExtensionLine.SetRange("Object Type", ForObjectType);
+        C4BCExtensionLine.SetRange("Assignable Range Code", Rec."Code");
+        if C4BCExtensionLine.FindLast() then begin
+            LastUsedObjectID := C4BCExtensionLine."Object ID";
             if IsIDFromRange(ForObjectType, LastUsedObjectID + 1) then
                 exit(LastUsedObjectID + 1);
         end;
