@@ -21,9 +21,9 @@ page 80002 "C4BC Assignable Range Card"
                     ToolTip = 'Specifies description of the assignable range.';
                     ApplicationArea = All;
                 }
-                field("Ranges per Customer"; Rec."Ranges per Customer")
+                field("Ranges per BC Instance"; Rec."Ranges per BC Instance")
                 {
-                    ToolTip = 'Specifies whether the ranges will be assigned per customer or the ID will be used once and only once.';
+                    ToolTip = 'Specifies whether the ranges will be assigned per BC instance or the ID will be used once and only once.';
                     ApplicationArea = All;
                 }
                 field(Default; Rec.Default)
