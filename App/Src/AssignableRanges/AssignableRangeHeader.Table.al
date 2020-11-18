@@ -53,6 +53,11 @@ table 80001 "C4BC Assignable Range Header"
             MinValue = 0;
             DataClassification = ToBeClassified;
         }
+        field(25; "Object Name Template"; Text[30])
+        {
+            Caption = 'Object Name Template';
+            DataClassification = CustomerContent;
+        }
         field(100; "No. Series"; Code[20])
         {
             Caption = 'No. Series';

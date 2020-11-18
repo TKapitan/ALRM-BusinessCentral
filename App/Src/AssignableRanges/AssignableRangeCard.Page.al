@@ -26,6 +26,11 @@ page 80002 "C4BC Assignable Range Card"
                     ToolTip = 'Specifies whether the ranges will be assigned per BC instance or the ID will be used once and only once.';
                     ApplicationArea = All;
                 }
+                field("Object Name Template"; Rec."Object Name Template")
+                {
+                    ToolTip = 'Specifies template for object names. All objects created within this assignable range must satisfy this template rule.';
+                    ApplicationArea = All;
+                }
                 field(Default; Rec.Default)
                 {
                     ToolTip = 'Specifies whether this range should be used when no assignable range is specified in API request to create a new extension.';
