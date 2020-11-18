@@ -124,7 +124,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCExtensionLine: Record "C4BC Extension Line";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
-        LastUsedObjectID: Integer;
+        LastUsedObjectID, VeryFirstObjectID : Integer;
 
         MissingParameterErr: Label 'When the range has %1 = Yes, the IDs must be assigned using procedure that specify business central instance ID and the value must not be empty. This is probably programming error.', Comment = '%1 - Ranges per BC Instance field caption';
     begin
@@ -147,8 +147,11 @@ table 80001 "C4BC Assignable Range Header"
                 exit(LastUsedObjectID + 1);
         end;
 
-        if LastUsedObjectID = 0 then
-            exit(GetVeryFirstObjectID(ForObjectType));
+        if LastUsedObjectID = 0 then begin
+            VeryFirstObjectID := GetVeryFirstObjectID(ForObjectType);
+            if VeryFirstObjectID <> 0 then
+                exit(VeryFirstObjectID);
+        end;
 
         C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
         C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
@@ -164,7 +167,7 @@ table 80001 "C4BC Assignable Range Header"
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
     procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
     begin
-        GetNewID(ForObjectType, '');
+        exit(GetNewID(ForObjectType, ''));
     end;
 
     /// <summary> 
