@@ -1,4 +1,4 @@
-page 80001 "C4BC Extension Card"
+page 80005 "C4BC Extension Card"
 {
     Caption = 'Extension Card';
     PageType = Card;
