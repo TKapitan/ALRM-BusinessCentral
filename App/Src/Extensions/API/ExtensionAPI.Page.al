@@ -2,8 +2,8 @@ page 80006 "C4BC Extension API"
 {
     PageType = API;
     Caption = 'Extension API';
-    APIPublisher = 'ARTAAAE';
-    APIGroup = 'api';
+    APIPublisher = 'teamARTAAAE';
+    APIGroup = 'extension';
     APIVersion = 'v1.0';
     EntityName = 'extension';
     EntitySetName = 'extensions';
@@ -26,7 +26,7 @@ page 80006 "C4BC Extension API"
                 {
                     ApplicationArea = All;
                 }
-                field("Code"; Rec.Code)
+                field("code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
@@ -68,4 +68,20 @@ page 80006 "C4BC Extension API"
             }
         }
     }
+
+    [ServiceEnabled]
+    procedure CreateLine(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
+    var
+        ExtensionLine: Record "C4BC Extension Line";
+    begin
+        if not ExtensionLine.Get(Rec.Code, ObjectType, ObjectID) then begin
+            ExtensionLine.Init();
+            ExtensionLine."Extension Code" := Rec.Code;
+            ExtensionLine.Validate("Object Type", ObjectType);
+            ExtensionLine.Validate("Object ID", ExtensionLine.GetNewObjectID());
+            ExtensionLine.Validate("Object Name", ObjectName);
+            ExtensionLine.Validate("Created By", CreatedBy);
+            ExtensionLine.Insert(true);
+        end;
+    end;
 }

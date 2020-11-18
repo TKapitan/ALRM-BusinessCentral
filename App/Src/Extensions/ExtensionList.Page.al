@@ -16,6 +16,7 @@ page 80000 "C4BC Extension List"
                 field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Identifies the extension';
                 }
                 field(Name; Rec.Name)
                 {

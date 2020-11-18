@@ -30,6 +30,7 @@ page 80004 "C4BC Extension Subform"
                 field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Created By';
                 }
 
             }

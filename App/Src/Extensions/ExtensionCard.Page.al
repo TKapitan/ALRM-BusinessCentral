@@ -6,6 +6,7 @@ page 80005 "C4BC Extension Card"
     UsageCategory = Documents;
     SourceTable = "C4BC Extension Header";
 
+
     layout
     {
         area(Content)
@@ -13,9 +14,10 @@ page 80005 "C4BC Extension Card"
             group(General)
             {
                 Caption = 'General';
-                field("Code"; Rec.Code)
+                field("Assignable Range Code"; Rec."Assignable Range Code")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Defines type of the id range used for this extension';
                 }
                 field(Name; Rec.Name)
                 {
@@ -26,11 +28,6 @@ page 80005 "C4BC Extension Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Description of the extension';
-                }
-                field("Assignable Range Code"; Rec."Assignable Range Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Defines type of the id range used for this extension';
                 }
             }
             part("Subform"; "C4BC Extension Subform")

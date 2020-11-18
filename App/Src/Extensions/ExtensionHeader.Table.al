@@ -20,6 +20,17 @@ table 80000 "C4BC Extension Header"
             Caption = 'Assignable Range Code';
             DataClassification = SystemMetadata;
             TableRelation = "C4BC Assignable Range Header".Code;
+            trigger OnValidate()
+            var
+                AssignableRangeHeader: Record "C4BC Assignable Range Header";
+                NoSerisManagement: Codeunit NoSeriesManagement;
+            begin
+                if (Rec.Code = '') and (Rec."Assignable Range Code" <> '') then begin
+                    AssignableRangeHeader.Get(Rec."Assignable Range Code");
+                    AssignableRangeHeader.TestField("No. Series");
+                    Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series", Today, true, true);
+                end;
+            end;
         }
         field(4; Name; Text[50])
         {
@@ -31,6 +42,12 @@ table 80000 "C4BC Extension Header"
             Caption = 'Description';
             DataClassification = SystemMetadata;
         }
+        field(6; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Assignable Range Header"."No. Series" where(Code = field("Assignable Range Code")));
+        }
     }
 
     keys
@@ -41,9 +58,10 @@ table 80000 "C4BC Extension Header"
         }
     }
 
+
     trigger OnInsert()
     begin
-
+        Rec.TestField("Assignable Range Code");
     end;
 
     trigger OnModify()

@@ -53,6 +53,12 @@ table 80001 "C4BC Assignable Range Header"
             MinValue = 0;
             DataClassification = ToBeClassified;
         }
+        field(100; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            DataClassification = SystemMetadata;
+            TableRelation = "No. Series".Code;
+        }
     }
 
     keys

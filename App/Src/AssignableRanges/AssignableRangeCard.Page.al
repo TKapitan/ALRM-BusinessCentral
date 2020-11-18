@@ -45,6 +45,17 @@ page 80002 "C4BC Assignable Range Card"
                         ApplicationArea = All;
                     }
                 }
+                group("No. Series Group")
+                {
+                    Caption = 'No. Series';
+                    field("No. Series"; Rec."No. Series")
+                    {
+                        ToolTip = 'Specifies No. Series used for creating new extensions.';
+                        ApplicationArea = All;
+                    }
+
+                }
+
             }
 
             part("C4BC Assignable Range Subform"; "C4BC Assignable Range Subform")
