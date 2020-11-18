@@ -180,6 +180,31 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
     [Test]
     /// <summary> 
+    /// Test condition when the object name template could be modified.
+    /// </summary>
+    procedure TestChangeObjectNameTemplate()
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_05());
+        C4BCAssignableRangeHeader.Validate("Object Name Template", 'C4BC *');
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_06());
+        asserterror C4BCAssignableRangeHeader.Validate("Object Name Template", 'C4BC *');
+        Assert.ExpectedError('extension lines that are different from');
+    end;
+
+    [Test]
+    /// <summary> 
     /// Description for TestDeleteAssignableRangeHeader.
     /// </summary>
     procedure TestDeleteAssignableRangeHeaderFailed()

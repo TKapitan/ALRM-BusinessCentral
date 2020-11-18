@@ -37,6 +37,24 @@ codeunit 79003 "C4BC Object Range Test Library"
     end;
 
     /// <summary> 
+    /// Code for #5 assignable range header
+    /// </summary>
+    /// <returns>Return variable "Code[20]".</returns>
+    procedure C4BCAssignableRangeHeader_Code_05(): Code[20]
+    begin
+        exit('RANGE5');
+    end;
+
+    /// <summary> 
+    /// Code for #6 assignable range header
+    /// </summary>
+    /// <returns>Return variable "Code[20]".</returns>
+    procedure C4BCAssignableRangeHeader_Code_06(): Code[20]
+    begin
+        exit('RANGE6');
+    end;
+
+    /// <summary> 
     /// Initializace records for assignable range tests
     /// </summary>
     procedure InitializeAssignableRanges()
@@ -109,6 +127,26 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeLine."Object Range To" := 100010;
         C4BCAssignableRangeLine.Insert();
         Clear(C4BCAssignableRangeLine);
+
+        C4BCAssignableRangeHeader.Init();
+        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_05();
+        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
+        C4BCAssignableRangeHeader."Default Range From" := 65000;
+        C4BCAssignableRangeHeader."Default Range To" := 66000;
+        C4BCAssignableRangeHeader."Object Name Template" := '';
+        C4BCAssignableRangeHeader.Insert();
+        Clear(C4BCAssignableRangeHeader);
+
+        C4BCAssignableRangeHeader.Init();
+        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
+        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
+        C4BCAssignableRangeHeader."Default Range From" := 65000;
+        C4BCAssignableRangeHeader."Default Range To" := 66000;
+        C4BCAssignableRangeHeader."Object Name Template" := '';
+        C4BCAssignableRangeHeader.Insert();
+        Clear(C4BCAssignableRangeHeader);
     end;
 
     /// <summary> 
@@ -164,5 +202,29 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
         C4BCExtensionLine.Insert();
         Clear(C4BCExtensionLine);
+
+        Clear(C4BCExtensionHeader);
+        C4BCExtensionHeader.Init();
+        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());
+        C4BCExtensionHeader.Insert();
+
+        C4BCExtensionLine.Init();
+        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
+        C4BCExtensionLine."Object Name" := 'TKA Sales Header';
+        C4BCExtensionLine.Insert();
+        Clear(C4BCExtensionLine);
+    end;
+
+    /// <summary> 
+    /// Set object name template for some headers
+    /// </summary>
+    procedure SetObjectNameTemplate()
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_05());
+        C4BCAssignableRangeHeader."Object Name Template" := 'C4BC *';
+        C4BCAssignableRangeHeader.Modify();
     end;
 }

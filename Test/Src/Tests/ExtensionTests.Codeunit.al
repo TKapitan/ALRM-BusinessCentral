@@ -69,4 +69,35 @@ codeunit 79002 "C4BC Extension Tests"
         C4BCExtensionCard.Close();
         Clear(C4BCExtensionCard);
     end;
+
+    [Test]
+    /// <summary> 
+    /// Description for TestObjectName.
+    /// </summary>
+    procedure TestObjectName()
+    var
+        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        C4BCExtensionLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionLine.FindFirst();
+
+        //[THEN] then
+        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+        asserterror C4BCExtensionLine.Validate("Object Name", 'C4BCMy Object');
+        Assert.ExpectedError('not meet object name template rules');
+        asserterror C4BCExtensionLine.Validate("Object Name", 'My Object C4BC');
+        Assert.ExpectedError('not meet object name template rules');
+        asserterror C4BCExtensionLine.Validate("Object Name", 'My Object');
+        Assert.ExpectedError('not meet object name template rules');
+        asserterror C4BCExtensionLine.Validate("Object Name", ' C4BC My Object');
+        Assert.ExpectedError('not meet object name template rules');
+        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+    end;
 }
