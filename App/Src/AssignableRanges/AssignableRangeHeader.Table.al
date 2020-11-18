@@ -20,6 +20,8 @@ table 80001 "C4BC Assignable Range Header"
         field(10; "Ranges per Customer"; Boolean)
         {
             Caption = 'Ranges per Customer';
+            // TODO NotImplementedYet
+            Editable = false;
             DataClassification = SystemMetadata;
         }
         field(11; Default; Boolean)
