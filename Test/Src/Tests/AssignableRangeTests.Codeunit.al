@@ -185,7 +185,6 @@ codeunit 79000 "C4BC Assignable Range Tests"
     procedure TestDeleteAssignableRangeHeaderFailed()
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
-        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given

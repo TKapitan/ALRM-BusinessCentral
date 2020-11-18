@@ -72,34 +72,20 @@ table 80003 "C4BC Extension Line"
         }
     }
 
+    /// <summary> 
+    /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
+    /// </summary>
+    /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure GetNewObjectID(): Integer
     var
-        AssignableRangeHeader: Record "C4BC Assignable Range Header";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
+        if Rec."Object ID" <> 0 then
+            exit(Rec."Object ID");
+
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
-        if AssignableRangeHeader.Get("Assignable Range Code") then
-            exit(AssignableRangeHeader.GetNewID("Object Type"));
+        C4BCAssignableRangeHeader.Get("Assignable Range Code");
+        exit(C4BCAssignableRangeHeader.GetNewID("Object Type"));
     end;
-
-    trigger OnInsert()
-    begin
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
