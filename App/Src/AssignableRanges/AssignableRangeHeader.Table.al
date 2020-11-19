@@ -57,12 +57,22 @@ table 80001 "C4BC Assignable Range Header"
             Caption = 'Default Range From';
             MinValue = 0;
             DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            begin
+                ValidateChangeToDefaultRanges(RangeType::From, xRec."Default Range From", Rec."Default Range From");
+            end;
         }
         field(16; "Default Range To"; Integer)
         {
             Caption = 'Default Range To';
             MinValue = 0;
             DataClassification = ToBeClassified;
+
+            trigger OnValidate()
+            begin
+                ValidateChangeToDefaultRanges(RangeType::"To", xRec."Default Range To", Rec."Default Range To");
+            end;
         }
         field(25; "Object Name Template"; Text[30])
         {
@@ -108,39 +118,8 @@ table 80001 "C4BC Assignable Range Header"
         Error(CanNotBeRenamedErr);
     end;
 
-    /// <summary> 
-    /// Specifies whether the default range should be used for specified object type instead of specific range.
-    /// </summary>
-    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to find out whether the default range should be used.</param>
-    /// <returns>Return variable "Boolean" - whether the default range should be used.</returns>
-    local procedure ShouldUseDefaultRanges(ForObjectType: Enum "C4BC Object Type"): Boolean
     var
-        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
-    begin
-        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
-        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
-        if C4BCAssignableRangeLine.IsEmpty() then
-            exit(true);
-        exit(false);
-    end;
-
-    /// <summary> 
-    /// Allows to get the very first object ID for specified object type. The ID is returned without checking whether is in use or not.
-    /// </summary>
-    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
-    /// <returns>Return variable "Integer" - specifies ID of the very first object in the range.</returns>
-    local procedure GetVeryFirstObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
-    var
-        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
-    begin
-        if ShouldUseDefaultRanges(ForObjectType) then
-            exit(Rec."Default Range From");
-
-        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
-        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
-        C4BCAssignablerangeLine.FindFirst();
-        exit(C4BCAssignablerangeLine."Object Range From");
-    end;
+        RangeType: Option From,To;
 
     /// <summary> 
     /// Allows to get new unused ID for specified object type
@@ -222,5 +201,85 @@ table 80001 "C4BC Assignable Range Header"
         if not C4BCAssignableRangeLine.IsEmpty() then
             exit(true);
         exit(false);
+    end;
+
+    /// <summary> 
+    /// Allows to get the very first object ID for specified object type. The ID is returned without checking whether is in use or not.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <returns>Return variable "Integer" - specifies ID of the very first object in the range.</returns>
+    local procedure GetVeryFirstObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        if ShouldUseDefaultRanges(ForObjectType) then
+            exit(Rec."Default Range From");
+
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignablerangeLine.FindFirst();
+        exit(C4BCAssignablerangeLine."Object Range From");
+    end;
+
+    /// <summary> 
+    /// Specifies whether the default range should be used for specified object type instead of specific range.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to find out whether the default range should be used.</param>
+    /// <returns>Return variable "Boolean" - whether the default range should be used.</returns>
+    local procedure ShouldUseDefaultRanges(ForObjectType: Enum "C4BC Object Type"): Boolean
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        if C4BCAssignableRangeLine.IsEmpty() then
+            exit(true);
+        exit(false);
+    end;
+
+    /// <summary> 
+    /// Validate changes to default ranges to verify, whether the old range is not in use
+    /// </summary>
+    /// <param name="RangeType">Parameter of type Option.</param>
+    /// <param name="OldRange">Parameter of type Integer.</param>
+    /// <param name="NewRange">Parameter of type Integer.</param>
+    /// <returns>Return variable "Boolean".</returns>
+    local procedure ValidateChangeToDefaultRanges(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer): Boolean
+    var
+        C4BCExtensionLine: Record "C4BC Extension Line";
+
+        OptionNames: List of [Text];
+        OptionString: Text;
+        C4BCObjectType: Enum "C4BC Object Type";
+
+        OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
+    begin
+        C4BCExtensionLine.SetRange("Assignable Range Code", Rec.Code);
+        case RangeType of
+            RangeType::From:
+                begin
+                    if NewRange < OldRange then
+                        exit;
+                    C4BCExtensionLine.SetRange("Object ID", OldRange, NewRange - 1);
+                end;
+            RangeType::"To":
+                begin
+                    if NewRange > OldRange then
+                        exit;
+                    C4BCExtensionLine.SetRange("Object ID", NewRange + 1, OldRange);
+                end;
+        end;
+        if C4BCExtensionLine.IsEmpty() then
+            exit;
+
+        OptionNames := C4BCObjectType.Names();
+        foreach OptionString in C4BCObjectType.Names() do begin
+            Evaluate(C4BCObjectType, OptionString);
+            if ShouldUseDefaultRanges(C4BCObjectType) then begin
+                C4BCExtensionLine.SetRange("Object Type", C4BCObjectType);
+                if not C4BCExtensionLine.IsEmpty() then
+                    Error(OldRangeIsInUseErr);
+            end;
+        end;
     end;
 }
