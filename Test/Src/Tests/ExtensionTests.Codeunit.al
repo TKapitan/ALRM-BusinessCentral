@@ -27,7 +27,7 @@ codeunit 79002 "C4BC Extension Tests"
         //[THEN] then
         C4BCExtensionHeader.Init();
         asserterror C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
-        Assert.ExpectedError('No. Series must have a value');
+        Assert.ExpectedError('must have a value');
     end;
 
     [Test]
