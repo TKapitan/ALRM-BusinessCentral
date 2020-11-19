@@ -55,24 +55,4 @@ page 80011 "C4BC Extension Object API"
             }
         }
     }
-
-    [ServiceEnabled]
-    /// <summary> 
-    /// Create new object line with specified name.
-    /// </summary>
-    /// <param name="Name">Text[39], Specifies object line name.</param>
-    /// <returns>Return variable "Integer", ID of the object line.</returns>
-    procedure CreateObjectLine(Name: Text[30]): Integer
-    var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    begin
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine."Extension Code" := Rec."Extension Code";
-        C4BCExtensionObjectLine."Object Type" := Rec."Object Type";
-        C4BCExtensionObjectLine."Object ID" := Rec."Object ID";
-        //C4BCExtensionObjectLine.Validate(ID, ); TODO
-        C4BCExtensionObjectLine.Validate(Name, Name);
-        C4BCExtensionObjectLine.Insert(true);
-        exit(C4BCExtensionObjectLine."Object ID");
-    end;
 }

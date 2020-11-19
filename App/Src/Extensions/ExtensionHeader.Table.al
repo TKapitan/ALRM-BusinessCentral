@@ -71,8 +71,10 @@ table 80000 "C4BC Extension Header"
 
     trigger OnDelete()
     begin
-        if LinesExist() then
-            Error(DeleteHeaderWithExistingLinesErr);
+        if UsageExists() then
+            Error(DeleteHeaderInUsageErr);
+        if ObjectsExist() then
+            DeleteObjects(true);
     end;
 
     trigger OnRename()
@@ -80,7 +82,24 @@ table 80000 "C4BC Extension Header"
 
     end;
 
-    local procedure LinesExist(): Boolean
+    local procedure DeleteObjects(RunTrigger: Boolean)
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+    begin
+        C4BCExtensionObject.SetRange("Extension Code", Code);
+        C4BCExtensionObject.DeleteAll(RunTrigger);
+    end;
+
+    local procedure UsageExists(): Boolean
+    var
+        C4BCExtensionUsage: Record "C4BC Extension Usage";
+    begin
+        C4BCExtensionUsage.SetRange("Extension Code", Rec.Code);
+        if not C4BCExtensionUsage.IsEmpty then
+            exit(true);
+    end;
+
+    local procedure ObjectsExist(): Boolean
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
@@ -90,6 +109,6 @@ table 80000 "C4BC Extension Header"
     end;
 
     var
-        DeleteHeaderWithExistingLinesErr: Label 'Extension header cannot be deleted due to the existing lines.';
+        DeleteHeaderInUsageErr: Label 'Extension header cannot be deleted because it is used by atleast one Business Central instance';
 
 }

@@ -86,6 +86,12 @@ table 80003 "C4BC Extension Object"
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
     end;
 
+    trigger OnDelete()
+    begin
+        if ObjectLinesExist() then
+            DeleteObjectLines(true);
+    end;
+
     /// <summary> 
     /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
     /// </summary>
@@ -156,6 +162,27 @@ table 80003 "C4BC Extension Object"
         C4BCExtensionObject.SetRange("Object Name", Rec."Object Name");
         if not C4BCExtensionObject.IsEmpty then
             exit(true);
+    end;
+
+    local procedure ObjectLinesExist(): Boolean
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+    begin
+        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
+        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
+        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
+        if not C4BCExtensionObjectLine.IsEmpty then
+            exit(true);
+    end;
+
+    local procedure DeleteObjectLines(RunTrigger: Boolean)
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+    begin
+        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
+        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
+        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
+        C4BCExtensionObjectLine.DeleteAll(RunTrigger);
     end;
 
     var

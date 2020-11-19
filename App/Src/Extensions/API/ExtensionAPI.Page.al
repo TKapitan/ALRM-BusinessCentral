@@ -93,11 +93,10 @@ page 80006 "C4BC Extension API"
     /// <summary> 
     /// Create new object line with specified name.
     /// </summary>
-    /// <param name="Name">Text[30], Specifies object line name.</param>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specifies Object ID</param>
     /// <returns>Return variable "Integer", ID of the object line.</returns>
-    procedure CreateObjectLine(Name: Text[30]; ObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
+    procedure CreateObjectLine(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
     var
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
@@ -106,7 +105,6 @@ page 80006 "C4BC Extension API"
         C4BCExtensionObjectLine."Object Type" := ObjectType;
         C4BCExtensionObjectLine."Object ID" := ObjectID;
         //C4BCExtensionObjectLine.Validate(ID, ); TODO
-        C4BCExtensionObjectLine.Validate(Name, Name);
         C4BCExtensionObjectLine.Insert(true);
         exit(C4BCExtensionObjectLine.ID);
     end;
