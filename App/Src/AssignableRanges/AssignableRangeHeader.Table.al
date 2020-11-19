@@ -225,21 +225,59 @@ table 80001 "C4BC Assignable Range Header"
     end;
 
     /// <summary> 
-    /// Allows to get the very first object ID for specified object type. The ID is returned without checking whether is in use or not.
+    /// Returns the very first object ID from the range within which the ObjectID in parameter was created.
     /// </summary>
-    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
-    /// <returns>Return variable "Integer" - specifies ID of the very first object in the range.</returns>
-    local procedure GetVeryFirstObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
+    /// <param name="C4BCObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <param name="ObjectID">Integer, object ID for which we are looking the very first ID.</param>
+    /// <returns>Return variable "Integer", specifies ID of the very first object within the same range.</returns>
+    procedure GetVeryFirstObjectIDFromRangeBasedOnObjectID(C4BCObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
     var
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
-        if ShouldUseDefaultRanges(ForObjectType) then
+        if ShouldUseDefaultRanges(C4BCObjectType) then
             exit(Rec."Default Range From");
 
-        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
-        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
-        C4BCAssignablerangeLine.FindFirst();
-        exit(C4BCAssignablerangeLine."Object Range From");
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+        C4BCAssignableRangeLine.SetRange("Object Type", C4BCObjectType);
+        if ObjectID <> 0 then begin
+            C4BCAssignableRangeLine.SetFilter("Object Range From", '<=%1', ObjectID);
+            C4BCAssignableRangeLine.SetFilter("Object Range To", '>=%1', ObjectID);
+        end;
+        C4BCAssignableRangeLine.FindFirst();
+        exit(C4BCAssignableRangeLine."Object Range From");
+    end;
+
+    /// <summary> 
+    /// Returns the very last object ID from the range within which the ObjectID in parameter was created.
+    /// </summary>
+    /// <param name="C4BCObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <param name="ObjectID">Integer, object ID for which we are looking the very last ID.</param>
+    /// <returns>Return variable "Integer", specifies ID of the very last object within the same range.</returns>
+    procedure GetVeryLastObjectIDFromRangeBasedOnObjectID(C4BCObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+    begin
+        if ShouldUseDefaultRanges(C4BCObjectType) then
+            exit(Rec."Default Range To");
+
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+        C4BCAssignableRangeLine.SetRange("Object Type", C4BCObjectType);
+        if ObjectID <> 0 then begin
+            C4BCAssignableRangeLine.SetFilter("Object Range From", '<=%1', ObjectID);
+            C4BCAssignableRangeLine.SetFilter("Object Range To", '>=%1', ObjectID);
+        end;
+        C4BCAssignableRangeLine.FindFirst();
+        exit(C4BCAssignableRangeLine."Object Range To");
+    end;
+
+    /// <summary> 
+    /// Allows to get the very first object ID for specified object type. The ID is returned without checking whether is in use or not.
+    /// </summary>
+    /// <param name="C4BCObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
+    /// <returns>Return variable "Integer" - specifies ID of the very first object in the range.</returns>
+    local procedure GetVeryFirstObjectID(C4BCObjectType: Enum "C4BC Object Type"): Integer
+    begin
+        exit(GetVeryFirstObjectIDFromRangeBasedOnObjectID(C4BCObjectType, 0));
     end;
 
     /// <summary> 
