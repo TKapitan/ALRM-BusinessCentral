@@ -91,8 +91,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_01();
         C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Range From" := 30000;
-        C4BCAssignableRangeHeader."Default Range To" := 39000;
+        C4BCAssignableRangeHeader."Default Object Range From" := 30000;
+        C4BCAssignableRangeHeader."Default Object Range To" := 39000;
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
 
@@ -115,8 +115,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_03();
         C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := true;
-        C4BCAssignableRangeHeader."Default Range From" := 40000;
-        C4BCAssignableRangeHeader."Default Range To" := 49000;
+        C4BCAssignableRangeHeader."Default Object Range From" := 40000;
+        C4BCAssignableRangeHeader."Default Object Range To" := 49000;
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
 
@@ -132,8 +132,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_04();
         C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Range From" := 60000;
-        C4BCAssignableRangeHeader."Default Range To" := 69000;
+        C4BCAssignableRangeHeader."Default Object Range From" := 60000;
+        C4BCAssignableRangeHeader."Default Object Range To" := 69000;
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
 
@@ -157,8 +157,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_05();
         C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Range From" := 65000;
-        C4BCAssignableRangeHeader."Default Range To" := 66000;
+        C4BCAssignableRangeHeader."Default Object Range From" := 65000;
+        C4BCAssignableRangeHeader."Default Object Range To" := 66000;
         C4BCAssignableRangeHeader."Object Name Template" := '';
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
@@ -175,8 +175,8 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
         C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Range From" := 66000;
-        C4BCAssignableRangeHeader."Default Range To" := 67000;
+        C4BCAssignableRangeHeader."Default Object Range From" := 66000;
+        C4BCAssignableRangeHeader."Default Object Range To" := 67000;
         C4BCAssignableRangeHeader."Object Name Template" := '';
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);

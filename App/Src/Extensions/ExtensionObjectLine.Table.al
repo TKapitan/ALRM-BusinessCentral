@@ -27,6 +27,25 @@ table 80006 "C4BC Extension Object Line"
             Caption = 'ID';
             DataClassification = CustomerContent;
         }
+        field(100; "Assignable Range Code"; Code[20])
+        {
+            Caption = 'Assignable Range Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Extension Header"."Assignable Range Code" where("Code" = field("Extension Code")));
+        }
+        field(101; "Bus. Central Instance Filter"; Code[20])
+        {
+            Caption = 'Business Central Instance Filter';
+            FieldClass = FlowFilter;
+        }
+        field(102; "Bus. Central Instance Linked"; Boolean)
+        {
+            Caption = 'Bus. Central Instance Linked';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
+        }
     }
 
     keys
