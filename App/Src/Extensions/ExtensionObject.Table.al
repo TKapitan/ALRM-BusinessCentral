@@ -109,7 +109,7 @@ table 80003 "C4BC Extension Object"
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewID("Object Type"));
+        exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type"));
     end;
 
     /// <summary> 

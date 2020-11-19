@@ -155,7 +155,7 @@ report 80000 "C4BC Create License File"
 
         C4BCAssignableRangeHeader.Get(TempExpC4BCAssignableRangeLine."Assignable Range Code");
         FirstRangeID := C4BCAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range From");
-        LastRangeID := C4BCAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range To");
+        LastRangeID := C4BCAssignableRangeHeader.GetVeryLastObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range To");
 
         BuildedLine.Append(Format(FirstRangeID) + ' - ' + Format(LastRangeID));
         BuildedLine.Append(SplitingCharTxt);

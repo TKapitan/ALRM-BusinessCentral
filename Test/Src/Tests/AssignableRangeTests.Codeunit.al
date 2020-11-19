@@ -22,22 +22,22 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        TempInt := C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table);
+        TempInt := C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table);
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
-        TempInt := C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::"XML Port");
+        TempInt := C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::"XML Port");
         Assert.IsTrue(TempInt = 99000, StrSubstNo(BadNewIDErr, 99000, TempInt));
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
-        asserterror C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table);
+        asserterror C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table);
         Assert.AssertNothingInsideFilter();
     end;
 
     [Test]
     /// <summary> 
-    /// Test overloaded public method GetNewID when the one should be used for specific records, the second one without any limitations
+    /// Test overloaded public method GetNewObjectID when the one should be used for specific records, the second one without any limitations
     /// </summary>
-    procedure TestAccessingGetNewIDOverloadedMethods()
+    procedure TestAccessingGetNewObjectIDOverloadedMethods()
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
@@ -48,16 +48,16 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        TempInt := C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table);
+        TempInt := C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table);
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
-        TempInt := C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
+        TempInt := C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_03());
-        asserterror C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table);
+        asserterror C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table);
         Assert.ExpectedError('instance ID and the value must not be empty');
-        TempInt := C4BCAssignableRangeHeader.GetNewID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
+        TempInt := C4BCAssignableRangeHeader.GetNewObjectID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
         Assert.IsTrue(TempInt = 40000, StrSubstNo(BadNewIDErr, 40000, TempInt));
     end;
 
@@ -106,17 +106,15 @@ codeunit 79000 "C4BC Assignable Range Tests"
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
-        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        asserterror C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", true);
-        Assert.ExpectedError('due to the existing extensions');
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
         C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", true);
         C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", false);
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        asserterror C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", true);
+        Assert.ExpectedError('due to the existing extensions');
 
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-
-        //[WHEN] when
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
@@ -136,19 +134,33 @@ codeunit 79000 "C4BC Assignable Range Tests"
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-
-        //[WHEN] when
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         asserterror C4BCAssignableRangeHeader.Validate("Default Range From", C4BCAssignableRangeHeader."Default Range From" + 10);
         Assert.ExpectedError('there are extension lines with');
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[THEN] then
         C4BCAssignableRangeHeader.Validate("Default Range From", C4BCAssignableRangeHeader."Default Range From" - 1);
         C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range To" + 10);
         C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range To" - 10);
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[THEN] then
         asserterror C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range From");
         Assert.ExpectedError('there are extension lines with');
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_04());
@@ -167,20 +179,28 @@ codeunit 79000 "C4BC Assignable Range Tests"
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-
-        //[WHEN] when
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
         C4BCAssignableRangeLine.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01(), "C4BC Object Type"::"XML Port", 99000);
         asserterror C4BCAssignableRangeLine.Validate("Object Range To", C4BCAssignableRangeLine."Object Range From");
         Assert.ExpectedError('there are extension lines with');
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[THEN] then
         C4BCAssignableRangeLine.Validate("Object Range To", C4BCAssignableRangeLine."Object Range From" + 10);
         C4BCAssignableRangeLine.Validate("Object Range To", C4BCAssignableRangeLine."Object Range To" + 10);
         C4BCAssignableRangeLine.Rename(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01(), "C4BC Object Type"::"XML Port", 98999);
         C4BCAssignableRangeLine.Rename(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01(), "C4BC Object Type"::"XML Port", 99000);
         asserterror C4BCAssignableRangeLine.Rename(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01(), "C4BC Object Type"::"XML Port", 99001);
         Assert.ExpectedError('there are extension lines with');
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
         C4BCAssignableRangeLine.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_04(), "C4BC Object Type"::Enum, 100000);

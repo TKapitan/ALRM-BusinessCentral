@@ -35,4 +35,21 @@ page 80008 "C4BC Extension Usage List"
             }
         }
     }
+
+    actions
+    {
+        area(Navigation)
+        {
+            action(Extension)
+            {
+                Caption = 'Extension';
+                ToolTip = 'Allows to view and edit extension.';
+                Enabled = (Rec."Extension Code" <> '');
+                Image = ExtendedDataEntry;
+                RunObject = page "C4BC Extension Card";
+                RunPageLink = Code = field("Extension Code");
+                ApplicationArea = All;
+            }
+        }
+    }
 }

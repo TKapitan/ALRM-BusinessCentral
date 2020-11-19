@@ -89,7 +89,7 @@ codeunit 79003 "C4BC Object Range Test Library"
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_01();
-        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
         C4BCAssignableRangeHeader."Default Range From" := 30000;
         C4BCAssignableRangeHeader."Default Range To" := 39000;
@@ -113,7 +113,7 @@ codeunit 79003 "C4BC Object Range Test Library"
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_03();
-        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := true;
         C4BCAssignableRangeHeader."Default Range From" := 40000;
         C4BCAssignableRangeHeader."Default Range To" := 49000;
@@ -130,7 +130,7 @@ codeunit 79003 "C4BC Object Range Test Library"
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_04();
-        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
         C4BCAssignableRangeHeader."Default Range From" := 60000;
         C4BCAssignableRangeHeader."Default Range To" := 69000;
@@ -155,7 +155,7 @@ codeunit 79003 "C4BC Object Range Test Library"
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_05();
-        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
         C4BCAssignableRangeHeader."Default Range From" := 65000;
         C4BCAssignableRangeHeader."Default Range To" := 66000;
@@ -173,7 +173,7 @@ codeunit 79003 "C4BC Object Range Test Library"
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
-        C4BCAssignableRangeHeader."No. Series" := 'CUST';
+        C4BCAssignableRangeHeader."No. Series for Extensions" := 'CUST';
         C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
         C4BCAssignableRangeHeader."Default Range From" := 66000;
         C4BCAssignableRangeHeader."Default Range To" := 67000;
@@ -236,20 +236,26 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.Insert();
 
-        // Second Extension Lines
+        // Third Extension Header (same assignable range)
+        Clear(C4BCExtensionHeader);
+        C4BCExtensionHeader.Init();
+        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionHeader.Insert();
+
+        // Fourth Extension Lines
         C4BCExtensionObject.Init();
         C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
         C4BCExtensionObject.Insert();
         Clear(C4BCExtensionObject);
 
-        // Third Extension Header
+        // Fifth Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_03());
         C4BCExtensionHeader.Insert();
 
-        // Fourth Extension Header
+        // Sixth Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_04());
@@ -266,7 +272,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionObject.Insert();
         Clear(C4BCExtensionObject);
 
-        // Fifth Extension Header
+        // Seventh Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());

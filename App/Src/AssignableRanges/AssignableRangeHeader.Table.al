@@ -96,9 +96,9 @@ table 80001 "C4BC Assignable Range Header"
                     Error(DifferentFileNamesExistsErr);
             end;
         }
-        field(100; "No. Series"; Code[20])
+        field(100; "No. Series for Extensions"; Code[20])
         {
-            Caption = 'No. Series';
+            Caption = 'No. Series for Extensions';
             DataClassification = SystemMetadata;
             TableRelation = "No. Series".Code;
         }
@@ -148,7 +148,7 @@ table 80001 "C4BC Assignable Range Header"
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
     /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
-    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    procedure GetNewObjectID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
@@ -194,9 +194,30 @@ table 80001 "C4BC Assignable Range Header"
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
-    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
+    procedure GetNewObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
     begin
-        exit(GetNewID(ForObjectType, ''));
+        exit(GetNewObjectID(ForObjectType, ''));
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused field ID for specified object type
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
+    /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    begin
+        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused field ID for specified object type.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param> 
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
+    begin
+        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
     end;
 
     /// <summary> 
@@ -289,8 +310,8 @@ table 80001 "C4BC Assignable Range Header"
     var
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
-        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
-        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignableRangeLine.SetRange("Object Type", ForObjectType);
         if C4BCAssignableRangeLine.IsEmpty() then
             exit(true);
         exit(false);

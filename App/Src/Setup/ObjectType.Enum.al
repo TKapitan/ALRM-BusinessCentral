@@ -3,6 +3,10 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Licensing"
     Extensible = true;
     DefaultImplementation = "C4BC IObject Licensing" = "C4BC NonLicensed Objects";
 
+    value(0; " ")
+    {
+        Caption = '';
+    }
     value(5; "Table")
     {
         Caption = 'Table';

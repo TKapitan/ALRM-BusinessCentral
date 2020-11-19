@@ -25,4 +25,21 @@ page 80007 "C4BC Bus. Central Inst. List"
             }
         }
     }
+
+    actions
+    {
+        area(Navigation)
+        {
+            action(Usage)
+            {
+                Caption = 'Usage';
+                ToolTip = 'Allows to view and edit usage for selected business central instance.';
+                Enabled = (Rec."Code" <> '');
+                Image = LinkWithExisting;
+                RunObject = page "C4BC Extension Usage List";
+                RunPageLink = "Business Central Instance Code" = field(Code);
+                ApplicationArea = All;
+            }
+        }
+    }
 }
