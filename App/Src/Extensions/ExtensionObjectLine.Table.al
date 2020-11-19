@@ -22,6 +22,11 @@ table 80006 "C4BC Extension Object Line"
             Editable = false;
             BlankZero = true;
             TableRelation = "C4BC Extension Object"."Object ID" where("Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"));
+
+            trigger OnValidate()
+            begin
+                ID := GetNewObjectLineID();
+            end;
         }
         field(5; ID; Integer)
         {
@@ -57,35 +62,6 @@ table 80006 "C4BC Extension Object Line"
             Clustered = true;
         }
     }
-
-
-    trigger OnInsert()
-    begin
-        ID := GetNewObjectLineID();
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
-    // procedure CreateNew()
-    // var
-    //     C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    // begin
-    //     C4BCExtensionObjectLine.Init();
-    //     C4BCExtensionObjectLine.Insert(true);
-    // end;
 
     procedure GetNewObjectLineID(): Integer
     var

@@ -269,6 +269,7 @@ codeunit 79002 "C4BC Extension Tests"
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
         C4BCObjectRangeTestLibrary.InitializeAssignableFieldRanges();
         C4BCObjectRangeTestLibrary.InitializeExtensions();
+        Commit();
 
         //[WHEN] when
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
