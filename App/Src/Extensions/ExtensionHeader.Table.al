@@ -71,12 +71,25 @@ table 80000 "C4BC Extension Header"
 
     trigger OnDelete()
     begin
-
+        if LinesExist() then
+            Error(DeleteHeaderWithExistingLinesErr);
     end;
 
     trigger OnRename()
     begin
 
     end;
+
+    local procedure LinesExist(): Boolean
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+    begin
+        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
+        if not C4BCExtensionObject.IsEmpty then
+            exit(true);
+    end;
+
+    var
+        DeleteHeaderWithExistingLinesErr: Label 'Extension header cannot be deleted due to the existing lines.';
 
 }

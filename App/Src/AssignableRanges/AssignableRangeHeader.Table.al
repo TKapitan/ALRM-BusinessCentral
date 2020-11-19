@@ -81,7 +81,7 @@ table 80001 "C4BC Assignable Range Header"
 
             trigger OnValidate()
             var
-                C4BCExtensionLine: Record "C4BC Extension Line";
+                C4BCExtensionLine: Record "C4BC Extension Object";
                 TempInt: Integer;
 
                 DifferentFileNamesExistsErr: Label 'There are extension lines that are different from the specified template name.';
@@ -150,7 +150,7 @@ table 80001 "C4BC Assignable Range Header"
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
     procedure GetNewID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
         LastUsedObjectID, VeryFirstObjectID : Integer;
@@ -161,17 +161,17 @@ table 80001 "C4BC Assignable Range Header"
             Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
 
         LastUsedObjectID := 0;
-        C4BCExtensionLine.SetCurrentKey("Object Type", "Object ID");
-        C4BCExtensionLine.SetRange("Object Type", ForObjectType);
-        C4BCExtensionLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCExtensionObject.SetCurrentKey("Object Type", "Object ID");
+        C4BCExtensionObject.SetRange("Object Type", ForObjectType);
+        C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Code");
         if Rec."Ranges per BC Instance" then begin
             // Find extension lines that are installed on specific business central instance
-            C4BCExtensionLine.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
-            C4BCExtensionLine.SetRange("Bus. Central Instance Linked", true);
+            C4BCExtensionObject.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
+            C4BCExtensionObject.SetRange("Bus. Central Instance Linked", true);
         end;
 
-        if C4BCExtensionLine.FindLast() then begin
-            LastUsedObjectID := C4BCExtensionLine."Object ID";
+        if C4BCExtensionObject.FindLast() then begin
+            LastUsedObjectID := C4BCExtensionObject."Object ID";
             if IsIDFromRange(ForObjectType, LastUsedObjectID + 1) then
                 exit(LastUsedObjectID + 1);
         end;
@@ -266,7 +266,7 @@ table 80001 "C4BC Assignable Range Header"
     /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
     local procedure ValidateChangeToDefaultRanges(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
 
         OptionNames: List of [Text];
         OptionString: Text;
@@ -274,19 +274,19 @@ table 80001 "C4BC Assignable Range Header"
 
         OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
     begin
-        C4BCExtensionLine.SetRange("Assignable Range Code", Rec.Code);
-        if not C4BCExtensionLine.ShouldCheckChange(RangeType, OldRange, NewRange) then
+        C4BCExtensionObject.SetRange("Assignable Range Code", Rec.Code);
+        if not C4BCExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
             exit;
-        C4BCExtensionLine.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
-        if C4BCExtensionLine.IsEmpty() then
+        C4BCExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
+        if C4BCExtensionObject.IsEmpty() then
             exit;
 
         OptionNames := C4BCObjectType.Names();
         foreach OptionString in C4BCObjectType.Names() do begin
             Evaluate(C4BCObjectType, OptionString);
             if ShouldUseDefaultRanges(C4BCObjectType) then begin
-                C4BCExtensionLine.SetRange("Object Type", C4BCObjectType);
-                if not C4BCExtensionLine.IsEmpty() then
+                C4BCExtensionObject.SetRange("Object Type", C4BCObjectType);
+                if not C4BCExtensionObject.IsEmpty() then
                     Error(OldRangeIsInUseErr);
             end;
         end;

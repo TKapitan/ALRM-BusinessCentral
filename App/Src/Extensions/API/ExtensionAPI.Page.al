@@ -79,14 +79,14 @@ page 80006 "C4BC Extension API"
     /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure CreateLine(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
     begin
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine."Extension Code" := Rec.Code;
-        C4BCExtensionLine.Validate("Object Type", ObjectType);
-        C4BCExtensionLine.Validate("Object Name", ObjectName);
-        C4BCExtensionLine.Validate("Created By", CreatedBy);
-        C4BCExtensionLine.Insert(true);
-        exit(C4BCExtensionLine."Object ID");
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject."Extension Code" := Rec.Code;
+        C4BCExtensionObject.Validate("Object Type", ObjectType);
+        C4BCExtensionObject.Validate("Object Name", ObjectName);
+        C4BCExtensionObject.Validate("Created By", CreatedBy);
+        C4BCExtensionObject.Insert(true);
+        exit(C4BCExtensionObject."Object ID");
     end;
 }
