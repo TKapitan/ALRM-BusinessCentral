@@ -42,6 +42,8 @@ table 80003 "C4BC Extension Object"
             begin
                 if CheckObjectNameDuplicity() then
                     Error(DuplicitObjectNameErr);
+                if not ObjectNameTemplateRulesMet() then
+                    Error(ObjectNameTemplateRulesErr);
             end;
         }
         field(6; "Created By"; Text[50])
@@ -84,6 +86,7 @@ table 80003 "C4BC Extension Object"
     begin
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
+        //Rec.TestField("Object Name");
     end;
 
     trigger OnDelete()
@@ -164,6 +167,23 @@ table 80003 "C4BC Extension Object"
             exit(true);
     end;
 
+    local procedure ObjectNameTemplateRulesMet(): Boolean
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        TempC4BCExtensionObject: Record "C4BC Extension Object" temporary;
+    begin
+        Rec.CalcFields("Assignable Range Code");
+        Rec.TestField("Assignable Range Code");
+        if C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code") then
+            if C4BCAssignableRangeHeader."Object Name Template" <> '' then begin
+                TempC4BCExtensionObject."Object Name" := Rec."Object Name";
+                TempC4BCExtensionObject.Insert(false);
+                TempC4BCExtensionObject.SetFilter("Object Name", C4BCAssignableRangeHeader."Object Name Template");
+                if not TempC4BCExtensionObject.IsEmpty then
+                    exit(true);
+            end;
+    end;
+
     local procedure ObjectLinesExist(): Boolean
     var
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
@@ -187,4 +207,5 @@ table 80003 "C4BC Extension Object"
 
     var
         DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
+        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header.';
 }

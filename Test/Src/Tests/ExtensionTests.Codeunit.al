@@ -91,13 +91,13 @@ codeunit 79002 "C4BC Extension Tests"
         //[THEN] then
         C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
         asserterror C4BCExtensionObject.Validate("Object Name", 'C4BCMy Object');
-        Assert.ExpectedError('not meet object name template rules');
+        Assert.ExpectedError('Object name does not meet template rules defined in assignable range header.');
         asserterror C4BCExtensionObject.Validate("Object Name", 'My Object C4BC');
-        Assert.ExpectedError('not meet object name template rules');
+        Assert.ExpectedError('Object name does not meet template rules defined in assignable range header.');
         asserterror C4BCExtensionObject.Validate("Object Name", 'My Object');
-        Assert.ExpectedError('not meet object name template rules');
+        Assert.ExpectedError('Object name does not meet template rules defined in assignable range header.');
         asserterror C4BCExtensionObject.Validate("Object Name", ' C4BC My Object');
-        Assert.ExpectedError('not meet object name template rules');
+        Assert.ExpectedError('Object name does not meet template rules defined in assignable range header.');
         C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
     end;
 
