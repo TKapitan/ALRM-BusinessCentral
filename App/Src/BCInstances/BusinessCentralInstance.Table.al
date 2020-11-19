@@ -26,4 +26,15 @@ table 80005 "C4BC Business Central Instance"
             Clustered = true;
         }
     }
+
+    trigger OnDelete()
+    var
+        C4BCExtensionUsage: Record "C4BC Extension Usage";
+
+        ExtensionUsageExistsErr: Label 'Record can not be deleted due to the existing %1.', Comment = '%1 - Name of the table with linked records';
+    begin
+        C4BCExtensionUsage.SetRange("Business Central Instance Code", Rec.Code);
+        if not C4BCExtensionUsage.IsEmpty() then
+            Error(ExtensionUsageExistsErr, C4BCExtensionUsage.TableCaption());
+    end;
 }
