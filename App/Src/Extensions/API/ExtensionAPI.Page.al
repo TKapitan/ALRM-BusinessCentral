@@ -8,7 +8,6 @@ page 80006 "C4BC Extension API"
     EntityName = 'extension';
     EntitySetName = 'extensions';
     SourceTable = "C4BC Extension Header";
-    ODataKeyFields = ID;
     DelayedInsert = true;
 
     layout
@@ -58,11 +57,11 @@ page 80006 "C4BC Extension API"
                 {
                     ApplicationArea = All;
                 }
-                part(lines; "C4BC Extension Subform")
+                part("Extension Objects"; "C4BC Extension Object API")
                 {
                     ApplicationArea = All;
-                    EntityName = 'line';
-                    EntitySetName = 'lines';
+                    EntityName = 'extensionObject';
+                    EntitySetName = 'extensionObjects';
                     SubPageLink = "Extension Code" = field(Code);
                 }
             }
@@ -71,13 +70,13 @@ page 80006 "C4BC Extension API"
 
     [ServiceEnabled]
     /// <summary> 
-    /// Create new line for specifies object type with specified name.
+    /// Create new object with specified name and type.
     /// </summary>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateLine(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
+    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
