@@ -18,6 +18,11 @@ page 80000 "C4BC Extension List"
                     ApplicationArea = All;
                     ToolTip = 'Identifies the extension';
                 }
+                field("Assignable Range Code"; Rec."Assignable Range Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Defines type of the id range used for this extension';
+                }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
@@ -27,11 +32,6 @@ page 80000 "C4BC Extension List"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Description of the extension';
-                }
-                field("Assignable Range Code"; Rec."Assignable Range Code")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Defines type of the id range used for this extension';
                 }
             }
         }
