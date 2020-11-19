@@ -270,6 +270,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());
+        C4BCExtensionHeader.ID := CreateGuid();
         C4BCExtensionHeader.Insert();
 
         C4BCExtensionLine.Init();

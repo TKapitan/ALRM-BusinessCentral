@@ -37,6 +37,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
         until C4BCExtensionLine.Next() < 1;
     end;
 
+    [Test]
     /// <summary> 
     /// Test delete extension with linked usage
     /// </summary>
