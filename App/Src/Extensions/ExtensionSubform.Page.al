@@ -16,6 +16,11 @@ page 80004 "C4BC Extension Subform"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Object Type';
+
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
                 field("Object ID"; Rec."Object ID")
                 {
