@@ -17,11 +17,6 @@ page 80010 "C4BC Extension Object Lines"
                     ApplicationArea = All;
                     ToolTip = 'ID of the field or the enum value';
                 }
-                field(Name; Rec."Name")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Name of the field or the enum value';
-                }
             }
         }
     }
