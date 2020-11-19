@@ -182,6 +182,27 @@ codeunit 79003 "C4BC Object Range Test Library"
         Clear(C4BCAssignableRangeHeader);
     end;
 
+
+    /// <summary> 
+    /// Initializace records for assignable field range tests
+    /// </summary>
+    procedure InitializeAssignableFieldRanges()
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_01());
+        C4BCAssignableRangeHeader."Field Range From" := 200000;
+        C4BCAssignableRangeHeader."Field Range To" := 250000;
+        C4BCAssignableRangeHeader.Modify();
+        Clear(C4BCAssignableRangeHeader);
+
+        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_03());
+        C4BCAssignableRangeHeader."Field Range From" := 300000;
+        C4BCAssignableRangeHeader."Field Range To" := 350000;
+        C4BCAssignableRangeHeader.Modify();
+        Clear(C4BCAssignableRangeHeader);
+    end;
+
     /// <summary> 
     /// Initializace records for extension tests/// 
     /// </summary>

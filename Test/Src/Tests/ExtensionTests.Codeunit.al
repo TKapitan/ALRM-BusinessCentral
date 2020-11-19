@@ -103,6 +103,33 @@ codeunit 79002 "C4BC Extension Tests"
 
     [Test]
     /// <summary> 
+    /// Test object name when no template is defined.
+    /// </summary>
+    procedure TestObjectNameWithoutTemplate()
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[WHEN] when
+        // No Template is set
+        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionObject.FindFirst();
+
+        //[THEN] then
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        C4BCExtensionObject.Validate("Object Name", 'C4BCMy Object');
+        C4BCExtensionObject.Validate("Object Name", 'My Object C4BC');
+        C4BCExtensionObject.Validate("Object Name", 'My Object');
+        C4BCExtensionObject.Validate("Object Name", ' C4BC My Object');
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+    end;
+
+    [Test]
+    /// <summary> 
     /// Test extension objects with empty names
     /// </summary>
     procedure TestEmptyObjectName()
@@ -223,9 +250,57 @@ codeunit 79002 "C4BC Extension Tests"
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         asserterror C4BCExtensionHeader.Insert(true);
-        Assert.ExpectedError('must not be empty'); // ID
+        Assert.ExpectedError('must have a value');
         C4BCExtensionHeader.Validate(ID, CreateGuid());
         C4BCExtensionHeader.Insert(true);
         Clear(C4BCExtensionHeader);
+    end;
+
+    [Test]
+    /// <summary> 
+    /// Try to assign new object IDs on the newly created extension card as an user
+    /// </summary>
+    procedure TestAssigningNewFieldIDs()
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeAssignableFieldRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[WHEN] when
+        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionHeader.FindFirst();
+        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
+        C4BCExtensionObject.FindFirst();
+
+        //[THEN] then
+        C4BCExtensionObjectLine.Init();
+        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
+        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
+        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200000, StrSubstNo(BadNewIDErr, 200000, C4BCExtensionObjectLine.ID));
+        C4BCExtensionObjectLine.Insert(true);
+        Clear(C4BCExtensionObjectLine);
+
+        C4BCExtensionObjectLine.Init();
+        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
+        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
+        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200001, StrSubstNo(BadNewIDErr, 200001, C4BCExtensionObjectLine.ID));
+        C4BCExtensionObjectLine.Insert(true);
+        Clear(C4BCExtensionObjectLine);
+
+        C4BCExtensionObjectLine.Init();
+        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
+        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
+        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200002, StrSubstNo(BadNewIDErr, 200002, C4BCExtensionObjectLine.ID));
+        C4BCExtensionObjectLine.Insert(true);
     end;
 }

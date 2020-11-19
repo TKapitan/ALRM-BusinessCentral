@@ -356,6 +356,16 @@ table 80001 "C4BC Assignable Range Header"
     end;
 
     /// <summary> 
+    /// Allows to get new unused field ID for specified object type
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
+    begin
+        exit(GetNewFieldID(ForObjectType, ''));
+    end;
+
+    /// <summary> 
     /// Validate changes to default ranges to verify, whether the old range is not in use
     /// </summary>
     /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>
