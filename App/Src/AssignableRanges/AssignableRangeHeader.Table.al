@@ -78,6 +78,23 @@ table 80001 "C4BC Assignable Range Header"
         {
             Caption = 'Object Name Template';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            var
+                C4BCExtensionLine: Record "C4BC Extension Line";
+                TempInt: Integer;
+
+                DifferentFileNamesExistsErr: Label 'There are extension lines that are different from the specified template name.';
+            begin
+                if Rec."Object Name Template" = '' then
+                    exit;
+
+                C4BCExtensionLine.SetRange("Assignable Range Code", Rec.Code);
+                TempInt := C4BCExtensionLine.Count();
+                C4BCExtensionLine.SetFilter("Object Name", Rec."Object Name Template");
+                if TempInt <> C4BCExtensionLine.Count() then
+                    Error(DifferentFileNamesExistsErr);
+            end;
         }
         field(100; "No. Series"; Code[20])
         {
