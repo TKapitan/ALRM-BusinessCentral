@@ -240,11 +240,10 @@ table 80001 "C4BC Assignable Range Header"
     /// <summary> 
     /// Validate changes to default ranges to verify, whether the old range is not in use
     /// </summary>
-    /// <param name="RangeType">Parameter of type Option.</param>
-    /// <param name="OldRange">Parameter of type Integer.</param>
-    /// <param name="NewRange">Parameter of type Integer.</param>
-    /// <returns>Return variable "Boolean".</returns>
-    local procedure ValidateChangeToDefaultRanges(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer): Boolean
+    /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>
+    /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
+    /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
+    local procedure ValidateChangeToDefaultRanges(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
         C4BCExtensionLine: Record "C4BC Extension Line";
 
@@ -255,20 +254,9 @@ table 80001 "C4BC Assignable Range Header"
         OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
     begin
         C4BCExtensionLine.SetRange("Assignable Range Code", Rec.Code);
-        case RangeType of
-            RangeType::From:
-                begin
-                    if NewRange < OldRange then
-                        exit;
-                    C4BCExtensionLine.SetRange("Object ID", OldRange, NewRange - 1);
-                end;
-            RangeType::"To":
-                begin
-                    if NewRange > OldRange then
-                        exit;
-                    C4BCExtensionLine.SetRange("Object ID", NewRange + 1, OldRange);
-                end;
-        end;
+        if not C4BCExtensionLine.ShouldCheckChange(RangeType, OldRange, NewRange) then
+            exit;
+        C4BCExtensionLine.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
         if C4BCExtensionLine.IsEmpty() then
             exit;
 

@@ -88,4 +88,45 @@ table 80003 "C4BC Extension Line"
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
         exit(C4BCAssignableRangeHeader.GetNewID("Object Type"));
     end;
+
+    /// <summary> 
+    /// Specifies whether the change of the ID range should be checked. If the new range is wider than the previous, the range mustn't be checked.
+    /// </summary>
+    /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>/// 
+    /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
+    /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
+    /// <returns>Return variable "Boolean", whether the change should be validated.</returns>
+    procedure ShouldCheckChange(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer): Boolean
+    begin
+        case RangeType of
+            RangeType::From:
+                if NewRange < OldRange then
+                    exit(false);
+            RangeType::"To":
+                if NewRange > OldRange then
+                    exit(false);
+            else
+                exit(false);
+        end;
+        exit(true);
+    end;
+
+    /// <summary> 
+    /// Set the filter on the Object ID field using old and new Object ID range.
+    /// </summary>
+    /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>/// 
+    /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
+    /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
+    procedure SetFilterOnRangeChange(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
+    begin
+        if not ShouldCheckChange(RangeType, OldRange, NewRange) then
+            exit;
+
+        case RangeType of
+            RangeType::From:
+                SetRange("Object ID", OldRange, NewRange - 1);
+            RangeType::"To":
+                SetRange("Object ID", NewRange + 1, OldRange);
+        end;
+    end;
 }
