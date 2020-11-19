@@ -14,6 +14,18 @@ table 80000 "C4BC Extension Header"
         {
             Caption = 'ID';
             DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            var
+                C4BCExtensionHeader: Record "C4BC Extension Header";
+
+                IDAlreadyExistsErr: Label 'ID %1 already exists on another extension.', Comment = '%1 - ID to check';
+            begin
+                C4BCExtensionHeader.SetFilter(Code, '<>%1', Rec.Code);
+                C4BCExtensionHeader.SetRange(ID, Rec.ID);
+                if not C4BCExtensionHeader.IsEmpty() then
+                    Error(IDAlreadyExistsErr, Rec.ID);
+            end;
         }
         field(3; "Assignable Range Code"; Code[20])
         {
