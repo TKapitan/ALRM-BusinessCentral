@@ -55,6 +55,24 @@ codeunit 79003 "C4BC Object Range Test Library"
     end;
 
     /// <summary> 
+    /// Code for #1 business central instance
+    /// </summary>
+    /// <returns>Return variable "Code[20]".</returns>
+    procedure C4BCBusinessCentralInstance_Code_01(): Code[20]
+    begin
+        exit('KEPTY.CZ');
+    end;
+
+    /// <summary> 
+    /// Code for #2 business central instance
+    /// </summary>
+    /// <returns>Return variable "Code[20]".</returns>
+    procedure C4BCBusinessCentralInstance_Code_02(): Code[20]
+    begin
+        exit('KEPTYCZ.CZ');
+    end;
+
+    /// <summary> 
     /// Initializace records for assignable range tests
     /// </summary>
     procedure InitializeAssignableRanges()
@@ -144,6 +162,14 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader."Object Name Template" := '';
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
+
+        C4BCAssignableRangeLine.Init();
+        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_05();
+        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"Enum Extension";
+        C4BCAssignableRangeLine."Object Range From" := 110000;
+        C4BCAssignableRangeLine."Object Range To" := 110010;
+        C4BCAssignableRangeLine.Insert();
+        Clear(C4BCAssignableRangeLine);
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
@@ -244,6 +270,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());
+        C4BCExtensionHeader.ID := CreateGuid();
         C4BCExtensionHeader.Insert();
 
         C4BCExtensionLine.Init();
@@ -279,14 +306,19 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionUsage.DeleteAll();
 
         C4BCBusinessCentralInstance.Init();
-        C4BCBusinessCentralInstance.Code := 'KEPTY.CZ';
+        C4BCBusinessCentralInstance.Code := C4BCBusinessCentralInstance_Code_01();
+        C4BCBusinessCentralInstance.Insert();
+        Clear(C4BCBusinessCentralInstance);
+
+        C4BCBusinessCentralInstance.Init();
+        C4BCBusinessCentralInstance.Code := C4BCBusinessCentralInstance_Code_02();
         C4BCBusinessCentralInstance.Insert();
 
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.FindSet();
 
         C4BCExtensionUsage.Init();
-        C4BCExtensionUsage."Business Central Instance Code" := 'KEPTY.CZ';
+        C4BCExtensionUsage."Business Central Instance Code" := C4BCBusinessCentralInstance_Code_01();
         C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
         C4BCExtensionUsage.Insert();
         Clear(C4BCExtensionUsage);
@@ -294,7 +326,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Next(1);
 
         C4BCExtensionUsage.Init();
-        C4BCExtensionUsage."Business Central Instance Code" := 'KEPTY.CZ';
+        C4BCExtensionUsage."Business Central Instance Code" := C4BCBusinessCentralInstance_Code_01();
         C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
         C4BCExtensionUsage.Insert();
     end;

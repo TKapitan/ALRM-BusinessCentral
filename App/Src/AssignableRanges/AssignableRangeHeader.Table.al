@@ -78,6 +78,23 @@ table 80001 "C4BC Assignable Range Header"
         {
             Caption = 'Object Name Template';
             DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            var
+                C4BCExtensionLine: Record "C4BC Extension Line";
+                TempInt: Integer;
+
+                DifferentFileNamesExistsErr: Label 'There are extension lines that are different from the specified template name.';
+            begin
+                if Rec."Object Name Template" = '' then
+                    exit;
+
+                C4BCExtensionLine.SetRange("Assignable Range Code", Rec.Code);
+                TempInt := C4BCExtensionLine.Count();
+                C4BCExtensionLine.SetFilter("Object Name", Rec."Object Name Template");
+                if TempInt <> C4BCExtensionLine.Count() then
+                    Error(DifferentFileNamesExistsErr);
+            end;
         }
         field(100; "No. Series"; Code[20])
         {
@@ -102,6 +119,7 @@ table 80001 "C4BC Assignable Range Header"
 
     trigger OnDelete()
     var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
         C4BCExtensionHeader: Record "C4BC Extension Header";
 
         CannotDeleteLinkExistsErr: Label '%1 can not be deleted due to existing related records in %2.', Comment = '%1 - Caption of table in which the record can not be deleted, %2 - Caption of table where the link exists.';
@@ -109,6 +127,9 @@ table 80001 "C4BC Assignable Range Header"
         C4BCExtensionHeader.SetRange("Assignable Range Code", Rec."Code");
         if not C4BCExtensionHeader.IsEmpty() then
             Error(CannotDeleteLinkExistsErr, Rec.TableCaption(), C4BCExtensionHeader.TableCaption());
+
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+        C4BCAssignableRangeLine.DeleteAll();
     end;
 
     trigger OnRename()
