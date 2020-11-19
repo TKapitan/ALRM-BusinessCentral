@@ -9,7 +9,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
 
     [Test]
     /// <summary> 
-    /// Description for TestObjectName.
+    /// Test object name duplicity.
     /// </summary>
     procedure TestObjectNameDuplicity()
     var
@@ -35,5 +35,27 @@ codeunit 79001 "C4BC Extension Usage Tests"
             asserterror C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
             Assert.ExpectedError('with the same name');
         until C4BCExtensionLine.Next() < 1;
+    end;
+
+    /// <summary> 
+    /// Test delete extension with linked usage
+    /// </summary>
+    procedure TestDeleteExtension()
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.SetExtensionUsage();
+        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionHeader.FindFirst();
+
+        //[THEN] then
+        asserterror C4BCExtensionHeader.Delete(true);
+        Assert.ExpectedError('due to the existing');
     end;
 }
