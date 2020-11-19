@@ -52,26 +52,26 @@ table 80001 "C4BC Assignable Range Header"
                 end;
             end;
         }
-        field(15; "Default Range From"; Integer)
+        field(15; "Default Object Range From"; Integer)
         {
-            Caption = 'Default Range From';
+            Caption = 'Default Object Range From';
             MinValue = 0;
             DataClassification = SystemMetadata;
 
             trigger OnValidate()
             begin
-                ValidateChangeToDefaultRanges(RangeType::From, xRec."Default Range From", Rec."Default Range From");
+                ValidateChangeToDefaultRanges(RangeType::From, xRec."Default Object Range From", Rec."Default Object Range From");
             end;
         }
-        field(16; "Default Range To"; Integer)
+        field(16; "Default Object Range To"; Integer)
         {
-            Caption = 'Default Range To';
+            Caption = 'Default Object Range To';
             MinValue = 0;
             DataClassification = ToBeClassified;
 
             trigger OnValidate()
             begin
-                ValidateChangeToDefaultRanges(RangeType::"To", xRec."Default Range To", Rec."Default Range To");
+                ValidateChangeToDefaultRanges(RangeType::"To", xRec."Default Object Range To", Rec."Default Object Range To");
             end;
         }
         field(25; "Object Name Template"; Text[30])
@@ -231,7 +231,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
         if ShouldUseDefaultRanges(ForObjectType) then begin
-            if (Rec."Default Range From" <= ID) and (Rec."Default Range To" >= ID) then
+            if (Rec."Default Object Range From" <= ID) and (Rec."Default Object Range To" >= ID) then
                 exit(true);
             exit(false);
         end;
@@ -256,7 +256,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
         if ShouldUseDefaultRanges(C4BCObjectType) then
-            exit(Rec."Default Range From");
+            exit(Rec."Default Object Range From");
 
         C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
         C4BCAssignableRangeLine.SetRange("Object Type", C4BCObjectType);
@@ -279,7 +279,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
         if ShouldUseDefaultRanges(C4BCObjectType) then
-            exit(Rec."Default Range To");
+            exit(Rec."Default Object Range To");
 
         C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
         C4BCAssignableRangeLine.SetRange("Object Type", C4BCObjectType);

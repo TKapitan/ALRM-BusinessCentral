@@ -138,7 +138,7 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        asserterror C4BCAssignableRangeHeader.Validate("Default Range From", C4BCAssignableRangeHeader."Default Range From" + 10);
+        asserterror C4BCAssignableRangeHeader.Validate("Default Object Range From", C4BCAssignableRangeHeader."Default Object Range From" + 10);
         Assert.ExpectedError('there are extension lines with');
 
         //[GIVEN] given
@@ -146,16 +146,16 @@ codeunit 79000 "C4BC Assignable Range Tests"
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
-        C4BCAssignableRangeHeader.Validate("Default Range From", C4BCAssignableRangeHeader."Default Range From" - 1);
-        C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range To" + 10);
-        C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range To" - 10);
+        C4BCAssignableRangeHeader.Validate("Default Object Range From", C4BCAssignableRangeHeader."Default Object Range From" - 1);
+        C4BCAssignableRangeHeader.Validate("Default Object Range To", C4BCAssignableRangeHeader."Default Object Range To" + 10);
+        C4BCAssignableRangeHeader.Validate("Default Object Range To", C4BCAssignableRangeHeader."Default Object Range To" - 10);
 
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
-        asserterror C4BCAssignableRangeHeader.Validate("Default Range To", C4BCAssignableRangeHeader."Default Range From");
+        asserterror C4BCAssignableRangeHeader.Validate("Default Object Range To", C4BCAssignableRangeHeader."Default Object Range From");
         Assert.ExpectedError('there are extension lines with');
 
         //[GIVEN] given
@@ -164,8 +164,8 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_04());
-        C4BCAssignableRangeHeader.Validate("Default Range From", 0);
-        C4BCAssignableRangeHeader.Validate("Default Range To", 0);
+        C4BCAssignableRangeHeader.Validate("Default Object Range From", 0);
+        C4BCAssignableRangeHeader.Validate("Default Object Range To", 0);
     end;
 
     [Test]
