@@ -74,6 +74,30 @@ table 80001 "C4BC Assignable Range Header"
                 ValidateChangeToDefaultRanges(RangeType::"To", xRec."Default Object Range To", Rec."Default Object Range To");
             end;
         }
+        field(17; "Field Range From"; Integer)
+        {
+            Caption = 'Field Range From';
+            MinValue = 0;
+            DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            begin
+                // TODO validate change to default field range
+                // ValidateChangeToDefaultRanges(RangeType::From, xRec."Default Object Range From", Rec."Default Object Range From");
+            end;
+        }
+        field(18; "Field Range To"; Integer)
+        {
+            Caption = 'Field Range To';
+            MinValue = 0;
+            DataClassification = ToBeClassified;
+
+            trigger OnValidate()
+            begin
+                // TODO validate change to default field range
+                // ValidateChangeToDefaultRanges(RangeType::"To", xRec."Default Object Range To", Rec."Default Object Range To");
+            end;
+        }
         field(25; "Object Name Template"; Text[30])
         {
             Caption = 'Object Name Template';
@@ -141,6 +165,7 @@ table 80001 "C4BC Assignable Range Header"
 
     var
         RangeType: Option From,To;
+        MissingParameterErr: Label 'When the range has %1 = Yes, the IDs must be assigned using procedure that specify business central instance ID and the value must not be empty. This is probably programming error.', Comment = '%1 - Ranges per BC Instance field caption';
 
     /// <summary> 
     /// Allows to get new unused ID for specified object type
@@ -154,8 +179,6 @@ table 80001 "C4BC Assignable Range Header"
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
         LastUsedObjectID, VeryFirstObjectID : Integer;
-
-        MissingParameterErr: Label 'When the range has %1 = Yes, the IDs must be assigned using procedure that specify business central instance ID and the value must not be empty. This is probably programming error.', Comment = '%1 - Ranges per BC Instance field caption';
     begin
         if Rec."Ranges per BC Instance" and (ForBusinessCentralInstance = '') then
             Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
@@ -172,7 +195,7 @@ table 80001 "C4BC Assignable Range Header"
 
         if C4BCExtensionObject.FindLast() then begin
             LastUsedObjectID := C4BCExtensionObject."Object ID";
-            if IsIDFromRange(ForObjectType, LastUsedObjectID + 1) then
+            if IsObjectIDFromRange(ForObjectType, LastUsedObjectID + 1) then
                 exit(LastUsedObjectID + 1);
         end;
 
@@ -200,33 +223,12 @@ table 80001 "C4BC Assignable Range Header"
     end;
 
     /// <summary> 
-    /// Allows to get new unused field ID for specified object type
-    /// </summary>
-    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
-    /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
-    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
-    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
-    begin
-        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
-    end;
-
-    /// <summary> 
-    /// Allows to get new unused field ID for specified object type.
-    /// </summary>
-    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param> 
-    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
-    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
-    begin
-        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
-    end;
-
-    /// <summary> 
     /// Specifies whether the combination of the object type and ID is from any range specified by this assignable range code.
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to check, whether the ID is within the range.</param> 
     /// <param name="ID">Integer, specifies ID of the object which we want to check.</param>
     /// <returns>Return variable "Boolean" - specifies whether the object type/ID is within any range in this assignable range code.</returns>
-    procedure IsIDFromRange(ForObjectType: Enum "C4BC Object Type"; ID: Integer): Boolean
+    procedure IsObjectIDFromRange(ForObjectType: Enum "C4BC Object Type"; ID: Integer): Boolean
     var
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
@@ -315,6 +317,42 @@ table 80001 "C4BC Assignable Range Header"
         if C4BCAssignableRangeLine.IsEmpty() then
             exit(true);
         exit(false);
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused field ID for specified object type
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
+    /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+
+        NewFieldID: Integer;
+        NoAvailableFieldIDsErr: Label 'There are no available field IDs for a new field.';
+    begin
+        if Rec."Ranges per BC Instance" and (ForBusinessCentralInstance = '') then
+            Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
+
+        C4BCExtensionObjectLine.SetCurrentKey("Object Type", "Object ID");
+        C4BCExtensionObjectLine.SetRange("Object Type", ForObjectType);
+        C4BCExtensionObjectLine.SetRange("Assignable Range Code", Rec."Code");
+        if Rec."Ranges per BC Instance" then begin
+            // Find extension object lines that are installed on specific business central instance
+            C4BCExtensionObjectLine.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
+            C4BCExtensionObjectLine.SetRange("Bus. Central Instance Linked", true);
+        end;
+
+        if C4BCExtensionObjectLine.FindLast() then begin
+            NewFieldID := C4BCExtensionObjectLine."Object ID" + 1;
+            if (Rec."Field Range From" <= NewFieldID) and (Rec."Default Object Range To" >= NewFieldID) then
+                exit(NewFieldID);
+            Error(NoAvailableFieldIDsErr);
+        end;
+
+        Rec.TestField("Field Range From");
+        exit(REc."Field Range From");
     end;
 
     /// <summary> 

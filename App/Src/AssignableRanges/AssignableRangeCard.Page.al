@@ -36,9 +36,9 @@ page 80002 "C4BC Assignable Range Card"
                     ToolTip = 'Specifies whether this range should be used when no assignable range is specified in API request to create a new extension.';
                     ApplicationArea = All;
                 }
-                group("Default Ranges")
+                group("Default Object Ranges")
                 {
-                    Caption = 'Default Ranges';
+                    Caption = 'Default Object Ranges';
                     field("Default Object Range From"; Rec."Default Object Range From")
                     {
                         ToolTip = 'Specifies ID of the object that is the first assignable ID for all object types that has no detailed specification in the lines.';
@@ -47,6 +47,20 @@ page 80002 "C4BC Assignable Range Card"
                     field("Default Object Range To"; Rec."Default Object Range To")
                     {
                         ToolTip = 'Specifies ID of the object that is the last assignable ID for all object types that has no detailed specification in the lines.';
+                        ApplicationArea = All;
+                    }
+                }
+                group("Field Ranges")
+                {
+                    Caption = 'Field Ranges';
+                    field("Field Range From"; Rec."Field Range From")
+                    {
+                        ToolTip = 'Specifies ID of the field that is the first assignable ID for all object types.';
+                        ApplicationArea = All;
+                    }
+                    field("Field Range To"; Rec."Field Range To")
+                    {
+                        ToolTip = 'Specifies ID of the field that is the last assignable ID for all object types.';
                         ApplicationArea = All;
                     }
                 }
