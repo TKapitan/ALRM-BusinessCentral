@@ -22,24 +22,24 @@ report 80000 "C4BC Create License File"
 
             trigger OnAfterGetRecord()
             var
-                C4BCExtensionLine: Record "C4BC Extension Line";
+                C4BCExtensionObject: Record "C4BC Extension Object";
 
                 C4BCIObjectLicensing: Interface "C4BC IObject Licensing";
                 CurrObjectID: Integer;
             begin
-                C4BCExtensionLine.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
-                if C4BCExtensionLine.FindSet() then
+                C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
+                if C4BCExtensionObject.FindSet() then
                     repeat
-                        CurrObjectID := C4BCExtensionLine."Object ID";
-                        C4BCIObjectLicensing := C4BCExtensionLine."Object Type";
+                        CurrObjectID := C4BCExtensionObject."Object ID";
+                        C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
                         if C4BCIObjectLicensing.IsLicensed() and (CurrObjectID <> 0) then begin
                             Clear(TempC4BCAssignableRangeLine);
 
-                            TempC4BCAssignableRangeLine.SetRange("Object Type", C4BCExtensionLine."Object Type");
+                            TempC4BCAssignableRangeLine.SetRange("Object Type", C4BCExtensionObject."Object Type");
                             TempC4BCAssignableRangeLine.SetRange("Object Range From", CurrObjectID + 1);
                             if TempC4BCAssignableRangeLine.FindFirst() then
                                 // Add new object at the beginning of existing range
-                                TempC4BCAssignableRangeLine.Rename('', C4BCExtensionLine."Object Type", CurrObjectID)
+                                TempC4BCAssignableRangeLine.Rename('', C4BCExtensionObject."Object Type", CurrObjectID)
                             else begin
                                 TempC4BCAssignableRangeLine.SetRange("Object Range From");
                                 TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
@@ -52,14 +52,14 @@ report 80000 "C4BC Create License File"
                                     Clear(TempC4BCAssignableRangeLine);
                                     TempC4BCAssignableRangeLine.Init();
                                     TempC4BCAssignableRangeLine."Assignable Range Code" := '';
-                                    TempC4BCAssignableRangeLine."Object Type" := C4BCExtensionLine."Object Type";
+                                    TempC4BCAssignableRangeLine."Object Type" := C4BCExtensionObject."Object Type";
                                     TempC4BCAssignableRangeLine."Object Range From" := CurrObjectID;
                                     TempC4BCAssignableRangeLine."Object Range To" := CurrObjectID;
                                     TempC4BCAssignableRangeLine.Insert(false);
                                 end;
                             end;
                         end;
-                    until C4BCExtensionLine.Next() < 1;
+                    until C4BCExtensionObject.Next() < 1;
             end;
 
             trigger OnPostDataItem()
