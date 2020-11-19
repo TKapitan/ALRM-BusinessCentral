@@ -84,6 +84,7 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        Commit();
         C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionObject.FindFirst();
 
