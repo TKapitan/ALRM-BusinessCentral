@@ -33,6 +33,10 @@ page 80012 "C4BC Extension Object L. API"
                 {
                     ApplicationArea = All;
                 }
+                field(id; Rec.ID)
+                {
+                    ApplicationArea = All;
+                }
                 field(systemCreatedAt; Rec.SystemCreatedAt)
                 {
                     ApplicationArea = All;
