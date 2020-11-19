@@ -8,7 +8,7 @@ table 80000 "C4BC Extension Header"
         field(1; "Code"; Code[20])
         {
             Caption = 'Code';
-            DataClassification = SystemMetadata;
+            DataClassification = CustomerContent;
         }
         field(2; ID; Guid)
         {
@@ -18,8 +18,9 @@ table 80000 "C4BC Extension Header"
         field(3; "Assignable Range Code"; Code[20])
         {
             Caption = 'Assignable Range Code';
-            DataClassification = SystemMetadata;
+            DataClassification = CustomerContent;
             TableRelation = "C4BC Assignable Range Header".Code;
+
             trigger OnValidate()
             var
                 AssignableRangeHeader: Record "C4BC Assignable Range Header";
@@ -35,12 +36,12 @@ table 80000 "C4BC Extension Header"
         field(4; Name; Text[50])
         {
             Caption = 'Name';
-            DataClassification = SystemMetadata;
+            DataClassification = CustomerContent;
         }
         field(5; Description; Text[250])
         {
             Caption = 'Description';
-            DataClassification = SystemMetadata;
+            DataClassification = CustomerContent;
         }
         field(6; "No. Series"; Code[20])
         {
@@ -63,11 +64,7 @@ table 80000 "C4BC Extension Header"
     trigger OnInsert()
     begin
         Rec.TestField("Assignable Range Code");
-    end;
-
-    trigger OnModify()
-    begin
-
+        Rec.TestField("No. Series");
     end;
 
     trigger OnDelete()
@@ -78,10 +75,8 @@ table 80000 "C4BC Extension Header"
             DeleteObjects(true);
     end;
 
-    trigger OnRename()
-    begin
-
-    end;
+    var
+        DeleteHeaderInUsageErr: Label 'Extension header cannot be deleted because it is used by atleast one Business Central instance';
 
     local procedure DeleteObjects(RunTrigger: Boolean)
     var
@@ -109,7 +104,19 @@ table 80000 "C4BC Extension Header"
             exit(true);
     end;
 
+    /// <summary> 
+    /// Return first valid usage (business central instance) of this extension
+    /// </summary>
+    /// <returns>Return variable "Code[20]", code of the business central instance that use extension.</returns>
+    procedure GetUsageOfExtension(): Code[20]
     var
-        DeleteHeaderInUsageErr: Label 'Extension header cannot be deleted because it is used by atleast one Business Central instance';
-
+        C4BCExtensionUsage: Record "C4BC Extension Usage";
+    begin
+        C4BCExtensionUsage.SetRange("Extension Code", Rec.Code);
+        C4BCExtensionUsage.SetFilter("Starting Date", '<=%1', WorkDate());
+        C4BCExtensionUsage.SetFilter("Ending Date", '>=%1|%2', WorkDate(), 0D);
+        if C4BCExtensionUsage.FindFirst() then
+            exit(C4BCExtensionUsage."Business Central Instance Code");
+        exit('');
+    end;
 }

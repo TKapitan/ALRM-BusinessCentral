@@ -88,14 +88,21 @@ table 80003 "C4BC Extension Object"
     begin
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
-        //Rec.TestField("Object Name");
     end;
 
     trigger OnDelete()
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
-        if ObjectLinesExist() then
-            DeleteObjectLines(true);
+        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
+        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
+        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
+        C4BCExtensionObjectLine.DeleteAll(true);
     end;
+
+    var
+        DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
+        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header. Template rules are: "%1"', Comment = '%1 = template rules';
 
     /// <summary> 
     /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
@@ -154,19 +161,19 @@ table 80003 "C4BC Extension Object"
                 SetRange("Object ID", NewRange + 1, OldRange);
         end;
     end;
+
     /// <summary>
     /// Return a boolean value indicating whether the specified object name already exists for currenct object type.
     /// </summary>
-    ///<param name="ObjectName">Text[100], the object name we are checking for duplicity</param>
     /// <returns>Return variable "Boolean", true = duplicit</returns>
     local procedure CheckObjectNameDuplicity(): Boolean
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
-        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
-        C4BCExtensionObject.SetRange("Object Name", Rec."Object Name");
-        if not C4BCExtensionObject.IsEmpty then
-            exit(true);
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
+        exit(C4BCAssignableRangeHeader.IsObjectNameAlreadyInUse(Rec."Object Type", Rec."Object Name", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
     local procedure ObjectNameTemplateRulesMet(var TemplateRule: Text): Boolean
@@ -187,29 +194,4 @@ table 80003 "C4BC Extension Object"
             end else
                 exit(true);
     end;
-
-    local procedure ObjectLinesExist(): Boolean
-    var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    begin
-        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
-        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
-        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
-        if not C4BCExtensionObjectLine.IsEmpty then
-            exit(true);
-    end;
-
-    local procedure DeleteObjectLines(RunTrigger: Boolean)
-    var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    begin
-        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
-        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
-        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
-        C4BCExtensionObjectLine.DeleteAll(RunTrigger);
-    end;
-
-    var
-        DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
-        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header. Template rules are: "%1"', Comment = '%1 = template rules';
 }

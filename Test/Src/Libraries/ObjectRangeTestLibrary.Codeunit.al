@@ -219,7 +219,6 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.Insert();
 
-        // First Extension Lines
         C4BCExtensionObject.Init();
         C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Table);
@@ -263,7 +262,6 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.Insert();
 
-        // Fourth Extension Lines
         C4BCExtensionObject.Init();
         C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");

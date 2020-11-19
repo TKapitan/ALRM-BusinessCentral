@@ -13,22 +13,21 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestCreatingNewExtensionAsUser()
     var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
-        C4BCExtensionCard: TestPage "C4BC Extension Card";
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
 
         //[THEN] then
-        C4BCExtensionCard.OpenNew();
-        C4BCExtensionCard."Assignable Range Code".SetValue(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        Clear(C4BCExtensionCard);
+        C4BCExtensionHeader.Init();
+        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        Clear(C4BCExtensionHeader);
 
         //[THEN] then
-        C4BCExtensionCard.OpenNew();
-        asserterror C4BCExtensionCard."Assignable Range Code".SetValue(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
+        C4BCExtensionHeader.Init();
+        asserterror C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
         Assert.ExpectedError('No. Series must have a value');
-        C4BCExtensionCard.Close();
     end;
 
     [Test]

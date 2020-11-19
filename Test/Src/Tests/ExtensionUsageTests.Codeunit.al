@@ -45,6 +45,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given
@@ -54,11 +55,14 @@ codeunit 79001 "C4BC Extension Usage Tests"
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
         C4BCObjectRangeTestLibrary.SetExtensionUsage();
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCAssignableRangeHeader."Ranges per BC Instance" := true;
+        C4BCAssignableRangeHeader.Modify(false);
         // Extension that has Usage
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.FindSet();
 
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCExtensionHeader."Assignable Range Code");
+        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
         C4BCExtensionObject.FindFirst();
         C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
@@ -67,22 +71,12 @@ codeunit 79001 "C4BC Extension Usage Tests"
         //[THEN] then
         Clear(C4BCExtensionObject);
         // Extension that does not have Usage
-        C4BCExtensionHeader.Next(1);
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCExtensionHeader."Assignable Range Code");
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.FindFirst();
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionObject.Modify(true);
-
-        //[THEN] then
-        Clear(C4BCExtensionObject);
-        // Extension that has the same Usage as the first line
-        C4BCExtensionHeader.Next(1);
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCExtensionHeader."Assignable Range Code");
+        C4BCExtensionHeader.Next(2);
+        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
         C4BCExtensionObject.FindFirst();
         asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        Assert.ExpectedError('Object name with the same object type cannot be duplicit.');
+        Assert.ExpectedError('Yes, the IDs must be assigned using procedure that specify business central instance ID');
     end;
 
     [Test]
