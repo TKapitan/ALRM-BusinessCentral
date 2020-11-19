@@ -104,7 +104,6 @@ page 80006 "C4BC Extension API"
         C4BCExtensionObjectLine."Extension Code" := Rec."Code";
         C4BCExtensionObjectLine."Object Type" := ObjectType;
         C4BCExtensionObjectLine."Object ID" := ObjectID;
-        //C4BCExtensionObjectLine.Validate(ID, ); TODO
         C4BCExtensionObjectLine.Insert(true);
         exit(C4BCExtensionObjectLine.ID);
     end;

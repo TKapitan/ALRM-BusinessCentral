@@ -54,6 +54,7 @@ page 80004 "C4BC Extension Subform"
                 PromotedCategory = Process;
                 Enabled = ObjectFieldsActionEnabled;
                 ApplicationArea = All;
+                Image = AllLines;
                 RunObject = page "C4BC Extension Object Lines";
                 RunPageLink = "Extension Code" = field("Extension Code"), "Object ID" = field("Object ID"), "Object Type" = field("Object Type");
             }
