@@ -12,13 +12,15 @@ page 80010 "C4BC Extension Object Lines"
         {
             repeater(GroupName)
             {
-                field("Field ID"; Rec."ID")
+                field(ID; Rec."ID")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'ID of the field or the enum value';
                 }
-                field("Field Name"; Rec."Name")
+                field(Name; Rec."Name")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Name of the field or the enum value';
                 }
             }
         }

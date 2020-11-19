@@ -3,7 +3,7 @@ page 80004 "C4BC Extension Subform"
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "C4BC Extension Line";
+    SourceTable = "C4BC Extension Object";
 
     layout
     {
@@ -41,4 +41,33 @@ page 80004 "C4BC Extension Subform"
             }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action("Object Lines")
+            {
+                Caption = 'Object Lines';
+                ToolTip = 'Opens a list of the lines associated with selected object, it is only possible to assign lines to objects of type Table Extension, Enum Extension';
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedCategory = Process;
+                Enabled = ObjectFieldsActionEnabled;
+                ApplicationArea = All;
+                RunObject = page "C4BC Extension Object Lines";
+                RunPageLink = "Extension Code" = field("Extension Code"), "Object ID" = field("Object ID"), "Object Type" = field("Object Type");
+            }
+        }
+    }
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        if Rec."Object Type" in [Rec."Object Type"::"Table Extension", Rec."Object Type"::"Enum Extension"] then
+            ObjectFieldsActionEnabled := true;
+    end;
+
+    var
+        ObjectFieldsActionEnabled: Boolean;
+
 }
