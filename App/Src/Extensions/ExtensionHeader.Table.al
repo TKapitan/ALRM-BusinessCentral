@@ -76,7 +76,6 @@ table 80000 "C4BC Extension Header"
     trigger OnInsert()
     begin
         Rec.TestField("Assignable Range Code");
-        Rec.TestField("No. Series");
     end;
 
     trigger OnDelete()
