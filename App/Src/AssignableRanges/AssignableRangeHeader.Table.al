@@ -90,6 +90,13 @@ table 80001 "C4BC Assignable Range Header"
             Error(CannotDeleteLinkExistsErr, Rec.TableCaption(), C4BCExtensionHeader.TableCaption());
     end;
 
+    trigger OnRename()
+    var
+        CanNotBeRenamedErr: Label 'The record can not be renamed.';
+    begin
+        Error(CanNotBeRenamedErr);
+    end;
+
     /// <summary> 
     /// Specifies whether the default range should be used for specified object type instead of specific range.
     /// </summary>
