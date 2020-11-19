@@ -42,6 +42,7 @@ table 80003 "C4BC Extension Object"
             var
                 TemplateRule: Text;
             begin
+                Rec.TestField("Object Name");
                 if CheckObjectNameDuplicity() then
                     Error(DuplicitObjectNameErr);
                 if not ObjectNameTemplateRulesMet(TemplateRule) then

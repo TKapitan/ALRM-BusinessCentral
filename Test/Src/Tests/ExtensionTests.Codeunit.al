@@ -149,7 +149,7 @@ codeunit 79002 "C4BC Extension Tests"
         //[THEN] then
         C4BCExtensionObject.Validate("Object Name", 'C4BC XYZ MY Object');
         asserterror C4BCExtensionObject.Validate("Object Name", '');
-        Assert.ExpectedError('must have value');
+        Assert.ExpectedError('must have a value');
     end;
 
     [Test]
