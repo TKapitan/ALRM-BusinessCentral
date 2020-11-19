@@ -18,6 +18,12 @@ page 80005 "C4BC Extension Card"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Defines type of the id range used for this extension';
+                    ShowMandatory = true;
+
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
                 field(Name; Rec.Name)
                 {

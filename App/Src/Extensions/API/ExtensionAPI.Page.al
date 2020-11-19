@@ -63,7 +63,7 @@ page 80006 "C4BC Extension API"
                     ApplicationArea = All;
                     EntityName = 'line';
                     EntitySetName = 'lines';
-                    SubPageLink = "Extension ID" = field(ID);
+                    SubPageLink = "Extension Code" = field(Code);
                 }
             }
         }
@@ -71,24 +71,22 @@ page 80006 "C4BC Extension API"
 
     [ServiceEnabled]
     /// <summary> 
-    /// Create new line for specifies object if there is no existing line for the same object type/ID.
+    /// Create new line for specifies object type with specified name.
     /// </summary>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
-    /// <param name="ObjectID">Integer, Specifies ID of requested object.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
-    procedure CreateLine(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
+    /// <returns>Return variable "Integer", ID of the object.</returns>
+    procedure CreateLine(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
         C4BCExtensionLine: Record "C4BC Extension Line";
     begin
-        if not C4BCExtensionLine.Get(Rec.Code, ObjectType, ObjectID) then begin
-            C4BCExtensionLine.Init();
-            C4BCExtensionLine."Extension Code" := Rec.Code;
-            C4BCExtensionLine.Validate("Object Type", ObjectType);
-            C4BCExtensionLine.Validate("Object ID", C4BCExtensionLine.GetNewObjectID());
-            C4BCExtensionLine.Validate("Object Name", ObjectName);
-            C4BCExtensionLine.Validate("Created By", CreatedBy);
-            C4BCExtensionLine.Insert(true);
-        end;
+        C4BCExtensionLine.Init();
+        C4BCExtensionLine."Extension Code" := Rec.Code;
+        C4BCExtensionLine.Validate("Object Type", ObjectType);
+        C4BCExtensionLine.Validate("Object Name", ObjectName);
+        C4BCExtensionLine.Validate("Created By", CreatedBy);
+        C4BCExtensionLine.Insert(true);
+        exit(C4BCExtensionLine."Object ID");
     end;
 }
