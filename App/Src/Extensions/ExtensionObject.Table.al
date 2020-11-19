@@ -1,6 +1,6 @@
-table 80003 "C4BC Extension Line"
+table 80003 "C4BC Extension Object"
 {
-    Caption = 'Extension Line';
+    Caption = 'Extension Object';
 
     fields
     {
@@ -143,17 +143,18 @@ table 80003 "C4BC Extension Line"
                 SetRange("Object ID", NewRange + 1, OldRange);
         end;
     end;
+    /// <summary>
     /// Return a boolean value indicating whether the specified object name already exists for currenct object type.
     /// </summary>
     ///<param name="ObjectName">Text[100], the object name we are checking for duplicity</param>
     /// <returns>Return variable "Boolean", true = duplicit</returns>
     local procedure CheckObjectNameDuplicity(): Boolean
     var
-        ExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
     begin
-        ExtensionLine.SetRange("Object Type", Rec."Object Type");
-        ExtensionLine.SetRange("Object Name", Rec."Object Name");
-        if not ExtensionLine.IsEmpty then
+        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
+        C4BCExtensionObject.SetRange("Object Name", Rec."Object Name");
+        if not C4BCExtensionObject.IsEmpty then
             exit(true);
     end;
 

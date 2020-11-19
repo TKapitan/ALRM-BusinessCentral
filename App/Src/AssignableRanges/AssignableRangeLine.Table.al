@@ -103,16 +103,16 @@ table 80002 "C4BC Assignable Range Line"
     /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
     local procedure ValidateChangeToRanges(C4BCObjectType: Enum "C4BC Object Type"; RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
 
         OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
     begin
-        C4BCExtensionLine.SetRange("Assignable Range Code", Rec."Assignable Range Code");
-        C4BCExtensionLine.SetRange("Object Type", C4BCObjectType);
-        if not C4BCExtensionLine.ShouldCheckChange(RangeType, OldRange, NewRange) then
+        C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        C4BCExtensionObject.SetRange("Object Type", C4BCObjectType);
+        if not C4BCExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
             exit;
-        C4BCExtensionLine.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
-        if not C4BCExtensionLine.IsEmpty() then
+        C4BCExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
+        if not C4BCExtensionObject.IsEmpty() then
             Error(OldRangeIsInUseErr);
     end;
 }
