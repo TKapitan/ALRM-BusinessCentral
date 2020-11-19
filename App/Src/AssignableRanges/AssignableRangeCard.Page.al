@@ -65,6 +65,7 @@ page 80002 "C4BC Assignable Range Card"
 
             part("C4BC Assignable Range Subform"; "C4BC Assignable Range Subform")
             {
+                SubPageLink = "Assignable Range Code" = field(Code);
                 ApplicationArea = All;
             }
         }

@@ -289,8 +289,8 @@ table 80001 "C4BC Assignable Range Header"
     var
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
     begin
-        C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
-        C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCAssignableRangeLine.SetRange("Object Type", ForObjectType);
         if C4BCAssignableRangeLine.IsEmpty() then
             exit(true);
         exit(false);
