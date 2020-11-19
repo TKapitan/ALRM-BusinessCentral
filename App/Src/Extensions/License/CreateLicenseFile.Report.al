@@ -27,19 +27,21 @@ report 80000 "C4BC Create License File"
                 C4BCIObjectLicensing: Interface "C4BC IObject Licensing";
                 CurrObjectID: Integer;
             begin
+                C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
                 C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
                 if C4BCExtensionObject.FindSet() then
                     repeat
                         CurrObjectID := C4BCExtensionObject."Object ID";
                         C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
-                        if C4BCIObjectLicensing.IsLicensed() and (CurrObjectID <> 0) then begin
+                        if C4BCIObjectLicensing.IsLicensed() then begin
                             Clear(TempC4BCAssignableRangeLine);
 
+                            TempC4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCExtensionObject."Assignable Range Code");
                             TempC4BCAssignableRangeLine.SetRange("Object Type", C4BCExtensionObject."Object Type");
                             TempC4BCAssignableRangeLine.SetRange("Object Range From", CurrObjectID + 1);
                             if TempC4BCAssignableRangeLine.FindFirst() then
                                 // Add new object at the beginning of existing range
-                                TempC4BCAssignableRangeLine.Rename('', C4BCExtensionObject."Object Type", CurrObjectID)
+                                TempC4BCAssignableRangeLine.Rename(C4BCExtensionObject."Assignable Range Code", C4BCExtensionObject."Object Type", CurrObjectID)
                             else begin
                                 TempC4BCAssignableRangeLine.SetRange("Object Range From");
                                 TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
@@ -51,7 +53,7 @@ report 80000 "C4BC Create License File"
                                     // Create new range
                                     Clear(TempC4BCAssignableRangeLine);
                                     TempC4BCAssignableRangeLine.Init();
-                                    TempC4BCAssignableRangeLine."Assignable Range Code" := '';
+                                    TempC4BCAssignableRangeLine."Assignable Range Code" := C4BCExtensionObject."Assignable Range Code";
                                     TempC4BCAssignableRangeLine."Object Type" := C4BCExtensionObject."Object Type";
                                     TempC4BCAssignableRangeLine."Object Range From" := CurrObjectID;
                                     TempC4BCAssignableRangeLine."Object Range To" := CurrObjectID;
@@ -121,23 +123,24 @@ report 80000 "C4BC Create License File"
     /// <summary> 
     /// Create a file line with license details for specific range of used objects
     /// </summary>
-    /// <param name="TempLineToExportC4BCAssignableRangeLine">PRecord "C4BC Assignable Range Line" temporary, specifies details of the current range.</param>
+    /// <param name="TempExpC4BCAssignableRangeLine">PRecord "C4BC Assignable Range Line" temporary, specifies details of the current range.</param>
     /// <returns>Return variable "Text", details about current range in the requested format.</returns>
-    local procedure BuildLicenseLine(TempLineToExportC4BCAssignableRangeLine: Record "C4BC Assignable Range Line" temporary): Text
+    local procedure BuildLicenseLine(TempExpC4BCAssignableRangeLine: Record "C4BC Assignable Range Line" temporary): Text
     var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+
         BuildedLine: TextBuilder;
+        FirstRangeID, LastRangeID : Integer;
 
         SplitingCharTxt: Label ',';
         DirectPermissionTxt: Label 'Direct';
         NullTxt: Label '0';
     begin
-        BuildedLine.Append(Format(GetObjectTypeFormattedForLicenseGenerator(TempLineToExportC4BCAssignableRangeLine."Object Type")));
+        BuildedLine.Append(Format(GetObjectTypeFormattedForLicenseGenerator(TempExpC4BCAssignableRangeLine."Object Type")));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempLineToExportC4BCAssignableRangeLine."Object Range From"));
+        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range From"));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempLineToExportC4BCAssignableRangeLine."Object Range To"));
-        BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(DirectPermissionTxt));
+        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range To"));
         BuildedLine.Append(SplitingCharTxt);
         BuildedLine.Append(Format(DirectPermissionTxt));
         BuildedLine.Append(SplitingCharTxt);
@@ -147,9 +150,16 @@ report 80000 "C4BC Create License File"
         BuildedLine.Append(SplitingCharTxt);
         BuildedLine.Append(Format(DirectPermissionTxt));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append('0 - 0'); // TODO Available Range from Assignable Record
+        BuildedLine.Append(Format(DirectPermissionTxt));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempLineToExportC4BCAssignableRangeLine."Object Range To" - TempLineToExportC4BCAssignableRangeLine."Object Range From" + 1));
+
+        C4BCAssignableRangeHeader.Get(TempExpC4BCAssignableRangeLine."Assignable Range Code");
+        FirstRangeID := C4BCAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range From");
+        LastRangeID := C4BCAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range To");
+
+        BuildedLine.Append(Format(FirstRangeID) + ' - ' + Format(LastRangeID));
+        BuildedLine.Append(SplitingCharTxt);
+        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range To" - TempExpC4BCAssignableRangeLine."Object Range From" + 1));
         BuildedLine.Append(SplitingCharTxt);
         BuildedLine.Append(NullTxt);
         BuildedLine.Append(SplitingCharTxt);
