@@ -31,16 +31,24 @@ table 80003 "C4BC Extension Line"
             Caption = 'Object ID';
             DataClassification = SystemMetadata;
             Editable = false;
+            BlankZero = true;
         }
         field(5; "Object Name"; Text[100])
         {
             Caption = 'Object Name';
             DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            begin
+                if CheckObjectNameDuplicity() then
+                    Error(DuplicitObjectNameErr);
+            end;
         }
         field(6; "Created By"; Text[50])
         {
             Caption = 'Created By';
             DataClassification = SystemMetadata;
+            Editable = false;
         }
 
         field(100; "Assignable Range Code"; Code[20])
@@ -72,6 +80,12 @@ table 80003 "C4BC Extension Line"
         }
     }
 
+    trigger OnInsert()
+    begin
+        if GuiAllowed then
+            "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
+    end;
+
     /// <summary> 
     /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
     /// </summary>
@@ -88,4 +102,22 @@ table 80003 "C4BC Extension Line"
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
         exit(C4BCAssignableRangeHeader.GetNewID("Object Type"));
     end;
+
+    /// <summary> 
+    /// Return a boolean value indicating whether the specified object name already exists for currenct object type.
+    /// </summary>
+    ///<param name="ObjectName">Text[100], the object name we are checking for duplicity</param>
+    /// <returns>Return variable "Boolean", true = duplicit</returns>
+    local procedure CheckObjectNameDuplicity(): Boolean
+    var
+        ExtensionLine: Record "C4BC Extension Line";
+    begin
+        ExtensionLine.SetRange("Object Type", Rec."Object Type");
+        ExtensionLine.SetRange("Object Name", Rec."Object Name");
+        if not ExtensionLine.IsEmpty then
+            exit(true);
+    end;
+
+    var
+        DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
 }
