@@ -80,12 +80,12 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
         C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
     begin
         C4BCAssignableRangeHeader.DeleteAll();
         C4BCAssignableRangeLine.DeleteAll();
         C4BCExtensionHeader.DeleteAll();
-        C4BCExtensionLine.DeleteAll();
+        C4BCExtensionObject.DeleteAll();
 
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_01();
@@ -188,10 +188,10 @@ codeunit 79003 "C4BC Object Range Test Library"
     procedure InitializeExtensions()
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
     begin
         C4BCExtensionHeader.DeleteAll();
-        C4BCExtensionLine.DeleteAll();
+        C4BCExtensionObject.DeleteAll();
 
         // First Extension Header
         C4BCExtensionHeader.Init();
@@ -199,36 +199,36 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Insert();
 
         // First Extension Lines
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::Table);
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::Table);
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::Report);
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"Table Extension");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Table);
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Table);
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Report);
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
 
         // Second Extension Header (same assignable range)
         Clear(C4BCExtensionHeader);
@@ -237,11 +237,11 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Insert();
 
         // Second Extension Lines
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"Table Extension");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
 
         // Third Extension Header
         Clear(C4BCExtensionHeader);
@@ -255,16 +255,16 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_04());
         C4BCExtensionHeader.Insert();
 
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
 
         // Fifth Extension Header
         Clear(C4BCExtensionHeader);
@@ -273,12 +273,12 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionHeader.ID := CreateGuid();
         C4BCExtensionHeader.Insert();
 
-        C4BCExtensionLine.Init();
-        C4BCExtensionLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionLine.Validate("Object Type", C4BCExtensionLine."Object Type"::"XML Port");
-        C4BCExtensionLine."Object Name" := 'TKA Sales Header';
-        C4BCExtensionLine.Insert();
-        Clear(C4BCExtensionLine);
+        C4BCExtensionObject.Init();
+        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
+        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
+        C4BCExtensionObject."Object Name" := 'TKA Sales Header';
+        C4BCExtensionObject.Insert();
+        Clear(C4BCExtensionObject);
     end;
 
     /// <summary> 
