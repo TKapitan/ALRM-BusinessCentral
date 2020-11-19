@@ -103,6 +103,31 @@ codeunit 79002 "C4BC Extension Tests"
 
     [Test]
     /// <summary> 
+    /// Test extension objects with empty names
+    /// </summary>
+    procedure TestEmptyObjectName()
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
+        C4BCExtensionObject.FindFirst();
+
+        //[THEN] then
+        C4BCExtensionObject.Validate("Object Name", 'C4BC XYZ MY Object');
+        asserterror C4BCExtensionObject.Validate("Object Name", '');
+        Assert.ExpectedError('must have value');
+    end;
+
+    [Test]
+    /// <summary> 
     /// Test how the duplicity name control works
     /// </summary>
     procedure TestObjectNameDuplicityInTheSameExtension()
