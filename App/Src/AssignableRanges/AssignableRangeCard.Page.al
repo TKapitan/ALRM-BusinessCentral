@@ -71,6 +71,23 @@ page 80002 "C4BC Assignable Range Card"
         }
     }
 
+    actions
+    {
+        area(Navigation)
+        {
+            action(Extension)
+            {
+                Caption = 'Extensions';
+                ToolTip = 'Allows to view and edit extensions.';
+                Enabled = (Rec.Code <> '');
+                Image = ExtendedDataEntry;
+                RunObject = page "C4BC Extension List";
+                RunPageLink = "Assignable Range Code" = field("Code");
+                ApplicationArea = All;
+            }
+        }
+    }
+
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var
         BothOrNoneDefaultRangesMustBeSpecifiedLbl: Label 'Both or none of default range fields must be specified.';

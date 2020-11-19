@@ -44,4 +44,31 @@ page 80005 "C4BC Extension Card"
             }
         }
     }
+
+    actions
+    {
+        area(Navigation)
+        {
+            action(Usage)
+            {
+                Caption = 'Usage';
+                ToolTip = 'Allows to view and edit usage of the current extension.';
+                Enabled = (Rec."Code" <> '');
+                Image = LinkWithExisting;
+                RunObject = page "C4BC Extension Usage List";
+                RunPageLink = "Extension Code" = field(Code);
+                ApplicationArea = All;
+            }
+            action("Assignable Range")
+            {
+                Caption = 'Assignable Range';
+                ToolTip = 'Allows to view and edit current assignable range.';
+                Enabled = (Rec."Assignable Range Code" <> '');
+                Image = Ranges;
+                RunObject = page "C4BC Assignable Range Card";
+                RunPageLink = Code = field("Assignable Range Code");
+                ApplicationArea = All;
+            }
+        }
+    }
 }
