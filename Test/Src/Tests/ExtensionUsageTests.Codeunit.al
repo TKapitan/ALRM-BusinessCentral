@@ -57,6 +57,6 @@ codeunit 79001 "C4BC Extension Usage Tests"
 
         //[THEN] then
         asserterror C4BCExtensionHeader.Delete(true);
-        Assert.ExpectedError('due to the existing');
+        Assert.ExpectedError('Extension header cannot be deleted because it is used by atleast one Business Central instance');
     end;
 }

@@ -140,7 +140,6 @@ codeunit 79002 "C4BC Extension Tests"
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given
@@ -156,13 +155,6 @@ codeunit 79002 "C4BC Extension Tests"
         C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
         Assert.RecordIsEmpty(C4BCExtensionObject);
 
-        //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetExtensionUsage();
-
-        //[THEN] then
-        C4BCExtensionHeader.Delete(true);
-        C4BCExtensionUsage.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        Assert.RecordIsEmpty(C4BCExtensionUsage);
     end;
 
     [Test]
