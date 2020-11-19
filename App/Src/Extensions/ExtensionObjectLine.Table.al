@@ -27,11 +27,6 @@ table 80006 "C4BC Extension Object Line"
             Caption = 'ID';
             DataClassification = CustomerContent;
         }
-        field(6; Name; Text[30])
-        {
-            Caption = 'Name';
-            DataClassification = CustomerContent;
-        }
     }
 
     keys
