@@ -39,11 +39,13 @@ table 80003 "C4BC Extension Object"
             DataClassification = SystemMetadata;
 
             trigger OnValidate()
+            var
+                TemplateRule: Text;
             begin
                 if CheckObjectNameDuplicity() then
                     Error(DuplicitObjectNameErr);
-                if not ObjectNameTemplateRulesMet() then
-                    Error(ObjectNameTemplateRulesErr);
+                if not ObjectNameTemplateRulesMet(TemplateRule) then
+                    Error(ObjectNameTemplateRulesErr, TemplateRule);
             end;
         }
         field(6; "Created By"; Text[50])
@@ -167,7 +169,7 @@ table 80003 "C4BC Extension Object"
             exit(true);
     end;
 
-    local procedure ObjectNameTemplateRulesMet(): Boolean
+    local procedure ObjectNameTemplateRulesMet(var TemplateRule: Text): Boolean
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         TempC4BCExtensionObject: Record "C4BC Extension Object" temporary;
@@ -176,12 +178,14 @@ table 80003 "C4BC Extension Object"
         Rec.TestField("Assignable Range Code");
         if C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code") then
             if C4BCAssignableRangeHeader."Object Name Template" <> '' then begin
+                TemplateRule := C4BCAssignableRangeHeader."Object Name Template";
                 TempC4BCExtensionObject."Object Name" := Rec."Object Name";
                 TempC4BCExtensionObject.Insert(false);
                 TempC4BCExtensionObject.SetFilter("Object Name", C4BCAssignableRangeHeader."Object Name Template");
                 if not TempC4BCExtensionObject.IsEmpty then
                     exit(true);
-            end;
+            end else
+                exit(true);
     end;
 
     local procedure ObjectLinesExist(): Boolean
@@ -207,5 +211,5 @@ table 80003 "C4BC Extension Object"
 
     var
         DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
-        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header.';
+        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header. Template rules are: "%1"', Comment = '%1 = template rules';
 }
