@@ -1,6 +1,8 @@
 table 80004 "C4BC Extension Usage"
 {
     Caption = 'Extension Usage';
+    LookupPageId = "C4BC Extension Usage List";
+    DrillDownPageId = "C4BC Extension Usage List";
     DataClassification = CustomerContent;
 
     fields
