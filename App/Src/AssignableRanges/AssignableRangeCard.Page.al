@@ -53,7 +53,7 @@ page 80002 "C4BC Assignable Range Card"
                 group("No. Series Group")
                 {
                     Caption = 'No. Series';
-                    field("No. Series"; Rec."No. Series")
+                    field("No. Series for Extensions"; Rec."No. Series for Extensions")
                     {
                         ToolTip = 'Specifies No. Series used for creating new extensions.';
                         ApplicationArea = All;

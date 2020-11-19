@@ -96,9 +96,9 @@ table 80001 "C4BC Assignable Range Header"
                     Error(DifferentFileNamesExistsErr);
             end;
         }
-        field(100; "No. Series"; Code[20])
+        field(100; "No. Series for Extensions"; Code[20])
         {
-            Caption = 'No. Series';
+            Caption = 'No. Series for Extensions';
             DataClassification = SystemMetadata;
             TableRelation = "No. Series".Code;
         }

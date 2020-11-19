@@ -27,8 +27,8 @@ table 80000 "C4BC Extension Header"
             begin
                 if (Rec.Code = '') and (Rec."Assignable Range Code" <> '') then begin
                     AssignableRangeHeader.Get(Rec."Assignable Range Code");
-                    AssignableRangeHeader.TestField("No. Series");
-                    Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series", Today, true, true);
+                    AssignableRangeHeader.TestField("No. Series for Extensions");
+                    Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series for Extensions", Today, true, true);
                 end;
             end;
         }
@@ -45,8 +45,9 @@ table 80000 "C4BC Extension Header"
         field(6; "No. Series"; Code[20])
         {
             Caption = 'No. Series';
+            Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("C4BC Assignable Range Header"."No. Series" where(Code = field("Assignable Range Code")));
+            CalcFormula = lookup("C4BC Assignable Range Header"."No. Series for Extensions" where(Code = field("Assignable Range Code")));
         }
     }
 
