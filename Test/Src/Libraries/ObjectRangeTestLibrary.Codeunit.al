@@ -145,6 +145,14 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCAssignableRangeHeader.Insert();
         Clear(C4BCAssignableRangeHeader);
 
+        C4BCAssignableRangeLine.Init();
+        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_05();
+        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"Enum Extension";
+        C4BCAssignableRangeLine."Object Range From" := 110000;
+        C4BCAssignableRangeLine."Object Range To" := 110010;
+        C4BCAssignableRangeLine.Insert();
+        Clear(C4BCAssignableRangeLine);
+
         C4BCAssignableRangeHeader.Init();
         C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
         C4BCAssignableRangeHeader."No. Series" := 'CUST';

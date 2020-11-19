@@ -253,9 +253,9 @@ codeunit 79000 "C4BC Assignable Range Tests"
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
         //[THEN] then
-        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_03());
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_05());
         C4BCAssignableRangeHeader.Delete(true);
-        C4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_03());
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_05());
         Assert.RecordIsEmpty(C4BCAssignableRangeLine);
     end;
 
