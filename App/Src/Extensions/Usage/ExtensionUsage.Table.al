@@ -13,8 +13,8 @@ table 80004 "C4BC Extension Usage"
         }
         field(2; "Business Central Instance Code"; Code[20])
         {
-            Caption = 'Extension Code';
-            TableRelation = "C4BC Extension Usage"."Business Central Instance Code";
+            Caption = 'Business Central Instance Code';
+            TableRelation = "C4BC Business Central Instance"."Code";
             DataClassification = CustomerContent;
         }
         field(10; "Starting Date"; Date)
