@@ -200,6 +200,27 @@ table 80001 "C4BC Assignable Range Header"
     end;
 
     /// <summary> 
+    /// Allows to get new unused field ID for specified object type
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
+    /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    begin
+        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    end;
+
+    /// <summary> 
+    /// Allows to get new unused field ID for specified object type.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param> 
+    /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
+    begin
+        // TODO GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
+    end;
+
+    /// <summary> 
     /// Specifies whether the combination of the object type and ID is from any range specified by this assignable range code.
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to check, whether the ID is within the range.</param> 
