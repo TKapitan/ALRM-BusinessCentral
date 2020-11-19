@@ -13,7 +13,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
     /// </summary>
     procedure TestObjectNameDuplicity()
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given
@@ -23,18 +23,18 @@ codeunit 79001 "C4BC Extension Usage Tests"
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
         C4BCObjectRangeTestLibrary.SetExtensionUsage();
-        C4BCExtensionLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionLine.SetRange("Object Type", C4BCExtensionLine."Object Type"::"Table Extension");
-        C4BCExtensionLine.FindSet();
-        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionLine.Modify(true);
-        C4BCExtensionLine.Next(1);
+        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
+        C4BCExtensionObject.FindSet();
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        C4BCExtensionObject.Modify(true);
+        C4BCExtensionObject.Next(1);
 
         //[THEN] then
         repeat
-            asserterror C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+            asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
             Assert.ExpectedError('Object name with the same object type cannot be duplicit.');
-        until C4BCExtensionLine.Next() < 1;
+        until C4BCExtensionObject.Next() < 1;
     end;
 
     [Test]

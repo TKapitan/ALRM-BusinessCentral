@@ -76,7 +76,7 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestObjectName()
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given
@@ -85,20 +85,20 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
-        C4BCExtensionLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionLine.FindFirst();
+        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
-        asserterror C4BCExtensionLine.Validate("Object Name", 'C4BCMy Object');
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        asserterror C4BCExtensionObject.Validate("Object Name", 'C4BCMy Object');
         Assert.ExpectedError('not meet object name template rules');
-        asserterror C4BCExtensionLine.Validate("Object Name", 'My Object C4BC');
+        asserterror C4BCExtensionObject.Validate("Object Name", 'My Object C4BC');
         Assert.ExpectedError('not meet object name template rules');
-        asserterror C4BCExtensionLine.Validate("Object Name", 'My Object');
+        asserterror C4BCExtensionObject.Validate("Object Name", 'My Object');
         Assert.ExpectedError('not meet object name template rules');
-        asserterror C4BCExtensionLine.Validate("Object Name", ' C4BC My Object');
+        asserterror C4BCExtensionObject.Validate("Object Name", ' C4BC My Object');
         Assert.ExpectedError('not meet object name template rules');
-        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
     end;
 
     [Test]
@@ -107,7 +107,7 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestObjectNameDuplicityInTheSameExtension()
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
     begin
         //[GIVEN] given
@@ -116,19 +116,19 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
-        C4BCExtensionLine.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionLine.SetRange("Object Type", C4BCExtensionLine."Object Type"::Table);
-        C4BCExtensionLine.FindFirst();
+        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
+        C4BCExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionLine.Modify();
+        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        C4BCExtensionObject.Modify();
 
         //[WHEN] when
-        C4BCExtensionLine.Next(1);
+        C4BCExtensionObject.Next(1);
 
         //[THEN] then
-        asserterror C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+        asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
         Assert.ExpectedError('Object name with the same object type cannot be duplicit.');
     end;
 
@@ -138,7 +138,7 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestDeleteExtension()
     var
-        C4BCExtensionLine: Record "C4BC Extension Line";
+        C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCExtensionUsage: Record "C4BC Extension Usage";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
@@ -153,8 +153,8 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[THEN] then
         C4BCExtensionHeader.Delete(true);
-        C4BCExtensionLine.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        Assert.RecordIsEmpty(C4BCExtensionLine);
+        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
+        Assert.RecordIsEmpty(C4BCExtensionObject);
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetExtensionUsage();
