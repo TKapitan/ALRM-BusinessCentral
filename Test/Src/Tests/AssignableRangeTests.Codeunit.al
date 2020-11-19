@@ -11,7 +11,7 @@ codeunit 79000 "C4BC Assignable Range Tests"
     /// <summary> 
     /// Test getting the ID for the first time for specific Assignable Range
     /// </summary>
-    procedure TestGettingIDForTheFirstTime()
+    procedure TestGettingObjectIDForTheFirstTime()
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
         C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
@@ -301,5 +301,61 @@ codeunit 79000 "C4BC Assignable Range Tests"
 
         C4BCAssignableRangeLine.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_04(), "C4BC Object Type"::Enum, 100000);
         C4BCAssignableRangeLine.Delete(true);
+    end;
+
+    [Test]
+    /// <summary> 
+    /// Test overloaded public method GetNewFieldID when the one should be used for specific records, the second one without any limitations
+    /// </summary>
+    procedure TestAccessingGetNewFieldIDOverloadedMethods()
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        TempInt: Integer;
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeAssignableFieldRanges();
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        TempInt := C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table);
+        Assert.IsTrue(TempInt = 200000, StrSubstNo(BadNewIDErr, 200000, TempInt));
+        TempInt := C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
+        Assert.IsTrue(TempInt = 200000, StrSubstNo(BadNewIDErr, 200000, TempInt));
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_03());
+        asserterror C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table);
+        Assert.ExpectedError('instance ID and the value must not be empty');
+        TempInt := C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
+        Assert.IsTrue(TempInt = 300000, StrSubstNo(BadNewIDErr, 300000, TempInt));
+    end;
+
+    [Test]
+    /// <summary> 
+    /// Test getting the ID for the first time for specific Assignable Range
+    /// </summary>
+    procedure TestGettingFieldIDForTheFirstTime()
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        TempInt: Integer;
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        C4BCObjectRangeTestLibrary.InitializeAssignableFieldRanges();
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        TempInt := C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table);
+        Assert.IsTrue(TempInt = 200000, StrSubstNo(BadNewIDErr, 200000, TempInt));
+        TempInt := C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table, 'IGNORED_BCINSTANCE');
+        Assert.IsTrue(TempInt = 200000, StrSubstNo(BadNewIDErr, 200000, TempInt));
+
+        //[THEN] then
+        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
+        asserterror C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table);
+        Assert.ExpectedError('must have a value');
     end;
 }
