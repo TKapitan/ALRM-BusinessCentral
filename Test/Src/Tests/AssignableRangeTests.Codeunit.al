@@ -102,18 +102,26 @@ codeunit 79000 "C4BC Assignable Range Tests"
         C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", false);
         C4BCAssignableRangeHeader.Modify(true);
 
-        // //[WHEN] when
+        //[WHEN] when
         C4BCObjectRangeTestLibrary.InitializeExtensions();
 
-        // //[THEN] then
+        //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         asserterror C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", true);
         Assert.ExpectedError('due to the existing extensions');
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
         C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", true);
-        C4BCAssignableRangeHeader.Modify(true);
+        C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", false);
+
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+
+        //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_03());
-        asserterror C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", false); // default value for this is true -> we want to change the value
+        asserterror C4BCAssignableRangeHeader.Validate("Ranges per BC Instance", false);
         Assert.ExpectedError('due to the existing extensions');
     end;
 

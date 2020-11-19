@@ -220,6 +220,12 @@ codeunit 79003 "C4BC Object Range Test Library"
         // Third Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
+        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_03());
+        C4BCExtensionHeader.Insert();
+
+        // Fourth Extension Header
+        Clear(C4BCExtensionHeader);
+        C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_04());
         C4BCExtensionHeader.Insert();
 
@@ -234,7 +240,7 @@ codeunit 79003 "C4BC Object Range Test Library"
         C4BCExtensionLine.Insert();
         Clear(C4BCExtensionLine);
 
-        // Fourth Extension Header
+        // Fifth Extension Header
         Clear(C4BCExtensionHeader);
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());

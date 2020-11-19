@@ -21,6 +21,17 @@ table 80001 "C4BC Assignable Range Header"
         {
             Caption = 'Ranges per BC Instance';
             DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            var
+                C4BCExtensionHeader: Record "C4BC Extension Header";
+
+                CanNotChangeDueToExistingRecErr: Label 'The field can not be changed due to the existing extensions linked to this assignable range.';
+            begin
+                C4BCExtensionHeader.SetRange("Assignable Range Code", Rec.Code);
+                if not C4BCExtensionHeader.IsEmpty() then
+                    Error(CanNotChangeDueToExistingRecErr);
+            end;
         }
         field(11; Default; Boolean)
         {
