@@ -148,7 +148,7 @@ table 80001 "C4BC Assignable Range Header"
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
     /// <param name="ForBusinessCentralInstance">Code[20], Code of .</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
-    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
+    procedure GetNewObjectID(ForObjectType: Enum "C4BC Object Type"; ForBusinessCentralInstance: Code[20]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
@@ -194,9 +194,9 @@ table 80001 "C4BC Assignable Range Header"
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
-    procedure GetNewID(ForObjectType: Enum "C4BC Object Type"): Integer
+    procedure GetNewObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
     begin
-        exit(GetNewID(ForObjectType, ''));
+        exit(GetNewObjectID(ForObjectType, ''));
     end;
 
     /// <summary> 
