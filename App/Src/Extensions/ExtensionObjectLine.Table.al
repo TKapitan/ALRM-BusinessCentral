@@ -21,15 +21,12 @@ table 80006 "C4BC Extension Object Line"
             DataClassification = SystemMetadata;
             Editable = false;
             BlankZero = true;
-
-            trigger OnValidate()
-            begin
-                ID := GetNewObjectLineID();
-            end;
+            TableRelation = "C4BC Extension Object"."Object ID" where("Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"));
         }
         field(5; ID; Integer)
         {
             Caption = 'ID';
+            Editable = false;
             DataClassification = CustomerContent;
         }
         field(100; "Assignable Range Code"; Code[20])
@@ -64,7 +61,7 @@ table 80006 "C4BC Extension Object Line"
 
     trigger OnInsert()
     begin
-
+        ID := GetNewObjectLineID();
     end;
 
     trigger OnModify()
@@ -82,6 +79,13 @@ table 80006 "C4BC Extension Object Line"
 
     end;
 
+    // procedure CreateNew()
+    // var
+    //     C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+    // begin
+    //     C4BCExtensionObjectLine.Init();
+    //     C4BCExtensionObjectLine.Insert(true);
+    // end;
 
     procedure GetNewObjectLineID(): Integer
     var
@@ -90,7 +94,7 @@ table 80006 "C4BC Extension Object Line"
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", Rec."Bus. Central Instance Filter"));
+        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", '')); //TODO For business instance
     end;
 
 }
