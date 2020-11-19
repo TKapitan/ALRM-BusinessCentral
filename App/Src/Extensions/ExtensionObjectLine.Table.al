@@ -21,6 +21,11 @@ table 80006 "C4BC Extension Object Line"
             DataClassification = SystemMetadata;
             Editable = false;
             BlankZero = true;
+
+            trigger OnValidate()
+            begin
+                ID := GetNewObjectLineID();
+            end;
         }
         field(5; ID; Integer)
         {
@@ -75,6 +80,17 @@ table 80006 "C4BC Extension Object Line"
     trigger OnRename()
     begin
 
+    end;
+
+
+    procedure GetNewObjectLineID(): Integer
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        Rec.CalcFields("Assignable Range Code");
+        Rec.TestField("Assignable Range Code");
+        C4BCAssignableRangeHeader.Get("Assignable Range Code");
+        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", Rec."Bus. Central Instance Filter"));
     end;
 
 }
