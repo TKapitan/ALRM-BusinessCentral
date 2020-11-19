@@ -119,6 +119,7 @@ table 80001 "C4BC Assignable Range Header"
 
     trigger OnDelete()
     var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
         C4BCExtensionHeader: Record "C4BC Extension Header";
 
         CannotDeleteLinkExistsErr: Label '%1 can not be deleted due to existing related records in %2.', Comment = '%1 - Caption of table in which the record can not be deleted, %2 - Caption of table where the link exists.';
@@ -126,6 +127,9 @@ table 80001 "C4BC Assignable Range Header"
         C4BCExtensionHeader.SetRange("Assignable Range Code", Rec."Code");
         if not C4BCExtensionHeader.IsEmpty() then
             Error(CannotDeleteLinkExistsErr, Rec.TableCaption(), C4BCExtensionHeader.TableCaption());
+
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+        C4BCAssignableRangeLine.DeleteAll();
     end;
 
     trigger OnRename()
