@@ -345,7 +345,7 @@ table 80001 "C4BC Assignable Range Header"
         end;
 
         if C4BCExtensionObjectLine.FindLast() then begin
-            NewFieldID := C4BCExtensionObjectLine."Object ID" + 1;
+            NewFieldID := C4BCExtensionObjectLine.ID + 1;
             if (Rec."Field Range From" <= NewFieldID) and (Rec."Default Object Range To" >= NewFieldID) then
                 exit(NewFieldID);
             Error(NoAvailableFieldIDsErr);
