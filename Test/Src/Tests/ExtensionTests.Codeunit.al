@@ -122,13 +122,14 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[THEN] then
         C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
+        C4BCExtensionLine.Modify();
 
         //[WHEN] when
         C4BCExtensionLine.Next(1);
 
         //[THEN] then
         asserterror C4BCExtensionLine.Validate("Object Name", 'C4BC My Object');
-        Assert.ExpectedError('with the same name');
+        Assert.ExpectedError('Object name with the same object type cannot be duplicit.');
     end;
 
     [Test]
