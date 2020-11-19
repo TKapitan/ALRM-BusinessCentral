@@ -206,6 +206,8 @@ codeunit 79000 "C4BC Assignable Range Tests"
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_05());
         C4BCAssignableRangeHeader.Validate("Object Name Template", 'C4BC *');
+        C4BCAssignableRangeHeader.Validate("Object Name Template", '');
+        C4BCAssignableRangeHeader.Validate("Object Name Template", 'C4BC *');
 
         //[THEN] then
         C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_06());
