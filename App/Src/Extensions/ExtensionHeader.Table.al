@@ -89,6 +89,10 @@ table 80000 "C4BC Extension Header"
     var
         DeleteHeaderInUsageErr: Label 'Extension header cannot be deleted because it is used by atleast one Business Central instance';
 
+    /// <summary> 
+    /// Deteletes all objects within the extension
+    /// </summary>
+    /// <param name="RunTrigger">Boolean "RunTrigger", True = Run delete trigger</param>
     local procedure DeleteObjects(RunTrigger: Boolean)
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
@@ -97,6 +101,10 @@ table 80000 "C4BC Extension Header"
         C4BCExtensionObject.DeleteAll(RunTrigger);
     end;
 
+    /// <summary> 
+    /// Return true if atleast one usage of the extension was found 
+    /// </summary>
+    /// <returns>Return variable "Boolean", true = extension is used, false = extension is not used.</returns>
     local procedure UsageExists(): Boolean
     var
         C4BCExtensionUsage: Record "C4BC Extension Usage";
@@ -106,6 +114,10 @@ table 80000 "C4BC Extension Header"
             exit(true);
     end;
 
+    /// <summary> 
+    /// Return true if atleast one object exist within the extension 
+    /// </summary>
+    /// <returns>Return variable "Boolean", true = objects exist, false = objects do not exist.</returns>
     local procedure ObjectsExist(): Boolean
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
