@@ -177,6 +177,11 @@ table 80003 "C4BC Extension Object"
         exit(C4BCAssignableRangeHeader.IsObjectNameAlreadyInUse(Rec."Object Type", Rec."Object Name", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
+    /// <summary> 
+    /// Check whether the name template rule is met or not
+    /// </summary>
+    /// <param name="TemplateRule">Text, used rule as a filter string.</param>
+    /// <returns>Return variable "Boolean".</returns>
     local procedure ObjectNameTemplateRulesMet(var TemplateRule: Text): Boolean
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";

@@ -25,7 +25,7 @@ table 80006 "C4BC Extension Object Line"
 
             trigger OnValidate()
             begin
-                ID := GetNewObjectLineID();
+                ID := GetNewFieldLineID();
             end;
         }
         field(5; ID; Integer)
@@ -63,14 +63,21 @@ table 80006 "C4BC Extension Object Line"
         }
     }
 
-    procedure GetNewObjectLineID(): Integer
+    /// <summary> 
+    /// Return new field ID for a field
+    /// </summary>
+    /// <returns>Return variable "Integer", new ID.</returns>
+    procedure GetNewFieldLineID(): Integer
     var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
+
+        C4BCExtensionHeader.Get(Rec."Extension Code");
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", '')); //TODO For business instance
+        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
 }
