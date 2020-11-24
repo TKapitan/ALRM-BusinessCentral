@@ -1,10 +1,10 @@
 {
   "id": "c3f20afb-35e2-4476-a163-072b5141f028",
-  "name": "TemplateApp-Base-Test",
-  "publisher": "default publisher",
+  "name": "AL ID Range Manager",
+  "publisher": "team ART AA AE",
   "version": "1.0.0.0",
-  "brief": "",
-  "description": "",
+  "brief": "Helps to manage AL objects IDs.",
+  "description": "Helps to manage AL objects IDs.",
   "privacyStatement": "",
   "EULA": "",
   "help": "",
@@ -52,8 +52,8 @@
   "platform": "17.0.0.0",
   "idRanges": [
     {
-      "from": 50100,
-      "to": 50199
+      "from": 50000,
+      "to": 79199
     }
   ],
   "contextSensitiveHelpUrl": "https://Base.com/help/",

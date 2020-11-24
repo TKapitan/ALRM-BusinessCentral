@@ -5,4 +5,4 @@ Base.g.xlf
 *.app
 *.g.xlf
 *alstudio*.json
-*/.alcache*
+**/.alcache/*
