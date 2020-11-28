@@ -1,21 +1,21 @@
 {
   "id": "c3f20afb-35e2-4476-a163-072b5141f028",
-  "name": "AL ID Range Manager",
-  "publisher": "team ART AA AE",
-  "version": "1.0.0.0",
-  "brief": "Helps to manage AL objects IDs.",
-  "description": "Helps to manage AL objects IDs.",
-  "privacyStatement": "",
-  "EULA": "",
-  "help": "",
-  "url": "",
-  "logo": "",
+  "name": "AL ID Range Manager - tests",
+  "publisher": "ART AA AE from Czechia + Kepty.cz",
+  "version": "0.0.2.1",
+  "brief": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
+  "description": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
+  "privacyStatement": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
+  "EULA": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
+  "help": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
+  "url": "https://github.com/TKapitan/ALRM-BusinessCentral",
+  "logo": "Resources/img/ALIDRangeManager.png",
   "dependencies": [
     {
       "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
-      "publisher": "default publisher",
-      "name": "TemplateApp-Base",
-      "version": "1.0.0.0"
+      "publisher": "ART AA AE from Czechia + Kepty.cz",
+      "name": "AL ID Range Manager",
+      "version": "0.0.2.1"
     },
     {
       "id": "dd0be2ea-f733-4d65-bb34-a28f4624fb14",
@@ -50,13 +50,14 @@
   ],
   "screenshots": [],
   "platform": "17.0.0.0",
+  "application": "17.0.0.0",
   "idRanges": [
     {
       "from": 50000,
       "to": 79199
     }
   ],
-  "contextSensitiveHelpUrl": "https://Base.com/help/",
+  "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
   "showMyCode": true,
   "runtime": "6.0",
   "features": [

@@ -1,17 +1,16 @@
 {
   "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
-  "name": "TemplateApp-Base",
-  "publisher": "default publisher",
-  "version": "1.0.0.0",
-  "brief": "",
-  "description": "",
-  "privacyStatement": "",
-  "EULA": "",
-  "help": "",
-  "url": "",
-  "logo": "",
-  "dependencies": [
-  ],
+  "name": "AL ID Range Manager",
+  "publisher": "ART AA AE from Czechia + Kepty.cz",
+  "version": "0.0.2.1",
+  "brief": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
+  "description": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
+  "privacyStatement": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
+  "EULA": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
+  "help": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
+  "url": "https://github.com/TKapitan/ALRM-BusinessCentral",
+  "logo": "Resources/img/ALIDRangeManager.png",
+  "dependencies": [],
   "screenshots": [],
   "platform": "17.0.0.0",
   "application": "17.0.0.0",
@@ -21,7 +20,7 @@
       "to": 80099
     }
   ],
-  "contextSensitiveHelpUrl": "https://Base.com/help/",
+  "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
   "showMyCode": true,
   "runtime": "6.0",
   "features": [
