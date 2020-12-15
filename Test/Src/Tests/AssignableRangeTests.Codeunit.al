@@ -358,4 +358,44 @@ codeunit 79000 "C4BC Assignable Range Tests"
         asserterror C4BCAssignableRangeHeader.GetNewFieldID("C4BC Object Type"::Table);
         Assert.ExpectedError('must have a value');
     end;
+
+    [Test]
+    procedure TestCreatingSpecialRangeForUsedObjectType()
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+    begin
+        //[GIVEN] given
+        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+
+        //[WHEN] when
+        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        Commit();
+
+        //[THEN] then
+        C4BCAssignableRangeLine.Init();
+        C4BCAssignableRangeLine.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCAssignableRangeLine.Validate("Object Type", C4BCAssignableRangeLine."Object Type"::Table);
+        C4BCAssignableRangeLine.Validate("Object Range From", 5);
+        C4BCAssignableRangeLine.Validate("Object Range To", 10);
+        asserterror C4BCAssignableRangeLine.Insert(true);
+        Assert.ExpectedError('header object range is in use hence it is not possible to define special range');
+
+        Clear(C4BCAssignableRangeLine);
+        C4BCAssignableRangeLine.Init();
+        C4BCAssignableRangeLine.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCAssignableRangeLine.Validate("Object Type", C4BCAssignableRangeLine."Object Type"::"Enum Extension");
+        C4BCAssignableRangeLine.Validate("Object Range From", 5);
+        C4BCAssignableRangeLine.Validate("Object Range To", 10);
+        C4BCAssignableRangeLine.Insert(true);
+
+        Clear(C4BCAssignableRangeLine);
+        C4BCAssignableRangeLine.Init();
+        C4BCAssignableRangeLine.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
+        C4BCAssignableRangeLine.Validate("Object Type", C4BCAssignableRangeLine."Object Type"::"Table Extension");
+        C4BCAssignableRangeLine.Validate("Object Range From", 15);
+        C4BCAssignableRangeLine.Validate("Object Range To", 20);
+        asserterror C4BCAssignableRangeLine.Insert(true);
+        Assert.ExpectedError('header object range is in use hence it is not possible to define special range');
+    end;
 }
