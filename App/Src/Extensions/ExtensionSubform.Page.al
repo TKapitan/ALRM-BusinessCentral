@@ -3,6 +3,7 @@ page 80004 "C4BC Extension Subform"
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Lists;
+    DelayedInsert = true;
     SourceTable = "C4BC Extension Object";
 
     layout
@@ -15,21 +16,19 @@ page 80004 "C4BC Extension Subform"
                 field("Object Type"; Rec."Object Type")
                 {
                     ApplicationArea = All;
+                    QuickEntry = true;
                     ToolTip = 'Object Type';
-
-                    trigger OnValidate()
-                    begin
-                        CurrPage.Update();
-                    end;
                 }
                 field("Object ID"; Rec."Object ID")
                 {
                     ApplicationArea = All;
+                    QuickEntry = false;
                     ToolTip = 'Object ID';
                 }
                 field("Object Name"; Rec."Object Name")
                 {
                     ApplicationArea = All;
+                    QuickEntry = true;
                     ToolTip = 'Object Name';
                 }
                 field("Created By"; Rec."Created By")

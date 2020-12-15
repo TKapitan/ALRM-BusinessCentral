@@ -87,8 +87,21 @@ table 80003 "C4BC Extension Object"
 
     trigger OnInsert()
     begin
+        Rec.TestField("Object Type");
+        if "Object ID" = 0 then
+            "Object ID" := GetNewObjectID();
+        Rec.TestField("Object ID");
+        Rec.TestField("Object Name");
+
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
+    end;
+
+    trigger OnModify()
+    begin
+        Rec.TestField("Object Type");
+        Rec.TestField("Object ID");
+        Rec.TestField("Object Name");
     end;
 
     trigger OnDelete()
