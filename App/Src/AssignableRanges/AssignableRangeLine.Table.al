@@ -55,12 +55,15 @@ table 80002 "C4BC Assignable Range Line"
 
     trigger OnInsert()
     begin
-        CheckLine()
+        CheckLine();
+        CheckIfHeaderRangesNotInUseForObjectType();
     end;
 
     trigger OnModify()
     begin
-        CheckLine()
+        CheckLine();
+        if xRec."Object Range To" <> Rec."Object Range To" then
+            ValidateChangeToRanges(Rec."Object Type", RangeType::"To", xRec."Object Range To", Rec."Object Range To");
     end;
 
     trigger OnRename()
@@ -68,6 +71,8 @@ table 80002 "C4BC Assignable Range Line"
         if xRec."Object Type" <> Rec."Object Type" then begin
             ValidateChangeToRanges(xRec."Object Type", RangeType::From, xRec."Object Range From", 0);
             ValidateChangeToRanges(xRec."Object Type", RangeType::"To", xRec."Object Range To", 0);
+
+            CheckIfHeaderRangesNotInUseForObjectType();
         end else
             if xRec."Object Range From" <> Rec."Object Range From" then
                 ValidateChangeToRanges(xRec."Object Type", RangeType::From, xRec."Object Range From", Rec."Object Range From");
@@ -92,6 +97,32 @@ table 80002 "C4BC Assignable Range Line"
         Rec.TestField("Object Range To");
         if Rec."Object Range From" > Rec."Object Range To" then
             Rec.FieldError("Object Range To");
+    end;
+
+    /// <summary>
+    /// Check whether the object range from the header is in use for specific object type. If so, return error that it is not possible to create special range for this range.
+    /// </summary>
+    local procedure CheckIfHeaderRangesNotInUseForObjectType()
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+
+        ForObjectTypeTheHeaderRangeIsInUseErr: Label 'For %1 the header object range is in use hence it is not possible to define special range.', Comment = '%1 - Object type that is checked';
+    begin
+        C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code");
+        if (C4BCAssignableRangeHeader."Default Object Range From" = 0) and (C4BCAssignableRangeHeader."Default Object Range To" = 0) then
+            exit;
+
+        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        C4BCAssignableRangeLine.SetRange("Object Type", Rec."Object Type");
+        if not C4BCAssignableRangeLine.IsEmpty() then
+            exit;
+
+        C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
+        if not C4BCExtensionObject.IsEmpty() then
+            Error(ForObjectTypeTheHeaderRangeIsInUseErr, Rec."Object Type");
     end;
 
     /// <summary> 
