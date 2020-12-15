@@ -6,9 +6,16 @@
 - Enhance UI (Navigation, Structure of cards)
 - Test "Range per BC Instance"
 - Add validation for changing existing extensions
-- Add validation for changing existing assignable ranges
+- Add validation for changing existing assignable ranges field ranges
 
 ## [Released Versions]
+
+### v0.0.2.2
+
+- Date of release 15/12/2020
+- Minor Changes, Refactoring of app and tests
+- Set object type, ID and Name mandatory in extension
+- Validate newly created assignable range line whether the newly defined object type ranges have not already use default object range from the header
 
 ### v0.0.2.1
 
