@@ -28,6 +28,8 @@ codeunit 79001 "C4BC Extension Usage Tests"
         C4BCExtensionObject.FindSet();
         C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
         C4BCExtensionObject.Modify(true);
+        Commit();
+
         C4BCExtensionObject.Next(1);
 
         //[THEN] then
@@ -51,6 +53,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
         C4BCObjectRangeTestLibrary.InitializeExtensions();
+        Commit();
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
@@ -94,6 +97,8 @@ codeunit 79001 "C4BC Extension Usage Tests"
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetExtensionUsage();
+        Commit();
+
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionHeader.FindFirst();
 

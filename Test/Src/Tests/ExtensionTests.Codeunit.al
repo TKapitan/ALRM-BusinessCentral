@@ -18,13 +18,13 @@ codeunit 79002 "C4BC Extension Tests"
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        Commit();
 
         //[THEN] then
         C4BCExtensionHeader.Init();
         C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         Clear(C4BCExtensionHeader);
 
-        //[THEN] then
         C4BCExtensionHeader.Init();
         asserterror C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
         Assert.ExpectedError('must have a value');
@@ -42,6 +42,7 @@ codeunit 79002 "C4BC Extension Tests"
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        Commit();
 
         //[THEN] then
         C4BCExtensionCard.OpenNew();
@@ -89,6 +90,7 @@ codeunit 79002 "C4BC Extension Tests"
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
         Commit();
+
         C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionObject.FindFirst();
 
@@ -120,6 +122,8 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[WHEN] when
         // No Template is set
+        Commit();
+
         C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionObject.FindFirst();
 
@@ -147,6 +151,8 @@ codeunit 79002 "C4BC Extension Tests"
 
         //[WHEN] when
         C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        Commit();
+
         C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
         C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
         C4BCExtensionObject.FindFirst();
@@ -201,6 +207,7 @@ codeunit 79002 "C4BC Extension Tests"
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
         C4BCObjectRangeTestLibrary.InitializeExtensions();
+        Commit();
 
         //[WHEN] when
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
@@ -225,6 +232,7 @@ codeunit 79002 "C4BC Extension Tests"
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
         C4BCObjectRangeTestLibrary.InitializeExtensions();
+        Commit();
 
         //[WHEN] when
         C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_06());
@@ -249,6 +257,7 @@ codeunit 79002 "C4BC Extension Tests"
     begin
         //[GIVEN] given
         C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        Commit();
 
         //[THEN] then
         C4BCExtensionHeader.Init();
