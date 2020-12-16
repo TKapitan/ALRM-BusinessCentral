@@ -16,7 +16,10 @@ table 80002 "C4BC Assignable Range Line"
             DataClassification = SystemMetadata;
 
             trigger OnValidate()
+            var
+                C4BCALRMManagement: Codeunit "C4BC ALRM Management";
             begin
+                C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", true);
                 ValidateChangeToRanges(xRec."Object Type", RangeType::From, xRec."Object Range From", 0);
                 ValidateChangeToRanges(xRec."Object Type", RangeType::"To", xRec."Object Range To", 0);
             end;

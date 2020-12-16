@@ -24,7 +24,7 @@ report 80000 "C4BC Create License File"
             var
                 C4BCExtensionObject: Record "C4BC Extension Object";
 
-                C4BCIObjectLicensing: Interface "C4BC IObject Licensing";
+                C4BCIObjectLicensing: Interface "C4BC IObject Type";
                 CurrObjectID: Integer;
             begin
                 C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");

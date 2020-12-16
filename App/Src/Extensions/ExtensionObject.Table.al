@@ -86,10 +86,15 @@ table 80003 "C4BC Extension Object"
     }
 
     trigger OnInsert()
+    var
+        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
     begin
         Rec.TestField("Object Type");
         if "Object ID" = 0 then
-            "Object ID" := GetNewObjectID();
+            if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+                "Object ID" := GetNewObjectID()
+            else
+                "Object ID" := GetNewImaginaryObjectID();
         Rec.TestField("Object ID");
         Rec.TestField("Object Name");
 
@@ -99,9 +104,13 @@ table 80003 "C4BC Extension Object"
 
     trigger OnModify()
     begin
+        Rec.TestField("Object Name");
+    end;
+
+    trigger OnRename()
+    begin
         Rec.TestField("Object Type");
         Rec.TestField("Object ID");
-        Rec.TestField("Object Name");
     end;
 
     trigger OnDelete()
@@ -125,14 +134,42 @@ table 80003 "C4BC Extension Object"
     procedure GetNewObjectID(): Integer
     var
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+
+        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
     begin
         if Rec."Object ID" <> 0 then
             exit(Rec."Object ID");
+
+        if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+            exit(GetNewImaginaryObjectID());
 
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
         exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type"));
+    end;
+
+    /// <summary>
+    /// Return a new imaginary object ID that is created just as a placeholder for object types that do not use IDs for identification. The ID is unique, but is managed internally.
+    /// </summary>
+    /// <returns>Return variable "Integer", imaginary ID of the object.</returns>
+    procedure GetNewImaginaryObjectID(): Integer
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+
+        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+    begin
+        if Rec."Object ID" <> 0 then
+            exit(Rec."Object ID");
+
+        if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+            exit(GetNewObjectID());
+
+        C4BCExtensionObject.SetRange("Extension Code", Rec."Extension Code");
+        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
+        if C4BCExtensionObject.FindLast() then
+            exit(C4BCExtensionObject."Object ID" + 1);
+        exit(1);
     end;
 
     /// <summary> 

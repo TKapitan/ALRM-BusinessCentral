@@ -18,11 +18,17 @@ page 80004 "C4BC Extension Subform"
                     ApplicationArea = All;
                     QuickEntry = true;
                     ToolTip = 'Object Type';
+
+                    trigger OnValidate()
+                    begin
+                        UpdateHideValueForObjectID();
+                    end;
                 }
                 field("Object ID"; Rec."Object ID")
                 {
                     ApplicationArea = All;
                     QuickEntry = false;
+                    HideValue = HideValueForObjectID;
                     ToolTip = 'Object ID';
                 }
                 field("Object Name"; Rec."Object Name")
@@ -63,11 +69,21 @@ page 80004 "C4BC Extension Subform"
     trigger OnAfterGetRecord()
     var
     begin
+        UpdateHideValueForObjectID();
         if Rec."Object Type" in [Rec."Object Type"::"Table Extension", Rec."Object Type"::"Enum Extension"] then
             ObjectFieldsActionEnabled := true;
     end;
 
     var
         ObjectFieldsActionEnabled: Boolean;
+        HideValueForObjectID: Boolean;
 
+    local procedure UpdateHideValueForObjectID()
+    var
+        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+    begin
+        HideValueForObjectID := false;
+        if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+            HideValueForObjectID := true;
+    end;
 }
