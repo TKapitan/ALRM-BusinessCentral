@@ -2,13 +2,18 @@
 
 ## [Unreleased]
 
-- Add Support for Interface objects
 - Enhance UI (Navigation, Structure of cards)
 - Test "Range per BC Instance"
 - Add validation for changing existing extensions
 - Add validation for changing existing assignable ranges field ranges
 
 ## [Released Versions]
+
+### v0.0.2.3
+
+- Date of release 03/01/2021
+- Minor Changes, Refactoring of app and tests
+- Add Support for Interface objects (or in general for any objects without IDs)
 
 ### v0.0.2.2
 

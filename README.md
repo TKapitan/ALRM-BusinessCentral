@@ -58,7 +58,6 @@ To use the extension in the combination with ALRM VS Code extension (<https://gi
 
 ## Known Issues
 
-- Interface object type is not currently supported
 - Setting "Range per BC Instance" is not properly tested
 - Field Ranges in Assignable Ranges are not tested on change whether the old IDs are not already in use
 
