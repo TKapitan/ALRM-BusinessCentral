@@ -6,8 +6,20 @@
 - Test "Range per BC Instance"
 - Add validation for changing existing extensions
 - Add validation for changing existing assignable ranges field ranges
+- Add option to set assignable ranges to "re-use" gaps in object & field IDs
+- Add support for extension synchronization using API
+  - Remove existing object line
+  - Register object line (table/enum extension field) with specific ID
+  - Remove object line (table/enum extension field) with specific ID 
 
 ## [Released Versions]
+
+### v0.1.0.0
+
+- Date of release 15/01/2021
+- New API function in Extensions to register already existing object (with specific object name and also ID).
+- Improving of validation error messages when new extension object is created (object name/ID duplicity, object name structure, ...) to help with identification of problem when created using API.
+- Code maintenance
 
 ### v0.0.2.3
 
