@@ -32,6 +32,15 @@ table 80003 "C4BC Extension Object"
             DataClassification = SystemMetadata;
             Editable = false;
             BlankZero = true;
+
+            trigger OnValidate()
+            begin
+                Rec.TestField("Object ID");
+                if CheckObjectIDDuplicity() then
+                    Error(DuplicitNameErr, Rec.FieldCaption("Object ID"));
+                if not IsObjectIDWithinRange() then
+                    Error(InvalidObjectIDErr, Rec."Object ID");
+            end;
         }
         field(5; "Object Name"; Text[100])
         {
@@ -44,7 +53,7 @@ table 80003 "C4BC Extension Object"
             begin
                 Rec.TestField("Object Name");
                 if CheckObjectNameDuplicity() then
-                    Error(DuplicitObjectNameErr);
+                    Error(DuplicitNameErr, Rec.FieldCaption("Object Name"));
                 if not ObjectNameTemplateRulesMet(TemplateRule) then
                     Error(ObjectNameTemplateRulesErr, TemplateRule);
             end;
@@ -124,7 +133,8 @@ table 80003 "C4BC Extension Object"
     end;
 
     var
-        DuplicitObjectNameErr: Label 'Object name with the same object type cannot be duplicit.';
+        InvalidObjectIDErr: Label 'ID %1 is not within the range specified for the extension.', Comment = '%1 - Used Object ID';
+        DuplicitNameErr: Label '%1 with the same object type cannot be duplicit.', Comment = '%1 - Field that can not be duplicate.';
         ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header. Template rules are: "%1"', Comment = '%1 = template rules';
 
     /// <summary> 
@@ -211,6 +221,34 @@ table 80003 "C4BC Extension Object"
             RangeType::"To":
                 SetRange("Object ID", NewRange + 1, OldRange);
         end;
+    end;
+
+    /// <summary>
+    /// Return a boolean value indicating whether the specified object ID already exists for currenct object type.
+    /// </summary>
+    /// <returns>Return variable "Boolean", true = duplicit</returns>
+    local procedure CheckObjectIDDuplicity(): Boolean
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
+        exit(C4BCAssignableRangeHeader.IsObjectIDAlreadyInUse(Rec."Object Type", Rec."Object ID", C4BCExtensionHeader.GetUsageOfExtension()));
+    end;
+
+    /// <summary>
+    /// Return a boolean value indicating whether the specified object ID is within allowed range for the object type and assignable range.
+    /// </summary>
+    /// <returns>Return variable "Boolean", true = the ID is within allowed ranges.</returns>
+    local procedure IsObjectIDWithinRange(): Boolean
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
+        exit(C4BCAssignableRangeHeader.IsObjectIDFromRange(Rec."Object Type", Rec."Object ID"));
     end;
 
     /// <summary>

@@ -400,6 +400,32 @@ table 80001 "C4BC Assignable Range Header"
     end;
 
     /// <summary> 
+    /// Check whether the object ID is already in use based on setting of this range
+    /// </summary>
+    /// <param name="C4BCObjectType">Enum "C4BC Object Type", The object type which we want to check</param>
+    /// <param name="ObjectID">Integer, ID of the object to check.</param>
+    /// <param name="ForBusinessCentralInstance">Code[20], Code of the business central instance on which the object is used.</param>/// 
+    /// <returns>Return variable "Boolean", whether the object is in use or not.</returns>
+    procedure IsObjectIDAlreadyInUse(C4BCObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ForBusinessCentralInstance: Code[20]): Boolean
+    var
+        C4BCExtensionObject: Record "C4BC Extension Object";
+    begin
+        C4BCExtensionObject.SetRange("Object Type", C4BCObjectType);
+        C4BCExtensionObject.SetRange("Object ID", ObjectID);
+        if Rec."Ranges per BC Instance" then begin
+            if ForBusinessCentralInstance = '' then
+                Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
+
+            C4BCExtensionObject.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
+            C4BCExtensionObject.SetRange("Bus. Central Instance Linked", true);
+        end;
+
+        if not C4BCExtensionObject.IsEmpty then
+            exit(true);
+        exit(false);
+    end;
+
+    /// <summary> 
     /// Check whether the object name is already in use based on setting of this range
     /// </summary>
     /// <param name="C4BCObjectType">Enum "C4BC Object Type", The object type which we want to check</param>
