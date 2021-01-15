@@ -80,6 +80,12 @@ page 80006 "C4BC Extension API"
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
+        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
+        C4BCExtensionObject.SetRange("Object Type", ObjectType);
+        C4BCExtensionObject.SetRange("Object Name", ObjectName);
+        if C4BCExtensionObject.FindFirst() then
+            exit(C4BCExtensionObject."Object ID");
+
         C4BCExtensionObject.Init();
         C4BCExtensionObject."Extension Code" := Rec.Code;
         C4BCExtensionObject.Validate("Object Type", ObjectType);
@@ -98,10 +104,17 @@ page 80006 "C4BC Extension API"
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateExistingObject(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
+    procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
+        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
+        C4BCExtensionObject.SetRange("Object Type", ObjectType);
+        C4BCExtensionObject.SetRange("Object ID", ObjectID);
+        C4BCExtensionObject.SetRange("Object Name", ObjectName);
+        if not C4BCExtensionObject.IsEmpty() then
+            exit;
+
         C4BCExtensionObject.Init();
         C4BCExtensionObject."Extension Code" := Rec.Code;
         C4BCExtensionObject.Validate("Object Type", ObjectType);
