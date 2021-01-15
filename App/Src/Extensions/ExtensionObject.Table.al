@@ -37,9 +37,9 @@ table 80003 "C4BC Extension Object"
             begin
                 Rec.TestField("Object ID");
                 if CheckObjectIDDuplicity() then
-                    Error(DuplicitNameErr, Rec.FieldCaption("Object ID"));
+                    Error(DuplicitNameErr, Rec.FieldCaption("Object ID"), Rec."Object ID", Rec."Object Type");
                 if not IsObjectIDWithinRange() then
-                    Error(InvalidObjectIDErr, Rec."Object ID");
+                    Error(InvalidObjectIDErr, Rec."Object ID", Rec."Object Type");
             end;
         }
         field(5; "Object Name"; Text[100])
@@ -53,9 +53,9 @@ table 80003 "C4BC Extension Object"
             begin
                 Rec.TestField("Object Name");
                 if CheckObjectNameDuplicity() then
-                    Error(DuplicitNameErr, Rec.FieldCaption("Object Name"));
+                    Error(DuplicitNameErr, Rec.FieldCaption("Object Name"), Rec."Object Name", Rec."Object Type");
                 if not ObjectNameTemplateRulesMet(TemplateRule) then
-                    Error(ObjectNameTemplateRulesErr, TemplateRule);
+                    Error(ObjectNameTemplateRulesErr, Rec."Object Name", TemplateRule);
             end;
         }
         field(6; "Created By"; Text[50])
@@ -133,9 +133,9 @@ table 80003 "C4BC Extension Object"
     end;
 
     var
-        InvalidObjectIDErr: Label 'ID %1 is not within the range specified for the extension.', Comment = '%1 - Used Object ID';
-        DuplicitNameErr: Label '%1 with the same object type cannot be duplicit.', Comment = '%1 - Field that can not be duplicate.';
-        ObjectNameTemplateRulesErr: Label 'Object name does not meet template rules defined in assignable range header. Template rules are: "%1"', Comment = '%1 = template rules';
+        InvalidObjectIDErr: Label 'ID %1 is not within the range specified for object type %2 in this extension.', Comment = '%1 - Used Object ID, %2 - Used Object Type';
+        DuplicitNameErr: Label '%1 "%2" for %3 is already in use.', Comment = '%1 - Field that has already used value, %2 - Value of that field, %3 - Object type that use this name.';
+        ObjectNameTemplateRulesErr: Label 'Object name "%1" does not meet template rules defined in assignable range header. Template rules are: "%2"', Comment = '%1 - Name of object that does not meet rules, %2 - template rules';
 
     /// <summary> 
     /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
