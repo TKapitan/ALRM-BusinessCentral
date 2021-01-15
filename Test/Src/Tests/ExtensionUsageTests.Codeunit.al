@@ -35,7 +35,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
         //[THEN] then
         repeat
             asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-            Assert.ExpectedError('Object name with the same object type cannot be duplicit.');
+            Assert.ExpectedError('is already in use.');
         until C4BCExtensionObject.Next() < 1;
     end;
 
