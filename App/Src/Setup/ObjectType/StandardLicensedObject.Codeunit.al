@@ -1,3 +1,6 @@
+/// <summary>
+/// Codeunit C4BC Standard Licensed Object (ID 80000) implements Interface C4BC IObject Type.
+/// </summary>
 codeunit 80000 "C4BC Standard Licensed Object" implements "C4BC IObject Type"
 {
     /// <summary> 

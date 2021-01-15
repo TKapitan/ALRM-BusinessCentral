@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Assignable Range Card (ID 80002).
+/// </summary>
 page 80002 "C4BC Assignable Range Card"
 {
     Caption = 'Assignable Range';

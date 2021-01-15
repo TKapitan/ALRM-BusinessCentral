@@ -1,3 +1,6 @@
+/// <summary>
+/// Report C4BC Create License File (ID 80000).
+/// </summary>
 report 80000 "C4BC Create License File"
 {
     Caption = 'Create License File';

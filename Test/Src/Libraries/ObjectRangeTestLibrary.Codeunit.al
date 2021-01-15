@@ -1,3 +1,6 @@
+/// <summary>
+/// Codeunit C4BC Object Range Test Library (ID 79003).
+/// </summary>
 codeunit 79003 "C4BC Object Range Test Library"
 {
     /// <summary> 

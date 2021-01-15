@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Extension Header (ID 80000).
+/// </summary>
 table 80000 "C4BC Extension Header"
 {
     Caption = 'Extension Header';

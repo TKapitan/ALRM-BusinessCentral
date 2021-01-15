@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Assignable Range Line (ID 80002).
+/// </summary>
 table 80002 "C4BC Assignable Range Line"
 {
     Caption = 'Assignable Range Header';

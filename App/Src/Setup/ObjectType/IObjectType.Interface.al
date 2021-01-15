@@ -1,3 +1,6 @@
+/// <summary>
+/// Interface "C4BC IObject Type."
+/// </summary>
 interface "C4BC IObject Type"
 {
     /// <summary> 

@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Extension Object Line (ID 80006).
+/// </summary>
 table 80006 "C4BC Extension Object Line"
 {
     Caption = 'Extension Object Lines';

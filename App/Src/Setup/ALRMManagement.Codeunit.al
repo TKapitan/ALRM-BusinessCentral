@@ -1,3 +1,6 @@
+/// <summary>
+/// Codeunit C4BC ALRM Management (ID 80003).
+/// </summary>
 codeunit 80003 "C4BC ALRM Management"
 {
     SingleInstance = true;

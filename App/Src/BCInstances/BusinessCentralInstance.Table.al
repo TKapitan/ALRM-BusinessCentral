@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Business Central Instance (ID 80005).
+/// </summary>
 table 80005 "C4BC Business Central Instance"
 {
     Caption = 'Business Central Instance';

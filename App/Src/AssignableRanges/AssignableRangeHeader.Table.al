@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Assignable Range Header (ID 80001).
+/// </summary>
 table 80001 "C4BC Assignable Range Header"
 {
     Caption = 'Assignable Range Header';
