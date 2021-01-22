@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Extension Object L. API (ID 80012).
+/// </summary>
 page 80012 "C4BC Extension Object L. API"
 {
     PageType = API;

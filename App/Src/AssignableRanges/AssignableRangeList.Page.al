@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Assignable Range List (ID 80001).
+/// </summary>
 page 80001 "C4BC Assignable Range List"
 {
     Caption = 'Assignable Ranges';

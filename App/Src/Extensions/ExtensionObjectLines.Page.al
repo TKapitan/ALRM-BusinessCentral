@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Extension Object Lines (ID 80010).
+/// </summary>
 page 80010 "C4BC Extension Object Lines"
 {
     PageType = List;

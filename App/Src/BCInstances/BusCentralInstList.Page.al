@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Bus. Central Inst. List (ID 80007).
+/// </summary>
 page 80007 "C4BC Bus. Central Inst. List"
 {
     Caption = 'Business Central Instances';
