@@ -178,6 +178,7 @@ table 80003 "C4BC Extension Object"
         if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             exit(GetNewObjectID());
 
+        C4BCExtensionObject.LockTable(true);
         C4BCExtensionObject.SetRange("Extension Code", Rec."Extension Code");
         C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
         if C4BCExtensionObject.FindLast() then
