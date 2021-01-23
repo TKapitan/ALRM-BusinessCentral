@@ -139,9 +139,9 @@ page 80006 "C4BC Extension API"
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
         C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine."Extension Code" := Rec."Code";
-        C4BCExtensionObjectLine."Object Type" := ObjectType;
-        C4BCExtensionObjectLine."Object ID" := ObjectID;
+        C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
+        C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
+        C4BCExtensionObjectLine.Validate("Object ID", ObjectID);
         C4BCExtensionObjectLine.Insert(true);
         exit(C4BCExtensionObjectLine.ID);
     end;
