@@ -128,8 +128,9 @@ page 80006 "C4BC Extension API"
     end;
 
     [ServiceEnabled]
+    [Obsolete('Replaced by CreateObjectFieldOrValue(), will be removed 2021/04.')]
     /// <summary> 
-    /// Create new object line with specified name.
+    /// Create new object line (object field for tableextensions or object value for enumextensions).
     /// </summary>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specifies Object ID</param>
@@ -138,11 +139,55 @@ page 80006 "C4BC Extension API"
     var
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
+        exit(CreateObjectFieldOrValue(ObjectType, ObjectID, ''));
+    end;
+
+    [ServiceEnabled]
+    /// <summary>
+    /// Create new object field for tableextensions or object value for enumextensions.
+    /// </summary>
+    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectID">Integer, Specifies Object ID</param>
+    /// <param name="CreatedBy">Text[50], Specifies user who requested new ID.</param>
+    /// <returns>Return variable "Integer", ID of the object line.</returns>
+    procedure CreateObjectFieldOrValue(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; CreatedBy: Text[50]): Integer
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+    begin
         C4BCExtensionObjectLine.Init();
         C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
         C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
         C4BCExtensionObjectLine.Validate("Object ID", ObjectID);
+        C4BCExtensionObjectLine.Validate("Created By", CreatedBy);
         C4BCExtensionObjectLine.Insert(true);
         exit(C4BCExtensionObjectLine.ID);
+    end;
+
+    [ServiceEnabled]
+    /// <summary>
+    /// Create new object field for tableextensions or object value for enumextensions with existing ID.
+    /// </summary>
+    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectID">Integer, Specifies Object ID</param>
+    /// <param name="FieldOrValueID">Integer, Specifies object field or value ID</param>
+    /// <param name="CreatedBy">Text[50], Specifies user who requested new ID.</param>
+    procedure CreateObjectFieldOrValueWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; FieldOrValueID: Integer; CreatedBy: Text[50])
+    var
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+    begin
+        C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
+        C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
+        C4BCExtensionObjectLine.SetRange("Object ID", ObjectID);
+        C4BCExtensionObjectLine.SetRange(ID, FieldOrValueID);
+        if not C4BCExtensionObjectLine.IsEmpty() then
+            exit;
+
+        C4BCExtensionObjectLine.Init();
+        C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
+        C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
+        C4BCExtensionObjectLine.Validate("Object ID", ObjectID);
+        C4BCExtensionObjectLine.Validate(ID, FieldOrValueID);
+        C4BCExtensionObjectLine.Validate("Created By", CreatedBy);
+        C4BCExtensionObjectLine.Insert(true);
     end;
 }
