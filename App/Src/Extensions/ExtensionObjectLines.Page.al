@@ -20,6 +20,11 @@ page 80010 "C4BC Extension Object Lines"
                     ApplicationArea = All;
                     ToolTip = 'ID of the field or the enum value';
                 }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies user who created this record (who requested new object line ID).';
+                }
             }
         }
     }

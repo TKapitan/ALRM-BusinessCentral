@@ -98,15 +98,10 @@ table 80003 "C4BC Extension Object"
     }
 
     trigger OnInsert()
-    var
-        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
     begin
         Rec.TestField("Object Type");
         if "Object ID" = 0 then
-            if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
-                "Object ID" := GetNewObjectID()
-            else
-                "Object ID" := GetNewImaginaryObjectID();
+            "Object ID" := GetNewObjectID();
         Rec.TestField("Object ID");
         Rec.TestField("Object Name");
 
@@ -178,7 +173,7 @@ table 80003 "C4BC Extension Object"
         if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             exit(GetNewObjectID());
 
-        C4BCExtensionObject.LockTable(true);
+        C4BCExtensionObject.LockTable();
         C4BCExtensionObject.SetRange("Extension Code", Rec."Extension Code");
         C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
         if C4BCExtensionObject.FindLast() then

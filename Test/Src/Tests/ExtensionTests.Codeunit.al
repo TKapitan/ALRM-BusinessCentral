@@ -354,23 +354,23 @@ codeunit 79002 "C4BC Extension Tests"
         C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
         C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
+        C4BCExtensionObjectLine.Insert(true);
         Assert.IsTrue(C4BCExtensionObjectLine.ID = 200000, StrSubstNo(BadNewIDErr, 200000, C4BCExtensionObjectLine.ID));
-        C4BCExtensionObjectLine.Insert(true);
         Clear(C4BCExtensionObjectLine);
 
         C4BCExtensionObjectLine.Init();
         C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
         C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
+        C4BCExtensionObjectLine.Insert(true);
         Assert.IsTrue(C4BCExtensionObjectLine.ID = 200001, StrSubstNo(BadNewIDErr, 200001, C4BCExtensionObjectLine.ID));
-        C4BCExtensionObjectLine.Insert(true);
         Clear(C4BCExtensionObjectLine);
 
         C4BCExtensionObjectLine.Init();
         C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
         C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
         C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
-        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200002, StrSubstNo(BadNewIDErr, 200002, C4BCExtensionObjectLine.ID));
         C4BCExtensionObjectLine.Insert(true);
+        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200002, StrSubstNo(BadNewIDErr, 200002, C4BCExtensionObjectLine.ID));
     end;
 }

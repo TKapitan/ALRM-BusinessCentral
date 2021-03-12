@@ -25,17 +25,18 @@ table 80006 "C4BC Extension Object Line"
             Editable = false;
             BlankZero = true;
             TableRelation = "C4BC Extension Object"."Object ID" where("Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"));
-
-            trigger OnValidate()
-            begin
-                ID := GetNewFieldLineID();
-            end;
         }
         field(5; ID; Integer)
         {
             Caption = 'ID';
             Editable = false;
             DataClassification = CustomerContent;
+        }
+        field(6; "Created By"; Text[50])
+        {
+            Caption = 'Created By';
+            DataClassification = SystemMetadata;
+            Editable = false;
         }
         field(100; "Assignable Range Code"; Code[20])
         {
@@ -65,6 +66,15 @@ table 80006 "C4BC Extension Object Line"
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        if ID = 0 then
+            ID := GetNewFieldLineID();
+
+        if GuiAllowed then
+            "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
+    end;
 
     /// <summary> 
     /// Return new field ID for a field
