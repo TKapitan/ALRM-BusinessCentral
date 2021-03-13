@@ -357,7 +357,8 @@ table 80001 "C4BC Assignable Range Header"
         if Rec."Ranges per BC Instance" and (ForBusinessCentralInstance = '') then
             Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
 
-        C4BCExtensionObjectLine.SetCurrentKey("Object Type", "Object ID");
+        C4BCExtensionObjectLine.SetCurrentKey("Object Type", "ID");
+        C4BCExtensionObjectLine.SetAscending("ID", true);
         C4BCExtensionObjectLine.SetRange("Object Type", ForObjectType);
         C4BCExtensionObjectLine.SetRange("Assignable Range Code", Rec."Code");
         if Rec."Ranges per BC Instance" then begin

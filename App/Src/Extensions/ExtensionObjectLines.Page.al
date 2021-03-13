@@ -20,6 +20,11 @@ page 80010 "C4BC Extension Object Lines"
                     ApplicationArea = All;
                     ToolTip = 'ID of the field or the enum value';
                 }
+                field(Name; Rec.Name)
+                {
+                    ToolTip = 'Specifies name of the field. The evidence of field names is optional.';
+                    ApplicationArea = All;
+                }
                 field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = All;

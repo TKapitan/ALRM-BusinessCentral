@@ -29,10 +29,14 @@ table 80006 "C4BC Extension Object Line"
         field(5; ID; Integer)
         {
             Caption = 'ID';
-            Editable = false;
             DataClassification = CustomerContent;
         }
-        field(6; "Created By"; Text[50])
+        field(6; Name; Text[30])
+        {
+            Caption = 'Name';
+            DataClassification = CustomerContent;
+        }
+        field(7; "Created By"; Text[50])
         {
             Caption = 'Created By';
             DataClassification = SystemMetadata;
@@ -65,6 +69,7 @@ table 80006 "C4BC Extension Object Line"
         {
             Clustered = true;
         }
+        key(Fields; "Object Type", "ID") { }
     }
 
     trigger OnInsert()
