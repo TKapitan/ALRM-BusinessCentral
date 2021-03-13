@@ -127,6 +127,7 @@ table 80002 "C4BC Assignable Range Line"
 
         C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
         C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
+        C4BCExtensionObject.SetFilter("Object ID", '<%1|>%2', Rec."Object Range From", Rec."Object Range To");
         if not C4BCExtensionObject.IsEmpty() then
             Error(ForObjectTypeTheHeaderRangeIsInUseErr, Rec."Object Type");
     end;
