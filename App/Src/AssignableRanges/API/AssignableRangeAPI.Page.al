@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Assignable Range API (ID 80009).
+/// </summary>
 page 80009 "C4BC Assignable Range API"
 {
     PageType = API;
