@@ -52,6 +52,11 @@ page 80002 "C4BC Assignable Range Card"
                         ToolTip = 'Specifies ID of the object that is the last assignable ID for all object types that has no detailed specification in the lines.';
                         ApplicationArea = All;
                     }
+                    field("Fill Object ID Gaps"; Rec."Fill Object ID Gaps")
+                    {
+                        ToolTip = 'Specifies whether system should fill gaps in ID ranges when assigning new object ID. This can lead to slower performance of assigning process.';
+                        ApplicationArea = All;
+                    }
                 }
                 group("Field Ranges")
                 {

@@ -27,6 +27,11 @@ page 80001 "C4BC Assignable Range List"
                     ToolTip = 'Specifies description of the assignable range.';
                     ApplicationArea = All;
                 }
+                field("Fill Object ID Gaps"; Rec."Fill Object ID Gaps")
+                {
+                    ToolTip = 'Specifies whether system should fill gaps in ID ranges when assigning new object ID. This can lead to slower performance of assigning process.';
+                    ApplicationArea = All;
+                }
                 field(Default; Rec.Default)
                 {
                     ToolTip = 'Specifies whether this range should be used when no assignable range is specified in API request to create a new extension.';

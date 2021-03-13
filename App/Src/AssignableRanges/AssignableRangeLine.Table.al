@@ -49,6 +49,11 @@ table 80002 "C4BC Assignable Range Line"
                 ValidateChangeToRanges(Rec."Object Type", RangeType::"To", xRec."Object Range To", Rec."Object Range To");
             end;
         }
+        field(12; "Fill Object ID Gaps"; Boolean)
+        {
+            Caption = 'Fill Object ID Gaps';
+            DataClassification = SystemMetadata;
+        }
     }
 
     keys

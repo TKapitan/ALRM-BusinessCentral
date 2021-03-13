@@ -29,6 +29,11 @@ page 80003 "C4BC Assignable Range Subform"
                     ToolTip = 'Specifies ID of the object that is the last assignable ID for selected object type.';
                     ApplicationArea = All;
                 }
+                field("Fill Object ID Gaps"; Rec."Fill Object ID Gaps")
+                {
+                    ToolTip = 'Specifies whether system should fill gaps in ID ranges when assigning new object ID. This can lead to slower performance of assigning process.';
+                    ApplicationArea = All;
+                }
             }
         }
     }

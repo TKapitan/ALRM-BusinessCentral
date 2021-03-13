@@ -55,6 +55,19 @@ table 80001 "C4BC Assignable Range Header"
                 end;
             end;
         }
+        field(12; "Fill Object ID Gaps"; Boolean)
+        {
+            Caption = 'Fill Object ID Gaps';
+            DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            var
+                AssignableRangeLine: Record "C4BC Assignable Range Line";
+            begin
+                AssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+                AssignableRangeLine.ModifyAll("Fill Object ID Gaps", Rec."Fill Object ID Gaps");
+            end;
+        }
         field(15; "Default Object Range From"; Integer)
         {
             Caption = 'Default Object Range From';
@@ -70,7 +83,7 @@ table 80001 "C4BC Assignable Range Header"
         {
             Caption = 'Default Object Range To';
             MinValue = 0;
-            DataClassification = ToBeClassified;
+            DataClassification = SystemMetadata;
 
             trigger OnValidate()
             begin
@@ -181,7 +194,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCExtensionObject: Record "C4BC Extension Object";
         C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
 
-        LastUsedObjectID, VeryFirstObjectID : Integer;
+        LastUsedObjectID, NewObjectID, VeryFirstObjectID : Integer;
     begin
         if Rec."Ranges per BC Instance" and (ForBusinessCentralInstance = '') then
             Error(MissingParameterErr, Rec.FieldCaption("Ranges per BC Instance"));
@@ -197,17 +210,23 @@ table 80001 "C4BC Assignable Range Header"
         end;
 
         if C4BCExtensionObject.FindLast() then begin
-            LastUsedObjectID := C4BCExtensionObject."Object ID";
-            if IsObjectIDFromRange(ForObjectType, LastUsedObjectID + 1) then
-                exit(LastUsedObjectID + 1);
-        end;
+            // Try to find gap in already assigned ranges
+            if FindGapInAssignableRange(C4BCExtensionObject, ForObjectType, NewObjectID) then
+                exit(NewObjectID);
 
-        if LastUsedObjectID = 0 then begin
+            // Get next ID after the last used one (if the ID is within allowed ranges)
+            LastUsedObjectID := C4BCExtensionObject."Object ID";
+            NewObjectID := LastUsedObjectID + 1;
+            if IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                exit(NewObjectID);
+        end else begin
+            // No ID in use yet, find the first one
             VeryFirstObjectID := GetVeryFirstObjectID(ForObjectType);
             if VeryFirstObjectID <> 0 then
                 exit(VeryFirstObjectID);
         end;
 
+        // Some IDs already in use but the first range is depleted, try to find another defined range
         C4BCAssignablerangeLine.SetRange("Assignable Range Code", Rec."Code");
         C4BCAssignablerangeLine.SetRange("Object Type", ForObjectType);
         C4BCAssignablerangeLine.SetFilter("Object Range To", '>%1', LastUsedObjectID);
@@ -451,6 +470,57 @@ table 80001 "C4BC Assignable Range Header"
 
         if not C4BCExtensionObject.IsEmpty then
             exit(true);
+        exit(false);
+    end;
+
+    local procedure FindGapInAssignableRange(var C4BCExtensionObject: Record "C4BC Extension Object"; ForObjectType: Enum "C4BC Object Type"; var NewObjectID: Integer): Boolean
+    var
+        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
+        TempC4BCAssignableRangeLine: Record "C4BC Assignable Range Line" temporary;
+
+        IDDiff, PrevID : Integer;
+    begin
+        TempC4BCAssignableRangeLine.DeleteAll();
+        if ShouldUseDefaultRanges(ForObjectType) then begin
+            if not Rec."Fill Object ID Gaps" then
+                exit(false);
+
+            TempC4BCAssignableRangeLine."Object Range From" := Rec."Default Object Range From";
+            TempC4BCAssignableRangeLine."Object Range To" := Rec."Default Object Range To";
+            TempC4BCAssignableRangeLine.Insert();
+        end else begin
+            C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec.Code);
+            C4BCAssignableRangeLine.SetRange("Object Type", ForObjectType);
+            C4BCAssignableRangeLine.SetRange("Fill Object ID Gaps", true);
+            if C4BCAssignableRangeLine.FindSet() then
+                repeat
+                    TempC4BCAssignableRangeLine."Object Range From" := C4BCAssignableRangeLine."Object Range From";
+                    TempC4BCAssignableRangeLine."Object Range To" := C4BCAssignableRangeLine."Object Range To";
+                    TempC4BCAssignableRangeLine.Insert();
+                until C4BCAssignableRangeLine.Next() < 1;
+        end;
+
+        if TempC4BCAssignableRangeLine.FindSet() then
+            repeat
+                PrevID := 0;
+                IDDiff := TempC4BCAssignableRangeLine."Object Range To" - TempC4BCAssignableRangeLine."Object Range From" + 1;
+                if IDDiff > C4BCExtensionObject.Count() then
+                    if C4BCExtensionObject.FindSet() then
+                        repeat
+                            if PrevID = 0 then begin
+                                NewObjectID := TempC4BCAssignableRangeLine."Object Range From";
+                                if C4BCExtensionObject."Object ID" <> NewObjectID then
+                                    if IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                                        exit(true);
+                            end else begin
+                                NewObjectID := PrevID + 1;
+                                if (NewObjectID < C4BCExtensionObject."Object ID") and IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                                    exit(true);
+                            end;
+                            PrevID := C4BCExtensionObject."Object ID";
+                        until C4BCExtensionObject.Next() < 1;
+            until TempC4BCAssignableRangeLine.Next() < 1;
+        Clear(NewObjectID);
         exit(false);
     end;
 }
