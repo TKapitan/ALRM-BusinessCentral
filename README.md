@@ -12,6 +12,7 @@ The core of the extension are "Assignable Ranges" that manage all available rang
 
 The assignable range has two primary parts - header and lines. In the header, you can also define
 
+- "Fill Object ID Gaps": If set to true, the system tries to find gaps in assigned objects. If there is a gap in corresponsing ID range, system use the ID for newly created object. It is possible to set it on the header and lines, the header is for default ranges and the setting in lines is only for the range specified in the line. The process may have impact on performance of assigning new objects (however, should still be ok).
 - "Default Object Range From" / "To": This range is used to assign IDs to all types of objects except those defined specifically in lines (with their own range).
 - "Default Field Range From" / "To": This range is used to assign IDs to all fields created in EnumExtensions and TableExtensions.
 - "Ranges per BC Instance": This value specifies, whether the object ID is used only once (when this field is set to false) even if two extensions are used for different BC instances. If this field is set to true, IDs are assigning uniquelly only by checking extensions installed to the same BC instance. This value is especially useful for standard Customer range (50000 - 99999) when you can set it only once and then reuse objects for each customer extension (and for each customer start assigning always from the initial ID).
@@ -60,6 +61,8 @@ To use the extension in the combination with ALRM VS Code extension (<https://gi
 
 - Setting "Range per BC Instance" is not properly tested
 - Field Ranges in Assignable Ranges are not tested on change whether the old IDs are not already in use
+
+For list of minor issues and upcoming changes see <https://github.com/TKapitan/ALRM-BusinessCentral/blob/master/CHANGELOG.md#unreleased>
 
 ## Release Notes
 
