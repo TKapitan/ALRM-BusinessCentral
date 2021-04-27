@@ -88,4 +88,9 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
         Caption = 'Interface';
         Implementation = "C4BC IObject Type" = "C4BC Object Without ID";
     }
+    value(95; "ControlAddin")
+    {
+        Caption = 'Control Addin';
+        Implementation = "C4BC IObject Type" = "C4BC Object Without ID";
+    }
 }
