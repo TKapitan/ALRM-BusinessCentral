@@ -137,12 +137,20 @@ table 80000 "C4BC Extension Header"
     procedure GetUsageOfExtension(): Code[20]
     var
         C4BCExtensionUsage: Record "C4BC Extension Usage";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
         C4BCExtensionUsage.SetRange("Extension Code", Rec.Code);
         C4BCExtensionUsage.SetFilter("Starting Date", '<=%1', WorkDate());
         C4BCExtensionUsage.SetFilter("Ending Date", '>=%1|%2', WorkDate(), 0D);
-        if C4BCExtensionUsage.FindFirst() then
+
+        Rec.TestField("Assignable Range Code");
+        C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code");
+        if C4BCAssignableRangeHeader."Ranges per BC Instance" then begin
+            C4BCExtensionUsage.FindFirst();
             exit(C4BCExtensionUsage."Business Central Instance Code");
+        end else
+            if C4BCExtensionUsage.FindFirst() then
+                exit(C4BCExtensionUsage."Business Central Instance Code");
         exit('');
     end;
 }

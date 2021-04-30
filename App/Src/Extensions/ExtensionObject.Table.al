@@ -141,6 +141,7 @@ table 80003 "C4BC Extension Object"
     /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure GetNewObjectID(): Integer
     var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
 
         C4BCALRMManagement: Codeunit "C4BC ALRM Management";
@@ -151,10 +152,11 @@ table 80003 "C4BC Extension Object"
         if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             exit(GetNewImaginaryObjectID());
 
+        C4BCExtensionHeader.Get(Rec."Extension Code");
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
         C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type"));
+        exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary>

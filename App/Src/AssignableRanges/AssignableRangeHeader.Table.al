@@ -239,6 +239,7 @@ table 80001 "C4BC Assignable Range Header"
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the ID</param>
     /// <returns>Return variable "Integer" - specifies ID which is the next in row and is still unused.</returns>
+    [Obsolete('Replaced by GetNewObjectID(Enum "C4BC Object Type"; Code[20])', '2021-04')]
     procedure GetNewObjectID(ForObjectType: Enum "C4BC Object Type"): Integer
     begin
         exit(GetNewObjectID(ForObjectType, ''));
@@ -383,6 +384,7 @@ table 80001 "C4BC Assignable Range Header"
     /// </summary>
     /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want the field ID</param>
     /// <returns>Return variable "Integer" - specifies field ID which is the next in row and is still unused.</returns>
+    [Obsolete('Replaced by GetNewFieldID(Enum "C4BC Object Type"; Code[20])', '2021-04')]/// 
     procedure GetNewFieldID(ForObjectType: Enum "C4BC Object Type"): Integer
     begin
         exit(GetNewFieldID(ForObjectType, ''));
