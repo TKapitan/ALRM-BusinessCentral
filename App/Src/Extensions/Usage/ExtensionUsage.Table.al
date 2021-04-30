@@ -1,3 +1,6 @@
+/// <summary>
+/// Table C4BC Extension Usage (ID 80004).
+/// </summary>
 table 80004 "C4BC Extension Usage"
 {
     Caption = 'Extension Usage';

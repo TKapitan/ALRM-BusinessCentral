@@ -1,3 +1,6 @@
+/// <summary>
+/// Page C4BC Extension Usage List (ID 80008).
+/// </summary>
 page 80008 "C4BC Extension Usage List"
 {
     Caption = 'Extension Usage List';
