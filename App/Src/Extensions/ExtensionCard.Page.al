@@ -5,8 +5,7 @@ page 80005 "C4BC Extension Card"
 {
     Caption = 'Extension Card';
     PageType = Card;
-    ApplicationArea = All;
-    UsageCategory = Documents;
+    UsageCategory = None;
     SourceTable = "C4BC Extension Header";
 
 

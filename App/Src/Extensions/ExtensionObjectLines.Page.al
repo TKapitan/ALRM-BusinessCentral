@@ -4,8 +4,7 @@
 page 80010 "C4BC Extension Object Lines"
 {
     PageType = List;
-    ApplicationArea = All;
-    UsageCategory = Lists;
+    UsageCategory = None;
     SourceTable = "C4BC Extension Object Line";
     Caption = 'Extension Object Lines';
 

@@ -4,8 +4,7 @@
 page 80004 "C4BC Extension Subform"
 {
     PageType = ListPart;
-    ApplicationArea = All;
-    UsageCategory = Lists;
+    UsageCategory = None;
     DelayedInsert = true;
     SourceTable = "C4BC Extension Object";
 
