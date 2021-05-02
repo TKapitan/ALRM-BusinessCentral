@@ -3,15 +3,25 @@
 ## [Unreleased]
 
 - Enhance UI (Navigation, Structure of cards)
-- Test "Range per BC Instance"
 - Option "Default" in Assignable Range Header has no functionality
 - Add validation for changing existing extensions
 - Add validation for changing existing assignable ranges field ranges
 - Add support for extension synchronization using API
   - Remove existing object line
   - Remove object line (table/enum extension field) with specific ID
+- Default field range in Assignable Headers are not validated on change
 
 ## [Released Versions]
+
+### v0.1.2.0
+
+- Date of release 02/05/2021
+
+Changes
+
+- New supported object type "Control Addin".
+- Add validation for "Ranges per BC instance" in assignable ranges that the extensions based on this range are allowed to have one usage only.
+- Improvements of validations for extensions based on ranges with "Ranges per BC instance".
 
 ### v0.1.1.0
 

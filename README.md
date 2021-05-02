@@ -59,7 +59,6 @@ To use the extension in the combination with ALRM VS Code extension (<https://gi
 
 ## Known Issues
 
-- Setting "Range per BC Instance" is not properly tested
 - Field Ranges in Assignable Ranges are not tested on change whether the old IDs are not already in use
 
 For list of minor issues and upcoming changes see <https://github.com/TKapitan/ALRM-BusinessCentral/blob/master/CHANGELOG.md#unreleased>
