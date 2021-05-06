@@ -12,19 +12,20 @@ page 80009 "C4BC Assignable Range API"
     EntitySetName = 'assignableRanges';
     SourceTable = "C4BC Assignable Range Header";
     DelayedInsert = true;
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
         area(Content)
         {
-            field("code"; Rec.Code)
-            {
-                ApplicationArea = All;
-            }
-            field(default; Rec.Default)
-            {
-                ApplicationArea = All;
-            }
+            field("code"; Rec.Code) { }
+            field(description; Rec.Description) { }
+            field(defaultObjectRangeFrom; Rec."Default Object Range From") { }
+            field(defaultObjectRangeTo; Rec."Default Object Range To") { }
+            field(objectNameTemplate; Rec."Object Name Template") { }
+            field(default; Rec.Default) { }
         }
     }
 }
