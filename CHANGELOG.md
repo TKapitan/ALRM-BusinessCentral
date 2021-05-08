@@ -3,7 +3,6 @@
 ## [Unreleased]
 
 - Enhance UI (Navigation, Structure of cards)
-- Option "Default" in Assignable Range Header has no functionality
 - Add validation for changing existing extensions
 - Add validation for changing existing assignable ranges field ranges
 - Add support for extension synchronization using API
@@ -12,6 +11,31 @@
 - Default field range in Assignable Headers are not validated on change
 
 ## [Released Versions]
+
+### v0.1.3.0
+
+- Date of release 09/05/2021
+
+API changes
+
+- New version of API v1.1, old version (v1.0) will be available until 2021/Q3.
+- v1.0 changes
+  - New fields in assignableRanges API, see description in v1.1.
+  - API method CreateObjectLine in Extension API is no longer available (obsolete since 2021/01, marked to be remove in 2021/04).
+- v1.1 changes
+  - New fields: description, defaultObjectRangeFrom, defaultObjectRangeTo, objectNameTemplate in assignableRanges API. As this is not breaking change, the fields are also available in older v1.0 version.
+  - CreateObject and CreateObjectWithOwnID API methods in extensions API now have another parameter ExtendsObjectname that specifies name of extended object. The value can be specified only for object types that extend another objects.  
+  - API method CreateObjectLine in Extension API is no longer available (obsolete since 2021/01, marked to be remove in 2021/04).
+
+Major changes
+
+- Extended values provided in API for Assignable Ranges API (See [Issue #5](https://github.com/TKapitan/ALRM-BusinessCentral/issues/5))
+- New field "Extended Object Name" in Extension Objects that allows to define name of the extended object. Also possible to define the value using API CreateObject, CreateObjectWithOwnID (See [Issue #4](https://github.com/TKapitan/ALRM-BusinessCentral/issues/5))
+
+Other changes
+
+- Caption & transalation improvements
+- Minor refactoring
 
 ### v0.1.2.0
 
