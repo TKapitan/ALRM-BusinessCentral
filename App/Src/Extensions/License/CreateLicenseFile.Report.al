@@ -3,7 +3,7 @@
 /// </summary>
 report 80000 "C4BC Create License File"
 {
-    Caption = 'Create License File';
+    Caption = 'Create License Object Range CSV file';
     ProcessingOnly = true;
     UsageCategory = Administration;
     ApplicationArea = All;
