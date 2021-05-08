@@ -249,6 +249,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Created By - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1651714670 - Field 2084357865 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Extends Object Name</source><target>Název rozšířeného objektu</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Extends Object Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1651714670 - Field 2084357865 - Method 2126772001 - NamedType 2695580279" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 object type does not extend another object.</source><target>Objekty typu %1 nemohou rozšiřovat ostatní objekty.</target>
+          <note from="Developer" annotates="general" priority="2">%1 - object type that extends another object.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Extends Object Name - Method OnValidate - NamedType DoesNotExtendsObjectErr</note>
+        </trans-unit>
         <trans-unit id="Table 1651714670 - Field 460859576 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Extension Code</source><target>Kód rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -545,7 +555,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Bus. Central Inst. List - Action Usage - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1947454813 - Action 1510562767 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Usage</source><target>Spotřeba</target>
+          <source>Usage</source><target>Použití</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Bus. Central Inst. List - Action Usage - Property Caption</note>
         </trans-unit>
@@ -553,6 +563,11 @@
           <source>Extension API</source><target>API rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension API - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4019681873 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Extension API</source><target>API rozšíření</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension API v1.1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1537001501 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Extension Card</source><target>Karta rozšíření</target>
@@ -600,7 +615,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Action Usage - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1537001501 - Action 1510562767 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Usage</source><target>Spotřeba</target>
+          <source>Usage</source><target>Použití</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Action Usage - Property Caption</note>
         </trans-unit>
@@ -645,14 +660,24 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Action Usage - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1080754119 - Action 1510562767 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Usage</source><target>Spotřeba</target>
+          <source>Usage</source><target>Použití</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Action Usage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2094250688 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Extension Object Lines API</source><target>API řádků objektů rozšíření</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Obj.L. API v1.1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 4121397782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Extension Object API</source><target>API objektů rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Object API - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2963857014 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Extension Object API</source><target>API objektů rozšíření</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Object API v1.1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2028042988 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Extension Object Lines API</source><target>API řádků objektů rozšíření</target>
@@ -683,6 +708,11 @@
           <source>Created By</source><target>Vytvořeno kým</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Subform - Control Created By - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 999284711 - Control 2084357865 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies name of object that is extended by this newly created object. The field can be filled in for extension objects only.</source><target>Určuje název objektu, který je nově vytvořeným objektem rozšířen. Toto pole lze vyplnit pouze pro objekty, které rozšiřují ostatní objekty.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Subform - Control Extends Object Name - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 999284711 - Control 3711240756 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Object ID</source><target>ID objektu</target>
@@ -740,29 +770,14 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Usage List - Action Extension - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3769638924 - Action 3979136067 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Extension</source><target>Klapka</target>
+          <source>Extension</source><target>Rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Usage List - Action Extension - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1914339001 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Create License File</source><target>Vytvořit licenční soubor</target>
+          <source>Create License Object Range CSV file</source><target>Vytvořit licenční CSV soubor s rozsahy</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 1914339001 - Method 884906733 - NamedType 3298936694" size-unit="char" translate="yes" xml:space="preserve">
-          <source>,</source><target>,</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Method BuildLicenseLine - NamedType SplitingCharTxt</note>
-        </trans-unit>
-        <trans-unit id="Report 1914339001 - Method 884906733 - NamedType 183322450" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Direct</source><target>Přímé</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Method BuildLicenseLine - NamedType DirectPermissionTxt</note>
-        </trans-unit>
-        <trans-unit id="Report 1914339001 - Method 884906733 - NamedType 4257755693" size-unit="char" translate="yes" xml:space="preserve">
-          <source>0</source><target>0</target>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Method BuildLicenseLine - NamedType NullTxt</note>
         </trans-unit>
         <trans-unit id="Report 1914339001 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>General</source><target>Obecné</target>
@@ -785,7 +800,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Control ToDateField - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 1914339001 - Control 3249287415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>To Date</source><target>Do data</target>
+          <source>To Date</source><target>K datu</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Control ToDateField - Property Caption</note>
         </trans-unit>
@@ -825,7 +840,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Interface - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 438909893 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Page</source><target>Strana</target>
+          <source>Page</source><target>Page</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Page - Property Caption</note>
         </trans-unit>
@@ -840,7 +855,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Page Extension - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 3338462467 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Permission Set</source><target>Sada oprávnění</target>
+          <source>Permission Set</source><target>Permission Set</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Permission Set - Property Caption</note>
         </trans-unit>
@@ -850,17 +865,17 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Permission Set Extension - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 596358669 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Profile</source><target>Profil</target>
+          <source>Profile</source><target>Profile</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Profile - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 1269526094 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Query</source><target>Dotaz</target>
+          <source>Query</source><target>Query</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Query - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 3375155882 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Report</source><target>Sestava</target>
+          <source>Report</source><target>Report</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Report - Property Caption</note>
         </trans-unit>
@@ -870,7 +885,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Report Extension - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 1500409770 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Table</source><target>Tabulka</target>
+          <source>Table</source><target>Table</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue Table - Property Caption</note>
         </trans-unit>
