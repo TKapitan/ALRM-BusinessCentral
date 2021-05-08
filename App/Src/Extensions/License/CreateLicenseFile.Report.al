@@ -135,9 +135,9 @@ report 80000 "C4BC Create License File"
         BuildedLine: TextBuilder;
         FirstRangeID, LastRangeID : Integer;
 
-        SplitingCharTxt: Label ',';
-        DirectPermissionTxt: Label 'Direct';
-        NullTxt: Label '0';
+        SplitingCharTxt: Label ',', Locked = true;
+        DirectPermissionTxt: Label 'Direct', Locked = true;
+        NullTxt: Label '0', Locked = true;
     begin
         BuildedLine.Append(Format(GetObjectTypeFormattedForLicenseGenerator(TempExpC4BCAssignableRangeLine."Object Type")));
         BuildedLine.Append(SplitingCharTxt);
