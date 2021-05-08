@@ -132,21 +132,6 @@ page 80006 "C4BC Extension API"
     end;
 
     [ServiceEnabled]
-    [Obsolete('Replaced by CreateObjectFieldOrValue(), will be removed 2021/04.')]
-    /// <summary> 
-    /// Create new object line (object field for tableextensions or object value for enumextensions).
-    /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
-    /// <param name="ObjectID">Integer, Specifies Object ID</param>
-    /// <returns>Return variable "Integer", ID of the object line.</returns>
-    procedure CreateObjectLine(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
-    var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    begin
-        exit(CreateObjectFieldOrValue(ObjectType, ObjectID, ''));
-    end;
-
-    [ServiceEnabled]
     /// <summary>
     /// Create new object field for tableextensions or object value for enumextensions.
     /// </summary>

@@ -71,10 +71,10 @@ page 80013 "C4BC Extension API v1.1"
     /// </summary>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
-    /// <param name="ExtendsObjectname">Text[100], Specifies name of object that the newly created object extends. Can be filled in for extension objects only.</param>
+    /// <param name="ExtendsObjectName">Text[100], Specifies name of object that the newly created object extends. Can be filled in for extension objects only.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; ExtendsObjectname: Text[100]; CreatedBy: Text[50]): Integer
+    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; ExtendsObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
@@ -88,7 +88,7 @@ page 80013 "C4BC Extension API v1.1"
         C4BCExtensionObject."Extension Code" := Rec.Code;
         C4BCExtensionObject.Validate("Object Type", ObjectType);
         C4BCExtensionObject.Validate("Object Name", ObjectName);
-        C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectname);
+        C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectName);
         C4BCExtensionObject.Validate("Created By", CreatedBy);
         C4BCExtensionObject.Insert(true);
         exit(C4BCExtensionObject."Object ID");
@@ -101,9 +101,10 @@ page 80013 "C4BC Extension API v1.1"
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specify object name.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
+    /// <param name="ExtendsObjectName">Text[100], Specifies name of object that the newly created object extends. Can be filled in for extension objects only.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
+    procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; ExtendsObjectName: Text[100]; CreatedBy: Text[50])
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
@@ -119,23 +120,9 @@ page 80013 "C4BC Extension API v1.1"
         C4BCExtensionObject.Validate("Object Type", ObjectType);
         C4BCExtensionObject.Validate("Object ID", ObjectID);
         C4BCExtensionObject.Validate("Object Name", ObjectName);
+        C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectName);
         C4BCExtensionObject.Validate("Created By", CreatedBy);
         C4BCExtensionObject.Insert(true);
-    end;
-
-    [ServiceEnabled]
-    [Obsolete('Replaced by CreateObjectFieldOrValue(), will be removed 2021/04.')]
-    /// <summary> 
-    /// Create new object line (object field for tableextensions or object value for enumextensions).
-    /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
-    /// <param name="ObjectID">Integer, Specifies Object ID</param>
-    /// <returns>Return variable "Integer", ID of the object line.</returns>
-    procedure CreateObjectLine(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer): Integer
-    var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-    begin
-        exit(CreateObjectFieldOrValue(ObjectType, ObjectID, ''));
     end;
 
     [ServiceEnabled]
