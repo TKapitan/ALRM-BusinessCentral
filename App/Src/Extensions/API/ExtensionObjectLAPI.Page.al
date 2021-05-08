@@ -13,6 +13,10 @@ page 80012 "C4BC Extension Object L. API"
     SourceTable = "C4BC Extension Object Line";
     DelayedInsert = true;
 
+    ObsoleteState = Pending;
+    ObsoleteReason = 'Replaced by v1.1; Will be removed in 2021/Q3.';
+    ObsoleteTag = '2021/Q3';
+
     layout
     {
         area(Content)

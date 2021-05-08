@@ -7,7 +7,7 @@ page 80009 "C4BC Assignable Range API"
     Caption = 'Assignable Range API';
     APIPublisher = 'teamARTAAAE';
     APIGroup = 'extension';
-    APIVersion = 'v1.0';
+    APIVersion = 'v1.0', 'v1.1';
     EntityName = 'assignableRange';
     EntitySetName = 'assignableRanges';
     SourceTable = "C4BC Assignable Range Header";

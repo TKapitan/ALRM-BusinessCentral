@@ -20,4 +20,13 @@ codeunit 80001 "C4BC Standard Object" implements "C4BC IObject Type"
     begin
         exit(true);
     end;
+
+    /// <summary>
+    /// Specifies whether the newly created object extends already existing object.
+    /// </summary>
+    /// <returns>Return value of type "Boolean".</returns>
+    procedure ExtendOtherObjects(): Boolean
+    begin
+        exit(false);
+    end;
 }

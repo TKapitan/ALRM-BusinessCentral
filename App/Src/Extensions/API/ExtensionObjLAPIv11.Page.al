@@ -1,21 +1,17 @@
 /// <summary>
-/// Page C4BC Extension Object API (ID 80011).
+/// Page C4BC Extension Obj.L. API v1.1 (ID 80015).
 /// </summary>
-page 80011 "C4BC Extension Object API"
+page 80015 "C4BC Extension Obj.L. API v1.1"
 {
     PageType = API;
-    Caption = 'Extension Object API';
+    Caption = 'Extension Object Lines API';
     APIPublisher = 'teamARTAAAE';
     APIGroup = 'extension';
-    APIVersion = 'v1.0';
-    EntityName = 'extensionObject';
-    EntitySetName = 'extensionObjects';
-    SourceTable = "C4BC Extension Object";
+    APIVersion = 'v1.1';
+    EntityName = 'extensionObjectLine';
+    EntitySetName = 'extensionObjectLines';
+    SourceTable = "C4BC Extension Object Line";
     DelayedInsert = true;
-
-    ObsoleteState = Pending;
-    ObsoleteReason = 'Replaced by v1.1; Will be removed in 2021/Q3.';
-    ObsoleteTag = '2021/Q3';
 
     layout
     {
@@ -28,11 +24,23 @@ page 80011 "C4BC Extension Object API"
                 {
                     ApplicationArea = All;
                 }
-                field(rangeCode; Rec."Assignable Range Code")
+                field("code"; Rec."Extension Code")
                 {
                     ApplicationArea = All;
                 }
-                field("code"; Rec."Extension Code")
+                field(objectID; Rec."Object ID")
+                {
+                    ApplicationArea = All;
+                }
+                field(objectType; Rec."Object Type")
+                {
+                    ApplicationArea = All;
+                }
+                field(id; Rec.ID)
+                {
+                    ApplicationArea = All;
+                }
+                field(name; Rec.Name)
                 {
                     ApplicationArea = All;
                 }
@@ -51,13 +59,6 @@ page 80011 "C4BC Extension Object API"
                 field(systemModifiedBy; Rec.SystemModifiedBy)
                 {
                     ApplicationArea = All;
-                }
-                part(extensionObjectLines; "C4BC Extension Object L. API")
-                {
-                    ApplicationArea = All;
-                    EntityName = 'extensionObjectLine';
-                    EntitySetName = 'extensionObjectLines';
-                    SubPageLink = "Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"), "Object ID" = field("Object ID");
                 }
             }
         }

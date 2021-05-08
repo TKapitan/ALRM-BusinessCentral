@@ -1,21 +1,18 @@
 /// <summary>
-/// Page C4BC Extension API (ID 80006).
+/// Page C4BC Extension API v1.1 (ID 80013).
 /// </summary>
-page 80006 "C4BC Extension API"
+page 80013 "C4BC Extension API v1.1"
 {
     PageType = API;
     Caption = 'Extension API';
     APIPublisher = 'teamARTAAAE';
     APIGroup = 'extension';
-    APIVersion = 'v1.0';
+    APIVersion = 'v1.1';
     EntityName = 'extension';
     EntitySetName = 'extensions';
     SourceTable = "C4BC Extension Header";
     DelayedInsert = true;
 
-    ObsoleteState = Pending;
-    ObsoleteReason = 'Replaced by v1.1; Will be removed in 2021/Q3.';
-    ObsoleteTag = '2021/Q3';
 
     layout
     {
@@ -64,13 +61,6 @@ page 80006 "C4BC Extension API"
                 {
                     ApplicationArea = All;
                 }
-                part("Extension Objects"; "C4BC Extension Object API")
-                {
-                    ApplicationArea = All;
-                    EntityName = 'extensionObject';
-                    EntitySetName = 'extensionObjects';
-                    SubPageLink = "Extension Code" = field(Code);
-                }
             }
         }
     }
@@ -81,9 +71,10 @@ page 80006 "C4BC Extension API"
     /// </summary>
     /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
+    /// <param name="ExtendsObjectname">Text[100], Specifies name of object that the newly created object extends. Can be filled in for extension objects only.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
+    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; ExtendsObjectname: Text[100]; CreatedBy: Text[50]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
@@ -97,6 +88,7 @@ page 80006 "C4BC Extension API"
         C4BCExtensionObject."Extension Code" := Rec.Code;
         C4BCExtensionObject.Validate("Object Type", ObjectType);
         C4BCExtensionObject.Validate("Object Name", ObjectName);
+        C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectname);
         C4BCExtensionObject.Validate("Created By", CreatedBy);
         C4BCExtensionObject.Insert(true);
         exit(C4BCExtensionObject."Object ID");

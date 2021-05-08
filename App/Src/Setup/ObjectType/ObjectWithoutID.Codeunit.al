@@ -20,4 +20,13 @@ codeunit 80002 "C4BC Object Without ID" implements "C4BC IObject Type"
     begin
         exit(false);
     end;
+
+    /// <summary>
+    /// Specifies whether the newly created object extends already existing object.
+    /// </summary>
+    /// <returns>Return value of type "Boolean".</returns>
+    procedure ExtendOtherObjects(): Boolean
+    begin
+        exit(false);
+    end;
 }

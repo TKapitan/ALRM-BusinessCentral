@@ -39,12 +39,16 @@ page 80004 "C4BC Extension Subform"
                     QuickEntry = true;
                     ToolTip = 'Object Name';
                 }
+                field("Extends Object Name"; Rec."Extends Object Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies name of object that is extended by this newly created object. The field can be filled in for extension objects only.';
+                }
                 field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Created By';
                 }
-
             }
         }
     }

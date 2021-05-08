@@ -18,6 +18,7 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
     value(6; "Table Extension")
     {
         Caption = 'Table Extension';
+        Implementation = "C4BC IObject Type" = "C4BC Extension Object";
     }
     value(10; "Page")
     {
@@ -27,6 +28,7 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
     value(11; "Page Extension")
     {
         Caption = 'Page Extension';
+        Implementation = "C4BC IObject Type" = "C4BC Extension Object";
     }
     value(12; "Page Customization")
     {
@@ -46,6 +48,7 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
     value(21; "Report Extension")
     {
         Caption = 'Report Extension';
+        Implementation = "C4BC IObject Type" = "C4BC Extension Object";
     }
     value(25; "XML Port")
     {
@@ -64,6 +67,7 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
     value(36; "Enum Extension")
     {
         Caption = 'Enum Extension';
+        Implementation = "C4BC IObject Type" = "C4BC Extension Object";
     }
     value(40; "Permission Set")
     {
@@ -72,6 +76,7 @@ enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
     value(41; "Permission Set Extension")
     {
         Caption = 'Permission Set Extension';
+        Implementation = "C4BC IObject Type" = "C4BC Extension Object";
     }
     value(45; "Entitlement")
     {

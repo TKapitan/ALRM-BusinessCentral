@@ -67,7 +67,25 @@ table 80003 "C4BC Extension Object"
             DataClassification = SystemMetadata;
             Editable = false;
         }
+        field(7; "Extends Object Name"; Text[100])
+        {
+            Caption = 'Extends Object Name';
+            DataClassification = SystemMetadata;
 
+            trigger OnValidate()
+            var
+                IObjectType: Interface "C4BC IObject Type";
+                DoesNotExtendsObjectErr: Label '%1 object type does not extend another object.', Comment = '%1 - object type that extends another object.';
+            begin
+                if Rec."Extends Object Name" = '' then
+                    exit;
+                Rec.TestField("Object Type");
+
+                IObjectType := Rec."Object Type";
+                if not IObjectType.ExtendOtherObjects() then
+                    Error(DoesNotExtendsObjectErr, Rec."Object Type");
+            end;
+        }
         field(100; "Assignable Range Code"; Code[20])
         {
             Caption = 'Assignable Range Code';
