@@ -65,6 +65,14 @@ page 80013 "C4BC Extension API v1.1"
         }
     }
 
+    trigger OnAfterGetCurrRecord()
+    var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
+    begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+    end;
+
     [ServiceEnabled]
     /// <summary> 
     /// Create new object with specified name and type.
@@ -76,8 +84,12 @@ page 80013 "C4BC Extension API v1.1"
     /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; ExtendsObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+
         C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
         C4BCExtensionObject.SetRange("Object Type", ObjectType);
         C4BCExtensionObject.SetRange("Object Name", ObjectName);
@@ -106,8 +118,12 @@ page 80013 "C4BC Extension API v1.1"
     /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; ExtendsObjectName: Text[100]; CreatedBy: Text[50])
     var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
         C4BCExtensionObject: Record "C4BC Extension Object";
     begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+
         C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
         C4BCExtensionObject.SetRange("Object Type", ObjectType);
         C4BCExtensionObject.SetRange("Object ID", ObjectID);
@@ -135,8 +151,12 @@ page 80013 "C4BC Extension API v1.1"
     /// <returns>Return variable "Integer", ID of the object line.</returns>
     procedure CreateObjectFieldOrValue(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; CreatedBy: Text[50]): Integer
     var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+
         C4BCExtensionObjectLine.Init();
         C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
         C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
@@ -156,8 +176,12 @@ page 80013 "C4BC Extension API v1.1"
     /// <param name="CreatedBy">Text[50], Specifies user who requested new ID.</param>
     procedure CreateObjectFieldOrValueWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; FieldOrValueID: Integer; CreatedBy: Text[50])
     var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
     begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+
         C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
         C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
         C4BCExtensionObjectLine.SetRange("Object ID", ObjectID);

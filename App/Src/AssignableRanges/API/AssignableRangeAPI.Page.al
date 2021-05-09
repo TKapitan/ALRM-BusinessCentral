@@ -28,4 +28,12 @@ page 80009 "C4BC Assignable Range API"
             field(default; Rec.Default) { }
         }
     }
+
+    trigger OnAfterGetCurrRecord()
+    var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
+    begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+    end;
 }

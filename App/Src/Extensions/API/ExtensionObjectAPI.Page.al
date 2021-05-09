@@ -62,4 +62,12 @@ page 80011 "C4BC Extension Object API"
             }
         }
     }
+
+    trigger OnAfterGetCurrRecord()
+    var
+        C4BCALRMSetup: Record "C4BC ALRM Setup";
+    begin
+        C4BCALRMSetup.FindFirst();
+        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+    end;
 }
