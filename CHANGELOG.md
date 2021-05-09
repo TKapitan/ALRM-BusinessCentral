@@ -12,6 +12,14 @@
 
 ## [Released Versions]
 
+### v0.1.3.4
+
+- Date of release 10/05/2021
+
+Major changes
+
+- When the object is created using API and it already exists, the non-key fields (right now only extended object name) are updated with new value.
+
 ### v0.1.3.3
 
 - Date of release 09/05/2021
