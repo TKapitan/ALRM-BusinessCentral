@@ -4,6 +4,26 @@
   <file datatype="xml" source-language="en-US" target-language="cs-CZ" original="AL ID Range Manager">
     <body>
       <group id="body">
+        <trans-unit id="Table 2349809701 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ALRM Setup</source><target>Nastavení ALRM</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2349809701 - Method 2697568568 - NamedType 595588852" size-unit="char" translate="yes" xml:space="preserve">
+          <source>It is neccessary to use minimal API version %1 but %2 was used.</source><target>Je nutné použít minimálně API ve verzi %1, byla ale použita verze %2.</target>
+          <note from="Developer" annotates="general" priority="2">%1 - Minimal supported API Version, %2 - Used API Version</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Method CheckAPIVersion - NamedType ErrorTextErr</note>
+        </trans-unit>
+        <trans-unit id="Table 2349809701 - Field 653173315 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Minimal API Version</source><target>Minimální verze API</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Field Minimal API Version - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2349809701 - Field 1663593181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Primary Key</source><target>Primární klíč</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Field Primary Key - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 361845431 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Assignable Range Header</source><target>Hlavička přiřaditelného rozsahu</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -373,6 +393,21 @@
           <source>%1 object type does not use IDs for identification.</source><target>Objekty typu %1 nepoužívají ID pro identifikaci.</target>
           <note from="Developer" annotates="general" priority="2">%1 - Object type that does not use IDs for identification.</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit C4BC ALRM Management - Method UseObjectTypeIDs - NamedType ObjectTypeDoesNotUseIDsErr</note>
+        </trans-unit>
+        <trans-unit id="Page 2349809701 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ALRM Setup</source><target>Nastavení ALRM</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC ALRM Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2349809701 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General</source><target>Obecné</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC ALRM Setup - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2349809701 - Control 653173315 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies minimal version of API that can be called from external system. If a lower version of API is called, an error is returned instead of response.</source><target>Určuje minimální verzi API, která může být použita pro volání z externího systému. Pokud bude použita nižší verze, bude na API požadavek vrácena chyba.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC ALRM Setup - Control Minimal API Version - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2588326190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Assignable Range API</source><target>API přiřaditelných rozsahů</target>
@@ -803,6 +838,16 @@
           <source>To Date</source><target>K datu</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report C4BC Create License File - Control ToDateField - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2549086464 - EnumValue 2191148659 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>v1.0</source><target>v1.0</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC API Version - EnumValue v1.0 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 2549086464 - EnumValue 2828845276 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>v1.1</source><target>v1.1</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC API Version - EnumValue v1.1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source></source><target> </target>
