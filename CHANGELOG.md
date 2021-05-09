@@ -12,6 +12,15 @@
 
 ## [Released Versions]
 
+### v0.1.3.3
+
+- Date of release 09/05/2021
+
+Major changes
+
+- ALRM Setup table & page were created.
+- New field in ALRM Setup - "Minimal API version". This fields allows administrator to specify minimal version of API that has to be used in any API call. If older (lower) version is used for communication, the error is raised. All API requests were updated so they check this option.
+
 ### v0.1.3.0
 
 - Date of release 09/05/2021
