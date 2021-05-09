@@ -93,8 +93,11 @@ page 80013 "C4BC Extension API v1.1"
         C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
         C4BCExtensionObject.SetRange("Object Type", ObjectType);
         C4BCExtensionObject.SetRange("Object Name", ObjectName);
-        if C4BCExtensionObject.FindFirst() then
+        if C4BCExtensionObject.FindFirst() then begin
+            C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectName);
+            C4BCExtensionObject.Modify(true);
             exit(C4BCExtensionObject."Object ID");
+        end;
 
         C4BCExtensionObject.Init();
         C4BCExtensionObject."Extension Code" := Rec.Code;
@@ -128,8 +131,11 @@ page 80013 "C4BC Extension API v1.1"
         C4BCExtensionObject.SetRange("Object Type", ObjectType);
         C4BCExtensionObject.SetRange("Object ID", ObjectID);
         C4BCExtensionObject.SetRange("Object Name", ObjectName);
-        if not C4BCExtensionObject.IsEmpty() then
+        if C4BCExtensionObject.FindFirst() then begin
+            C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectName);
+            C4BCExtensionObject.Modify(true);
             exit;
+        end;
 
         C4BCExtensionObject.Init();
         C4BCExtensionObject."Extension Code" := Rec.Code;
