@@ -79,7 +79,7 @@ codeunit 79001 "C4BC Extension Usage Tests"
         C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
         C4BCExtensionObject.FindFirst();
         asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        Assert.ExpectedError('Yes, the IDs must be assigned using procedure that specify business central instance ID');
+        Assert.ExpectedError('There is no Extension Usage within the filter.');
     end;
 
     [Test]

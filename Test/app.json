@@ -2,7 +2,7 @@
   "id": "c3f20afb-35e2-4476-a163-072b5141f028",
   "name": "AL ID Range Manager - tests",
   "publisher": "ART AA AE from Czechia + Kepty.cz",
-  "version": "0.1.1.0",
+  "version": "0.1.1.1",
   "brief": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "description": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "privacyStatement": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
@@ -14,8 +14,8 @@
     {
       "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
       "publisher": "ART AA AE from Czechia + Kepty.cz",
-      "name": "AL ID Range Manager",
-      "version": "0.1.1.0"
+      "name": "ALRM: AL ID Range Manager",
+      "version": "0.1.3.4"
     },
     {
       "id": "dd0be2ea-f733-4d65-bb34-a28f4624fb14",
