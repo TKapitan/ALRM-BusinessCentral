@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Assignable Range API (ID 74179009).
+/// Page ART Assignable Range API (ID 74179009).
 /// </summary>
-page 74179009 "C4BC Assignable Range API"
+page 74179009 "ART Assignable Range API"
 {
     PageType = API;
     Caption = 'Assignable Range API';
@@ -10,7 +10,7 @@ page 74179009 "C4BC Assignable Range API"
     APIVersion = 'v1.0', 'v1.1';
     EntityName = 'assignableRange';
     EntitySetName = 'assignableRanges';
-    SourceTable = "C4BC Assignable Range Header";
+    SourceTable = "ART Assignable Range Header";
     DelayedInsert = true;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -31,9 +31,9 @@ page 74179009 "C4BC Assignable Range API"
 
     trigger OnAfterGetCurrRecord()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.1");
     end;
 }

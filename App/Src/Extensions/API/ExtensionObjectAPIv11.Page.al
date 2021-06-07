@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Object API v1.1 (ID 74179014).
+/// Page ART Extension Object API v1.1 (ID 74179014).
 /// </summary>
-page 74179014 "C4BC Extension Object API v1.1"
+page 74179014 "ART Extension Object API v1.1"
 {
     PageType = API;
     Caption = 'Extension Object API';
@@ -10,7 +10,7 @@ page 74179014 "C4BC Extension Object API v1.1"
     APIVersion = 'v1.1';
     EntityName = 'extensionObject';
     EntitySetName = 'extensionObjects';
-    SourceTable = "C4BC Extension Object";
+    SourceTable = "ART Extension Object";
     DelayedInsert = true;
 
     layout
@@ -32,9 +32,9 @@ page 74179014 "C4BC Extension Object API v1.1"
 
     trigger OnAfterGetCurrRecord()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.1");
     end;
 }

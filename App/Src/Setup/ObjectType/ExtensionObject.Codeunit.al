@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC Extension Object (ID 74179004) implements Interface C4BC IObject Type.
+/// Codeunit ART Extension Object (ID 74179004) implements Interface ART IObject Type.
 /// </summary>
-codeunit 74179004 "C4BC Extension Object" implements "C4BC IObject Type"
+codeunit 74179004 "ART Extension Object" implements "ART IObject Type"
 {
     /// <summary> 
     /// Specifies whether the objects are licensed or are free to use

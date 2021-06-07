@@ -1,12 +1,12 @@
 /// <summary>
-/// Page C4BC Extension Usage List (ID 74179008).
+/// Page ART Extension Usage List (ID 74179008).
 /// </summary>
-page 74179008 "C4BC Extension Usage List"
+page 74179008 "ART Extension Usage List"
 {
     Caption = 'Extension Usage List';
     PageType = List;
     UsageCategory = Lists;
-    SourceTable = "C4BC Extension Usage";
+    SourceTable = "ART Extension Usage";
     ApplicationArea = All;
 
     layout
@@ -49,7 +49,7 @@ page 74179008 "C4BC Extension Usage List"
                 ToolTip = 'Allows to view and edit extension.';
                 Enabled = (Rec."Extension Code" <> '');
                 Image = ExtendedDataEntry;
-                RunObject = page "C4BC Extension Card";
+                RunObject = page "ART Extension Card";
                 RunPageLink = Code = field("Extension Code");
                 ApplicationArea = All;
             }

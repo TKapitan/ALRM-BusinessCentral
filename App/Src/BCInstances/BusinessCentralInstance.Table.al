@@ -1,11 +1,11 @@
 /// <summary>
-/// Table C4BC Business Central Instance (ID 74179005).
+/// Table ART Business Central Instance (ID 74179005).
 /// </summary>
-table 74179005 "C4BC Business Central Instance"
+table 74179005 "ART Business Central Instance"
 {
     Caption = 'Business Central Instance';
-    LookupPageId = "C4BC Bus. Central Inst. List";
-    DrillDownPageId = "C4BC Bus. Central Inst. List";
+    LookupPageId = "ART Bus. Central Inst. List";
+    DrillDownPageId = "ART Bus. Central Inst. List";
     DataClassification = CustomerContent;
 
     fields
@@ -32,12 +32,12 @@ table 74179005 "C4BC Business Central Instance"
 
     trigger OnDelete()
     var
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
+        ARTExtensionUsage: Record "ART Extension Usage";
 
         ExtensionUsageExistsErr: Label 'Record can not be deleted due to the existing %1.', Comment = '%1 - Name of the table with linked records';
     begin
-        C4BCExtensionUsage.SetRange("Business Central Instance Code", Rec.Code);
-        if not C4BCExtensionUsage.IsEmpty() then
-            Error(ExtensionUsageExistsErr, C4BCExtensionUsage.TableCaption());
+        ARTExtensionUsage.SetRange("Business Central Instance Code", Rec.Code);
+        if not ARTExtensionUsage.IsEmpty() then
+            Error(ExtensionUsageExistsErr, ARTExtensionUsage.TableCaption());
     end;
 }

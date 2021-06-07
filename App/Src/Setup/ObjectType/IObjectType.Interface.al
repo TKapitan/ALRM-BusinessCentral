@@ -1,7 +1,7 @@
 /// <summary>
-/// Interface "C4BC IObject Type."
+/// Interface "ART IObject Type."
 /// </summary>
-interface "C4BC IObject Type"
+interface "ART IObject Type"
 {
     /// <summary> 
     /// Specifies whether the objects are licensed or are free to use

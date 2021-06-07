@@ -1,11 +1,11 @@
 /// <summary>
-/// Page C4BC Extension Object Lines (ID 74179010).
+/// Page ART Extension Object Lines (ID 74179010).
 /// </summary>
-page 74179010 "C4BC Extension Object Lines"
+page 74179010 "ART Extension Object Lines"
 {
     PageType = List;
     UsageCategory = None;
-    SourceTable = "C4BC Extension Object Line";
+    SourceTable = "ART Extension Object Line";
     Caption = 'Extension Object Lines';
 
     layout

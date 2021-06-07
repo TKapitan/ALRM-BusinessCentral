@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Object L. API (ID 74179012).
+/// Page ART Extension Object L. API (ID 74179012).
 /// </summary>
-page 74179012 "C4BC Extension Object L. API"
+page 74179012 "ART Extension Object L. API"
 {
     PageType = API;
     Caption = 'Extension Object Lines API';
@@ -10,7 +10,7 @@ page 74179012 "C4BC Extension Object L. API"
     APIVersion = 'v1.0';
     EntityName = 'extensionObjectLine';
     EntitySetName = 'extensionObjectLines';
-    SourceTable = "C4BC Extension Object Line";
+    SourceTable = "ART Extension Object Line";
     DelayedInsert = true;
 
     ObsoleteState = Pending;
@@ -70,9 +70,9 @@ page 74179012 "C4BC Extension Object L. API"
 
     trigger OnAfterGetCurrRecord()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
     end;
 }

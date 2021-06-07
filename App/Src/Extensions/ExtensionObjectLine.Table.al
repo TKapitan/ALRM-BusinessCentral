@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Extension Object Line (ID 74179006).
+/// Table ART Extension Object Line (ID 74179006).
 /// </summary>
-table 74179006 "C4BC Extension Object Line"
+table 74179006 "ART Extension Object Line"
 {
     Caption = 'Extension Object Lines';
 
@@ -11,9 +11,9 @@ table 74179006 "C4BC Extension Object Line"
         {
             Caption = 'Extension Code';
             DataClassification = SystemMetadata;
-            TableRelation = "C4BC Extension Header".Code where(Code = field("Extension Code"));
+            TableRelation = "ART Extension Header".Code where(Code = field("Extension Code"));
         }
-        field(3; "Object Type"; Enum "C4BC Object Type")
+        field(3; "Object Type"; Enum "ART Object Type")
         {
             Caption = 'Object Type';
             DataClassification = SystemMetadata;
@@ -24,7 +24,7 @@ table 74179006 "C4BC Extension Object Line"
             DataClassification = SystemMetadata;
             Editable = false;
             BlankZero = true;
-            TableRelation = "C4BC Extension Object"."Object ID" where("Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"));
+            TableRelation = "ART Extension Object"."Object ID" where("Extension Code" = field("Extension Code"), "Object Type" = field("Object Type"));
         }
         field(5; ID; Integer)
         {
@@ -47,7 +47,7 @@ table 74179006 "C4BC Extension Object Line"
             Caption = 'Assignable Range Code';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("C4BC Extension Header"."Assignable Range Code" where("Code" = field("Extension Code")));
+            CalcFormula = lookup("ART Extension Header"."Assignable Range Code" where("Code" = field("Extension Code")));
         }
         field(101; "Bus. Central Instance Filter"; Code[20])
         {
@@ -59,7 +59,7 @@ table 74179006 "C4BC Extension Object Line"
             Caption = 'Bus. Central Instance Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
+            CalcFormula = exist("ART Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
         }
     }
 
@@ -87,15 +87,15 @@ table 74179006 "C4BC Extension Object Line"
     /// <returns>Return variable "Integer", new ID.</returns>
     procedure GetNewFieldLineID(): Integer
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
 
-        C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
+        ARTExtensionHeader.Get(Rec."Extension Code");
+        ARTAssignableRangeHeader.Get("Assignable Range Code");
+        exit(ARTAssignableRangeHeader.GetNewFieldID(Rec."Object Type", ARTExtensionHeader.GetUsageOfExtension()));
     end;
 
 }

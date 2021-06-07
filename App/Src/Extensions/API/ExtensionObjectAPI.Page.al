@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Object API (ID 74179011).
+/// Page ART Extension Object API (ID 74179011).
 /// </summary>
-page 74179011 "C4BC Extension Object API"
+page 74179011 "ART Extension Object API"
 {
     PageType = API;
     Caption = 'Extension Object API';
@@ -10,7 +10,7 @@ page 74179011 "C4BC Extension Object API"
     APIVersion = 'v1.0';
     EntityName = 'extensionObject';
     EntitySetName = 'extensionObjects';
-    SourceTable = "C4BC Extension Object";
+    SourceTable = "ART Extension Object";
     DelayedInsert = true;
 
     ObsoleteState = Pending;
@@ -52,7 +52,7 @@ page 74179011 "C4BC Extension Object API"
                 {
                     ApplicationArea = All;
                 }
-                part(extensionObjectLines; "C4BC Extension Object L. API")
+                part(extensionObjectLines; "ART Extension Object L. API")
                 {
                     ApplicationArea = All;
                     EntityName = 'extensionObjectLine';
@@ -65,9 +65,9 @@ page 74179011 "C4BC Extension Object API"
 
     trigger OnAfterGetCurrRecord()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
     end;
 }

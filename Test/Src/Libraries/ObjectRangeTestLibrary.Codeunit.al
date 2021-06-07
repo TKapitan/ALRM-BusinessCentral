@@ -1,13 +1,13 @@
 /// <summary>
-/// Codeunit C4BC Object Range Test Library (ID 79003).
+/// Codeunit ART Object Range Test Library (ID 79003).
 /// </summary>
-codeunit 79003 "C4BC Object Range Test Library"
+codeunit 79003 "ART Object Range Test Library"
 {
     /// <summary> 
     /// Code for #1 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_01(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_01(): Code[20]
     begin
         exit('RANGE1');
     end;
@@ -16,7 +16,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #2 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_02(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_02(): Code[20]
     begin
         exit('RANGE2');
     end;
@@ -25,7 +25,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #3 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_03(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_03(): Code[20]
     begin
         exit('RANGE3');
     end;
@@ -34,7 +34,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #4 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_04(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_04(): Code[20]
     begin
         exit('RANGE4');
     end;
@@ -43,7 +43,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #5 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_05(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_05(): Code[20]
     begin
         exit('RANGE5');
     end;
@@ -52,7 +52,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #6 assignable range header
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCAssignableRangeHeader_Code_06(): Code[20]
+    procedure ARTAssignableRangeHeader_Code_06(): Code[20]
     begin
         exit('RANGE6');
     end;
@@ -61,7 +61,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #1 business central instance
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCBusinessCentralInstance_Code_01(): Code[20]
+    procedure ARTBusinessCentralInstance_Code_01(): Code[20]
     begin
         exit('KEPTY.CZ');
     end;
@@ -70,7 +70,7 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// Code for #2 business central instance
     /// </summary>
     /// <returns>Return variable "Code[20]".</returns>
-    procedure C4BCBusinessCentralInstance_Code_02(): Code[20]
+    procedure ARTBusinessCentralInstance_Code_02(): Code[20]
     begin
         exit('KEPTYCZ.CZ');
     end;
@@ -99,111 +99,111 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// </summary>
     procedure InitializeAssignableRanges()
     var
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
-        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
+        ARTAssignableRangeLine: Record "ART Assignable Range Line";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCAssignableRangeHeader.DeleteAll();
-        C4BCAssignableRangeLine.DeleteAll();
-        C4BCExtensionHeader.DeleteAll();
-        C4BCExtensionObject.DeleteAll();
+        ARTAssignableRangeHeader.DeleteAll();
+        ARTAssignableRangeLine.DeleteAll();
+        ARTExtensionHeader.DeleteAll();
+        ARTExtensionObject.DeleteAll();
 
         InitializeNoSeries();
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_01();
-        C4BCAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Object Range From" := 30000;
-        C4BCAssignableRangeHeader."Default Object Range To" := 39000;
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_01();
+        ARTAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
+        ARTAssignableRangeHeader."Ranges per BC Instance" := false;
+        ARTAssignableRangeHeader."Default Object Range From" := 30000;
+        ARTAssignableRangeHeader."Default Object Range To" := 39000;
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeLine.Init();
-        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_01();
-        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"XML Port";
-        C4BCAssignableRangeLine."Object Range From" := 99000;
-        C4BCAssignableRangeLine."Object Range To" := 99999;
-        C4BCAssignableRangeLine.Insert();
-        Clear(C4BCAssignableRangeLine);
+        ARTAssignableRangeLine.Init();
+        ARTAssignableRangeLine."Assignable Range Code" := ARTAssignableRangeHeader_Code_01();
+        ARTAssignableRangeLine."Object Type" := ARTAssignableRangeLine."Object Type"::"XML Port";
+        ARTAssignableRangeLine."Object Range From" := 99000;
+        ARTAssignableRangeLine."Object Range To" := 99999;
+        ARTAssignableRangeLine.Insert();
+        Clear(ARTAssignableRangeLine);
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_02();
-        // C4BCAssignableRangeHeader."No. Series" DO NOT SPECIFY
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_02();
+        // ARTAssignableRangeHeader."No. Series" DO NOT SPECIFY
+        ARTAssignableRangeHeader."Ranges per BC Instance" := false;
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_03();
-        C4BCAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := true;
-        C4BCAssignableRangeHeader."Default Object Range From" := 40000;
-        C4BCAssignableRangeHeader."Default Object Range To" := 49000;
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_03();
+        ARTAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
+        ARTAssignableRangeHeader."Ranges per BC Instance" := true;
+        ARTAssignableRangeHeader."Default Object Range From" := 40000;
+        ARTAssignableRangeHeader."Default Object Range To" := 49000;
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeLine.Init();
-        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_03();
-        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"Page Extension";
-        C4BCAssignableRangeLine."Object Range From" := 10000;
-        C4BCAssignableRangeLine."Object Range To" := 10010;
-        C4BCAssignableRangeLine.Insert();
-        Clear(C4BCAssignableRangeLine);
+        ARTAssignableRangeLine.Init();
+        ARTAssignableRangeLine."Assignable Range Code" := ARTAssignableRangeHeader_Code_03();
+        ARTAssignableRangeLine."Object Type" := ARTAssignableRangeLine."Object Type"::"Page Extension";
+        ARTAssignableRangeLine."Object Range From" := 10000;
+        ARTAssignableRangeLine."Object Range To" := 10010;
+        ARTAssignableRangeLine.Insert();
+        Clear(ARTAssignableRangeLine);
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_04();
-        C4BCAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Object Range From" := 60000;
-        C4BCAssignableRangeHeader."Default Object Range To" := 69000;
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_04();
+        ARTAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
+        ARTAssignableRangeHeader."Ranges per BC Instance" := false;
+        ARTAssignableRangeHeader."Default Object Range From" := 60000;
+        ARTAssignableRangeHeader."Default Object Range To" := 69000;
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeLine.Init();
-        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_04();
-        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"XML Port";
-        C4BCAssignableRangeLine."Object Range From" := 75000;
-        C4BCAssignableRangeLine."Object Range To" := 75020;
-        C4BCAssignableRangeLine.Insert();
-        Clear(C4BCAssignableRangeLine);
+        ARTAssignableRangeLine.Init();
+        ARTAssignableRangeLine."Assignable Range Code" := ARTAssignableRangeHeader_Code_04();
+        ARTAssignableRangeLine."Object Type" := ARTAssignableRangeLine."Object Type"::"XML Port";
+        ARTAssignableRangeLine."Object Range From" := 75000;
+        ARTAssignableRangeLine."Object Range To" := 75020;
+        ARTAssignableRangeLine.Insert();
+        Clear(ARTAssignableRangeLine);
 
-        C4BCAssignableRangeLine.Init();
-        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_04();
-        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::Enum;
-        C4BCAssignableRangeLine."Object Range From" := 100000;
-        C4BCAssignableRangeLine."Object Range To" := 100010;
-        C4BCAssignableRangeLine.Insert();
-        Clear(C4BCAssignableRangeLine);
+        ARTAssignableRangeLine.Init();
+        ARTAssignableRangeLine."Assignable Range Code" := ARTAssignableRangeHeader_Code_04();
+        ARTAssignableRangeLine."Object Type" := ARTAssignableRangeLine."Object Type"::Enum;
+        ARTAssignableRangeLine."Object Range From" := 100000;
+        ARTAssignableRangeLine."Object Range To" := 100010;
+        ARTAssignableRangeLine.Insert();
+        Clear(ARTAssignableRangeLine);
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_05();
-        C4BCAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Object Range From" := 65000;
-        C4BCAssignableRangeHeader."Default Object Range To" := 66000;
-        C4BCAssignableRangeHeader."Object Name Template" := '';
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_05();
+        ARTAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
+        ARTAssignableRangeHeader."Ranges per BC Instance" := false;
+        ARTAssignableRangeHeader."Default Object Range From" := 65000;
+        ARTAssignableRangeHeader."Default Object Range To" := 66000;
+        ARTAssignableRangeHeader."Object Name Template" := '';
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeLine.Init();
-        C4BCAssignableRangeLine."Assignable Range Code" := C4BCAssignableRangeHeader_Code_05();
-        C4BCAssignableRangeLine."Object Type" := C4BCAssignableRangeLine."Object Type"::"Enum Extension";
-        C4BCAssignableRangeLine."Object Range From" := 110000;
-        C4BCAssignableRangeLine."Object Range To" := 110010;
-        C4BCAssignableRangeLine.Insert();
-        Clear(C4BCAssignableRangeLine);
+        ARTAssignableRangeLine.Init();
+        ARTAssignableRangeLine."Assignable Range Code" := ARTAssignableRangeHeader_Code_05();
+        ARTAssignableRangeLine."Object Type" := ARTAssignableRangeLine."Object Type"::"Enum Extension";
+        ARTAssignableRangeLine."Object Range From" := 110000;
+        ARTAssignableRangeLine."Object Range To" := 110010;
+        ARTAssignableRangeLine.Insert();
+        Clear(ARTAssignableRangeLine);
 
-        C4BCAssignableRangeHeader.Init();
-        C4BCAssignableRangeHeader.Code := C4BCAssignableRangeHeader_Code_06();
-        C4BCAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := false;
-        C4BCAssignableRangeHeader."Default Object Range From" := 66000;
-        C4BCAssignableRangeHeader."Default Object Range To" := 67000;
-        C4BCAssignableRangeHeader."Object Name Template" := '';
-        C4BCAssignableRangeHeader.Insert();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Init();
+        ARTAssignableRangeHeader.Code := ARTAssignableRangeHeader_Code_06();
+        ARTAssignableRangeHeader."No. Series for Extensions" := 'ALRM-EXT';
+        ARTAssignableRangeHeader."Ranges per BC Instance" := false;
+        ARTAssignableRangeHeader."Default Object Range From" := 66000;
+        ARTAssignableRangeHeader."Default Object Range To" := 67000;
+        ARTAssignableRangeHeader."Object Name Template" := '';
+        ARTAssignableRangeHeader.Insert();
+        Clear(ARTAssignableRangeHeader);
     end;
 
 
@@ -212,19 +212,19 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// </summary>
     procedure InitializeAssignableFieldRanges()
     var
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_01());
-        C4BCAssignableRangeHeader."Field Range From" := 200000;
-        C4BCAssignableRangeHeader."Field Range To" := 250000;
-        C4BCAssignableRangeHeader.Modify();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Get(ARTAssignableRangeHeader_Code_01());
+        ARTAssignableRangeHeader."Field Range From" := 200000;
+        ARTAssignableRangeHeader."Field Range To" := 250000;
+        ARTAssignableRangeHeader.Modify();
+        Clear(ARTAssignableRangeHeader);
 
-        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_03());
-        C4BCAssignableRangeHeader."Field Range From" := 300000;
-        C4BCAssignableRangeHeader."Field Range To" := 350000;
-        C4BCAssignableRangeHeader.Modify();
-        Clear(C4BCAssignableRangeHeader);
+        ARTAssignableRangeHeader.Get(ARTAssignableRangeHeader_Code_03());
+        ARTAssignableRangeHeader."Field Range From" := 300000;
+        ARTAssignableRangeHeader."Field Range To" := 350000;
+        ARTAssignableRangeHeader.Modify();
+        Clear(ARTAssignableRangeHeader);
     end;
 
     /// <summary> 
@@ -232,102 +232,102 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// </summary>
     procedure InitializeExtensions()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCExtensionHeader.DeleteAll();
-        C4BCExtensionObject.DeleteAll();
+        ARTExtensionHeader.DeleteAll();
+        ARTExtensionObject.DeleteAll();
 
         // First Extension Header
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.Insert();
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.Insert();
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Table);
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Table);
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::Report);
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::Table);
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::Table);
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::Report);
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"XML Port");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"XML Port");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"Table Extension");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
 
         // Second Extension Header (same assignable range)
-        Clear(C4BCExtensionHeader);
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.Insert();
+        Clear(ARTExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.Insert();
 
         // Third Extension Header (same assignable range)
-        Clear(C4BCExtensionHeader);
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.Insert();
+        Clear(ARTExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.Insert();
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"Table Extension");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
 
         // Fifth Extension Header
-        Clear(C4BCExtensionHeader);
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_03());
-        C4BCExtensionHeader.Insert();
+        Clear(ARTExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_03());
+        ARTExtensionHeader.Insert();
 
         // Sixth Extension Header
-        Clear(C4BCExtensionHeader);
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_04());
-        C4BCExtensionHeader.Insert();
+        Clear(ARTExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_04());
+        ARTExtensionHeader.Insert();
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"XML Port");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"XML Port");
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
 
         // Seventh Extension Header
-        Clear(C4BCExtensionHeader);
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCAssignableRangeHeader_Code_06());
-        C4BCExtensionHeader.ID := CreateGuid();
-        C4BCExtensionHeader.Insert();
+        Clear(ARTExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTAssignableRangeHeader_Code_06());
+        ARTExtensionHeader.ID := CreateGuid();
+        ARTExtensionHeader.Insert();
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.Validate("Object Type", C4BCExtensionObject."Object Type"::"XML Port");
-        C4BCExtensionObject."Object Name" := 'TKA Sales Header';
-        C4BCExtensionObject.Insert();
-        Clear(C4BCExtensionObject);
+        ARTExtensionObject.Init();
+        ARTExtensionObject.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.Validate("Object Type", ARTExtensionObject."Object Type"::"XML Port");
+        ARTExtensionObject."Object Name" := 'TKA Sales Header';
+        ARTExtensionObject.Insert();
+        Clear(ARTExtensionObject);
     end;
 
     /// <summary> 
@@ -335,11 +335,11 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// </summary>
     procedure SetObjectNameTemplate()
     var
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCAssignableRangeHeader.Get(C4BCAssignableRangeHeader_Code_01());
-        C4BCAssignableRangeHeader."Object Name Template" := 'C4BC *';
-        C4BCAssignableRangeHeader.Modify();
+        ARTAssignableRangeHeader.Get(ARTAssignableRangeHeader_Code_01());
+        ARTAssignableRangeHeader."Object Name Template" := 'ART *';
+        ARTAssignableRangeHeader.Modify();
     end;
 
     /// <summary> 
@@ -347,36 +347,36 @@ codeunit 79003 "C4BC Object Range Test Library"
     /// </summary>
     procedure SetExtensionUsage()
     var
-        C4BCBusinessCentralInstance: Record "C4BC Business Central Instance";
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
+        ARTBusinessCentralInstance: Record "ART Business Central Instance";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTExtensionUsage: Record "ART Extension Usage";
     begin
-        C4BCBusinessCentralInstance.DeleteAll();
-        C4BCExtensionUsage.DeleteAll();
+        ARTBusinessCentralInstance.DeleteAll();
+        ARTExtensionUsage.DeleteAll();
 
-        C4BCBusinessCentralInstance.Init();
-        C4BCBusinessCentralInstance.Code := C4BCBusinessCentralInstance_Code_01();
-        C4BCBusinessCentralInstance.Insert();
-        Clear(C4BCBusinessCentralInstance);
+        ARTBusinessCentralInstance.Init();
+        ARTBusinessCentralInstance.Code := ARTBusinessCentralInstance_Code_01();
+        ARTBusinessCentralInstance.Insert();
+        Clear(ARTBusinessCentralInstance);
 
-        C4BCBusinessCentralInstance.Init();
-        C4BCBusinessCentralInstance.Code := C4BCBusinessCentralInstance_Code_02();
-        C4BCBusinessCentralInstance.Insert();
+        ARTBusinessCentralInstance.Init();
+        ARTBusinessCentralInstance.Code := ARTBusinessCentralInstance_Code_02();
+        ARTBusinessCentralInstance.Insert();
 
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.FindSet();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.FindSet();
 
-        C4BCExtensionUsage.Init();
-        C4BCExtensionUsage."Business Central Instance Code" := C4BCBusinessCentralInstance_Code_01();
-        C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
-        C4BCExtensionUsage.Insert();
-        Clear(C4BCExtensionUsage);
+        ARTExtensionUsage.Init();
+        ARTExtensionUsage."Business Central Instance Code" := ARTBusinessCentralInstance_Code_01();
+        ARTExtensionUsage."Extension Code" := ARTExtensionHeader.Code;
+        ARTExtensionUsage.Insert();
+        Clear(ARTExtensionUsage);
 
-        C4BCExtensionHeader.Next(1);
+        ARTExtensionHeader.Next(1);
 
-        C4BCExtensionUsage.Init();
-        C4BCExtensionUsage."Business Central Instance Code" := C4BCBusinessCentralInstance_Code_01();
-        C4BCExtensionUsage."Extension Code" := C4BCExtensionHeader.Code;
-        C4BCExtensionUsage.Insert();
+        ARTExtensionUsage.Init();
+        ARTExtensionUsage."Business Central Instance Code" := ARTBusinessCentralInstance_Code_01();
+        ARTExtensionUsage."Extension Code" := ARTExtensionHeader.Code;
+        ARTExtensionUsage.Insert();
     end;
 }

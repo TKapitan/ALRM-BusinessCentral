@@ -1,4 +1,4 @@
-codeunit 79004 "C4BC Bus. Centr. Inst. Tests"
+codeunit 79004 "ART Bus. Centr. Inst. Tests"
 {
     Subtype = Test;
     TestPermissions = Disabled;
@@ -12,31 +12,31 @@ codeunit 79004 "C4BC Bus. Centr. Inst. Tests"
     /// </summary>
     procedure TestDeleteBusinessCentralInstance()
     var
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
-        C4BCBusinessCentralInstance: Record "C4BC Business Central Instance";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionUsage: Record "ART Extension Usage";
+        ARTBusinessCentralInstance: Record "ART Business Central Instance";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetExtensionUsage();
+        ARTObjectRangeTestLibrary.SetExtensionUsage();
         Commit();
 
         //[THEN] then
-        C4BCBusinessCentralInstance.Get(C4BCObjectRangeTestLibrary.C4BCBusinessCentralInstance_Code_02());
-        C4BCBusinessCentralInstance.Delete(true);
-        C4BCBusinessCentralInstance.Get(C4BCObjectRangeTestLibrary.C4BCBusinessCentralInstance_Code_01());
-        asserterror C4BCBusinessCentralInstance.Delete(true);
+        ARTBusinessCentralInstance.Get(ARTObjectRangeTestLibrary.ARTBusinessCentralInstance_Code_02());
+        ARTBusinessCentralInstance.Delete(true);
+        ARTBusinessCentralInstance.Get(ARTObjectRangeTestLibrary.ARTBusinessCentralInstance_Code_01());
+        asserterror ARTBusinessCentralInstance.Delete(true);
         Assert.ExpectedError('due to the existing');
 
         //[WHEN] when
-        C4BCExtensionUsage.SetRange("Business Central Instance Code", C4BCObjectRangeTestLibrary.C4BCBusinessCentralInstance_Code_01());
-        C4BCExtensionUsage.DeleteAll(false);
+        ARTExtensionUsage.SetRange("Business Central Instance Code", ARTObjectRangeTestLibrary.ARTBusinessCentralInstance_Code_01());
+        ARTExtensionUsage.DeleteAll(false);
 
         //[THEN] then
-        C4BCBusinessCentralInstance.Get(C4BCObjectRangeTestLibrary.C4BCBusinessCentralInstance_Code_01());
-        C4BCBusinessCentralInstance.Delete(true);
+        ARTBusinessCentralInstance.Get(ARTObjectRangeTestLibrary.ARTBusinessCentralInstance_Code_01());
+        ARTBusinessCentralInstance.Delete(true);
     end;
 }

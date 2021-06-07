@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC ALRM Installation (ID 74179005).
+/// Codeunit ART ALRM Installation (ID 74179005).
 /// </summary>
-codeunit 74179005 "C4BC ALRM Installation"
+codeunit 74179005 "ART ALRM Installation"
 {
     Subtype = Install;
 
@@ -12,11 +12,11 @@ codeunit 74179005 "C4BC ALRM Installation"
 
     local procedure InitALRMSetup()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        if not C4BCALRMSetup.Get() then begin
-            C4BCALRMSetup.Init();
-            C4BCALRMSetup.Insert();
+        if not ARTALRMSetup.Get() then begin
+            ARTALRMSetup.Init();
+            ARTALRMSetup.Insert();
         end;
     end;
 }

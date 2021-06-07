@@ -4,7 +4,7 @@
         "${CodeCop}",
         "${PerTenantExtensionCop}"
     ],
-    "CRS.ObjectNamePrefix": "C4BC ",
+    "CRS.ObjectNamePrefix": "ART ",
     "al.ruleSetPath": "./.codeAnalysis/app.ruleset.json",
     "CRS.OnSaveAlFileAction": "Rename",
     "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",

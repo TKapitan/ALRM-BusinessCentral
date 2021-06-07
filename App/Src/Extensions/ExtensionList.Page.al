@@ -1,14 +1,14 @@
 /// <summary>
-/// Page C4BC Extension List (ID 74179000).
+/// Page ART Extension List (ID 74179000).
 /// </summary>
-page 74179000 "C4BC Extension List"
+page 74179000 "ART Extension List"
 {
     Caption = 'Extension List';
     PageType = List;
     UsageCategory = Lists;
     ApplicationArea = All;
-    CardPageId = "C4BC Extension Card";
-    SourceTable = "C4BC Extension Header";
+    CardPageId = "ART Extension Card";
+    SourceTable = "ART Extension Header";
 
     layout
     {
@@ -50,7 +50,7 @@ page 74179000 "C4BC Extension List"
                 ToolTip = 'Allows to view and edit usage of the current extension.';
                 Enabled = (Rec."Code" <> '');
                 Image = LinkWithExisting;
-                RunObject = page "C4BC Extension Usage List";
+                RunObject = page "ART Extension Usage List";
                 RunPageLink = "Extension Code" = field(Code);
                 ApplicationArea = All;
             }
@@ -60,7 +60,7 @@ page 74179000 "C4BC Extension List"
                 ToolTip = 'Allows to view and edit current assignable range.';
                 Enabled = (Rec."Assignable Range Code" <> '');
                 Image = Ranges;
-                RunObject = page "C4BC Assignable Range Card";
+                RunObject = page "ART Assignable Range Card";
                 RunPageLink = Code = field("Assignable Range Code");
                 ApplicationArea = All;
             }

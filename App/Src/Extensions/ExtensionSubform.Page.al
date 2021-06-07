@@ -1,12 +1,12 @@
 /// <summary>
-/// Page C4BC Extension Subform (ID 74179004).
+/// Page ART Extension Subform (ID 74179004).
 /// </summary>
-page 74179004 "C4BC Extension Subform"
+page 74179004 "ART Extension Subform"
 {
     PageType = ListPart;
     UsageCategory = None;
     DelayedInsert = true;
-    SourceTable = "C4BC Extension Object";
+    SourceTable = "ART Extension Object";
 
     layout
     {
@@ -66,7 +66,7 @@ page 74179004 "C4BC Extension Subform"
                 Enabled = ObjectFieldsActionEnabled;
                 ApplicationArea = All;
                 Image = AllLines;
-                RunObject = page "C4BC Extension Object Lines";
+                RunObject = page "ART Extension Object Lines";
                 RunPageLink = "Extension Code" = field("Extension Code"), "Object ID" = field("Object ID"), "Object Type" = field("Object Type");
             }
         }
@@ -86,10 +86,10 @@ page 74179004 "C4BC Extension Subform"
 
     local procedure UpdateHideValueForObjectID()
     var
-        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+        ARTALRMManagement: Codeunit "ART ALRM Management";
     begin
         HideValueForObjectID := false;
-        if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+        if not ARTALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             HideValueForObjectID := true;
     end;
 }

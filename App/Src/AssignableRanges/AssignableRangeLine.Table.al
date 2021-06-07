@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Assignable Range Line (ID 74179002).
+/// Table ART Assignable Range Line (ID 74179002).
 /// </summary>
-table 74179002 "C4BC Assignable Range Line"
+table 74179002 "ART Assignable Range Line"
 {
     Caption = 'Assignable Range Header';
     DataClassification = CustomerContent;
@@ -13,16 +13,16 @@ table 74179002 "C4BC Assignable Range Line"
             Caption = 'Assignable Range Code';
             DataClassification = CustomerContent;
         }
-        field(3; "Object Type"; Enum "C4BC Object Type")
+        field(3; "Object Type"; Enum "ART Object Type")
         {
             Caption = 'Object Type';
             DataClassification = SystemMetadata;
 
             trigger OnValidate()
             var
-                C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+                ARTALRMManagement: Codeunit "ART ALRM Management";
             begin
-                C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", true);
+                ARTALRMManagement.UseObjectTypeIDs(Rec."Object Type", true);
                 ValidateChangeToRanges(xRec."Object Type", RangeType::From, xRec."Object Range From", 0);
                 ValidateChangeToRanges(xRec."Object Type", RangeType::"To", xRec."Object Range To", 0);
             end;
@@ -115,47 +115,47 @@ table 74179002 "C4BC Assignable Range Line"
     /// </summary>
     local procedure CheckIfHeaderRangesNotInUseForObjectType()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCAssignableRangeLine: Record "C4BC Assignable Range Line";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTAssignableRangeLine: Record "ART Assignable Range Line";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
 
         ForObjectTypeTheHeaderRangeIsInUseErr: Label 'For %1 the header object range is in use hence it is not possible to define special range.', Comment = '%1 - Object type that is checked';
     begin
-        C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code");
-        if (C4BCAssignableRangeHeader."Default Object Range From" = 0) and (C4BCAssignableRangeHeader."Default Object Range To" = 0) then
+        ARTAssignableRangeHeader.Get(Rec."Assignable Range Code");
+        if (ARTAssignableRangeHeader."Default Object Range From" = 0) and (ARTAssignableRangeHeader."Default Object Range To" = 0) then
             exit;
 
-        C4BCAssignableRangeLine.SetRange("Assignable Range Code", Rec."Assignable Range Code");
-        C4BCAssignableRangeLine.SetRange("Object Type", Rec."Object Type");
-        if not C4BCAssignableRangeLine.IsEmpty() then
+        ARTAssignableRangeLine.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        ARTAssignableRangeLine.SetRange("Object Type", Rec."Object Type");
+        if not ARTAssignableRangeLine.IsEmpty() then
             exit;
 
-        C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
-        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
-        C4BCExtensionObject.SetFilter("Object ID", '<%1|>%2', Rec."Object Range From", Rec."Object Range To");
-        if not C4BCExtensionObject.IsEmpty() then
+        ARTExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        ARTExtensionObject.SetRange("Object Type", Rec."Object Type");
+        ARTExtensionObject.SetFilter("Object ID", '<%1|>%2', Rec."Object Range From", Rec."Object Range To");
+        if not ARTExtensionObject.IsEmpty() then
             Error(ForObjectTypeTheHeaderRangeIsInUseErr, Rec."Object Type");
     end;
 
     /// <summary> 
     /// Validate changes to ranges to verify, whether the old range is not in use
     /// </summary>
-    /// <param name="C4BCObjectType">Parameter of type Enum "C4BC Object Type".</param>
+    /// <param name="ARTObjectType">Parameter of type Enum "ART Object Type".</param>
     /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>/// 
     /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
     /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
-    local procedure ValidateChangeToRanges(C4BCObjectType: Enum "C4BC Object Type"; RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
+    local procedure ValidateChangeToRanges(ARTObjectType: Enum "ART Object Type"; RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTExtensionObject: Record "ART Extension Object";
 
         OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
     begin
-        C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
-        C4BCExtensionObject.SetRange("Object Type", C4BCObjectType);
-        if not C4BCExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
+        ARTExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
+        ARTExtensionObject.SetRange("Object Type", ARTObjectType);
+        if not ARTExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
             exit;
-        C4BCExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
-        if not C4BCExtensionObject.IsEmpty() then
+        ARTExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
+        if not ARTExtensionObject.IsEmpty() then
             Error(OldRangeIsInUseErr);
     end;
 }

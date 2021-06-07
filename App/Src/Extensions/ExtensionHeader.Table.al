@@ -1,10 +1,10 @@
 /// <summary>
-/// Table C4BC Extension Header (ID 74179000).
+/// Table ART Extension Header (ID 74179000).
 /// </summary>
-table 74179000 "C4BC Extension Header"
+table 74179000 "ART Extension Header"
 {
     Caption = 'Extension Header';
-    LookupPageId = "C4BC Extension List";
+    LookupPageId = "ART Extension List";
 
     fields
     {
@@ -20,13 +20,13 @@ table 74179000 "C4BC Extension Header"
 
             trigger OnValidate()
             var
-                C4BCExtensionHeader: Record "C4BC Extension Header";
+                ARTExtensionHeader: Record "ART Extension Header";
 
                 IDAlreadyExistsErr: Label 'ID %1 already exists on another extension.', Comment = '%1 - ID to check';
             begin
-                C4BCExtensionHeader.SetFilter(Code, '<>%1', Rec.Code);
-                C4BCExtensionHeader.SetRange(ID, Rec.ID);
-                if not C4BCExtensionHeader.IsEmpty() then
+                ARTExtensionHeader.SetFilter(Code, '<>%1', Rec.Code);
+                ARTExtensionHeader.SetRange(ID, Rec.ID);
+                if not ARTExtensionHeader.IsEmpty() then
                     Error(IDAlreadyExistsErr, Rec.ID);
             end;
         }
@@ -34,11 +34,11 @@ table 74179000 "C4BC Extension Header"
         {
             Caption = 'Assignable Range Code';
             DataClassification = CustomerContent;
-            TableRelation = "C4BC Assignable Range Header".Code;
+            TableRelation = "ART Assignable Range Header".Code;
 
             trigger OnValidate()
             var
-                AssignableRangeHeader: Record "C4BC Assignable Range Header";
+                AssignableRangeHeader: Record "ART Assignable Range Header";
                 NoSerisManagement: Codeunit NoSeriesManagement;
             begin
                 if (Rec.Code = '') and (Rec."Assignable Range Code" <> '') then begin
@@ -63,7 +63,7 @@ table 74179000 "C4BC Extension Header"
             Caption = 'No. Series';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("C4BC Assignable Range Header"."No. Series for Extensions" where(Code = field("Assignable Range Code")));
+            CalcFormula = lookup("ART Assignable Range Header"."No. Series for Extensions" where(Code = field("Assignable Range Code")));
         }
     }
 
@@ -98,10 +98,10 @@ table 74179000 "C4BC Extension Header"
     /// <param name="RunTrigger">Boolean "RunTrigger", True = Run delete trigger</param>
     local procedure DeleteObjects(RunTrigger: Boolean)
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCExtensionObject.SetRange("Extension Code", Code);
-        C4BCExtensionObject.DeleteAll(RunTrigger);
+        ARTExtensionObject.SetRange("Extension Code", Code);
+        ARTExtensionObject.DeleteAll(RunTrigger);
     end;
 
     /// <summary> 
@@ -110,10 +110,10 @@ table 74179000 "C4BC Extension Header"
     /// <returns>Return variable "Boolean", true = extension is used, false = extension is not used.</returns>
     local procedure UsageExists(): Boolean
     var
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
+        ARTExtensionUsage: Record "ART Extension Usage";
     begin
-        C4BCExtensionUsage.SetRange("Extension Code", Rec.Code);
-        if not C4BCExtensionUsage.IsEmpty then
+        ARTExtensionUsage.SetRange("Extension Code", Rec.Code);
+        if not ARTExtensionUsage.IsEmpty then
             exit(true);
     end;
 
@@ -123,10 +123,10 @@ table 74179000 "C4BC Extension Header"
     /// <returns>Return variable "Boolean", true = objects exist, false = objects do not exist.</returns>
     local procedure ObjectsExist(): Boolean
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
-        if not C4BCExtensionObject.IsEmpty then
+        ARTExtensionObject.SetRange("Extension Code", Rec.Code);
+        if not ARTExtensionObject.IsEmpty then
             exit(true);
     end;
 
@@ -136,21 +136,21 @@ table 74179000 "C4BC Extension Header"
     /// <returns>Return variable "Code[20]", code of the business central instance that use extension.</returns>
     procedure GetUsageOfExtension(): Code[20]
     var
-        C4BCExtensionUsage: Record "C4BC Extension Usage";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionUsage: Record "ART Extension Usage";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCExtensionUsage.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionUsage.SetFilter("Starting Date", '<=%1', WorkDate());
-        C4BCExtensionUsage.SetFilter("Ending Date", '>=%1|%2', WorkDate(), 0D);
+        ARTExtensionUsage.SetRange("Extension Code", Rec.Code);
+        ARTExtensionUsage.SetFilter("Starting Date", '<=%1', WorkDate());
+        ARTExtensionUsage.SetFilter("Ending Date", '>=%1|%2', WorkDate(), 0D);
 
         Rec.TestField("Assignable Range Code");
-        C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code");
-        if C4BCAssignableRangeHeader."Ranges per BC Instance" then begin
-            C4BCExtensionUsage.FindFirst();
-            exit(C4BCExtensionUsage."Business Central Instance Code");
+        ARTAssignableRangeHeader.Get(Rec."Assignable Range Code");
+        if ARTAssignableRangeHeader."Ranges per BC Instance" then begin
+            ARTExtensionUsage.FindFirst();
+            exit(ARTExtensionUsage."Business Central Instance Code");
         end else
-            if C4BCExtensionUsage.FindFirst() then
-                exit(C4BCExtensionUsage."Business Central Instance Code");
+            if ARTExtensionUsage.FindFirst() then
+                exit(ARTExtensionUsage."Business Central Instance Code");
         exit('');
     end;
 }

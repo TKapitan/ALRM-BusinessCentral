@@ -1,7 +1,7 @@
 /// <summary>
-/// Report C4BC Create License File (ID 74179000).
+/// Report ART Create License File (ID 74179000).
 /// </summary>
-report 74179000 "C4BC Create License File"
+report 74179000 "ART Create License File"
 {
     Caption = 'Create License Object Range CSV file';
     ProcessingOnly = true;
@@ -10,61 +10,61 @@ report 74179000 "C4BC Create License File"
 
     dataset
     {
-        dataitem("C4BC Extension Usage"; "C4BC Extension Usage")
+        dataitem("ART Extension Usage"; "ART Extension Usage")
         {
             trigger OnPreDataItem()
             begin
-                "C4BC Extension Usage".SetRange("Business Central Instance Code", ForBCInstanceCode);
-                "C4BC Extension Usage".SetFilter("Starting Date", '<=%1', ToDate);
-                "C4BC Extension Usage".SetFilter("Ending Date", '>=%1|%2', ToDate, 0D);
+                "ART Extension Usage".SetRange("Business Central Instance Code", ForBCInstanceCode);
+                "ART Extension Usage".SetFilter("Starting Date", '<=%1', ToDate);
+                "ART Extension Usage".SetFilter("Ending Date", '>=%1|%2', ToDate, 0D);
 
-                if not TempC4BCAssignableRangeLine.IsTemporary() then
+                if not TempARTAssignableRangeLine.IsTemporary() then
                     Error('');
-                TempC4BCAssignableRangeLine.DeleteAll();
+                TempARTAssignableRangeLine.DeleteAll();
             end;
 
             trigger OnAfterGetRecord()
             var
-                C4BCExtensionObject: Record "C4BC Extension Object";
+                ARTExtensionObject: Record "ART Extension Object";
 
-                C4BCIObjectLicensing: Interface "C4BC IObject Type";
+                ARTIObjectLicensing: Interface "ART IObject Type";
                 CurrObjectID: Integer;
             begin
-                C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
-                C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
-                if C4BCExtensionObject.FindSet() then
+                ARTExtensionObject.SetAutoCalcFields("Assignable Range Code");
+                ARTExtensionObject.SetRange("Extension Code", "ART Extension Usage"."Extension Code");
+                if ARTExtensionObject.FindSet() then
                     repeat
-                        CurrObjectID := C4BCExtensionObject."Object ID";
-                        C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
-                        if C4BCIObjectLicensing.IsLicensed() then begin
-                            Clear(TempC4BCAssignableRangeLine);
+                        CurrObjectID := ARTExtensionObject."Object ID";
+                        ARTIObjectLicensing := ARTExtensionObject."Object Type";
+                        if ARTIObjectLicensing.IsLicensed() then begin
+                            Clear(TempARTAssignableRangeLine);
 
-                            TempC4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCExtensionObject."Assignable Range Code");
-                            TempC4BCAssignableRangeLine.SetRange("Object Type", C4BCExtensionObject."Object Type");
-                            TempC4BCAssignableRangeLine.SetRange("Object Range From", CurrObjectID + 1);
-                            if TempC4BCAssignableRangeLine.FindFirst() then
+                            TempARTAssignableRangeLine.SetRange("Assignable Range Code", ARTExtensionObject."Assignable Range Code");
+                            TempARTAssignableRangeLine.SetRange("Object Type", ARTExtensionObject."Object Type");
+                            TempARTAssignableRangeLine.SetRange("Object Range From", CurrObjectID + 1);
+                            if TempARTAssignableRangeLine.FindFirst() then
                                 // Add new object at the beginning of existing range
-                                TempC4BCAssignableRangeLine.Rename(C4BCExtensionObject."Assignable Range Code", C4BCExtensionObject."Object Type", CurrObjectID)
+                                TempARTAssignableRangeLine.Rename(ARTExtensionObject."Assignable Range Code", ARTExtensionObject."Object Type", CurrObjectID)
                             else begin
-                                TempC4BCAssignableRangeLine.SetRange("Object Range From");
-                                TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
-                                if TempC4BCAssignableRangeLine.FindFirst() then begin
+                                TempARTAssignableRangeLine.SetRange("Object Range From");
+                                TempARTAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
+                                if TempARTAssignableRangeLine.FindFirst() then begin
                                     // Add new object at the end of existing range
-                                    TempC4BCAssignableRangeLine."Object Range To" := CurrObjectID;
-                                    TempC4BCAssignableRangeLine.Modify(false);
+                                    TempARTAssignableRangeLine."Object Range To" := CurrObjectID;
+                                    TempARTAssignableRangeLine.Modify(false);
                                 end else begin
                                     // Create new range
-                                    Clear(TempC4BCAssignableRangeLine);
-                                    TempC4BCAssignableRangeLine.Init();
-                                    TempC4BCAssignableRangeLine."Assignable Range Code" := C4BCExtensionObject."Assignable Range Code";
-                                    TempC4BCAssignableRangeLine."Object Type" := C4BCExtensionObject."Object Type";
-                                    TempC4BCAssignableRangeLine."Object Range From" := CurrObjectID;
-                                    TempC4BCAssignableRangeLine."Object Range To" := CurrObjectID;
-                                    TempC4BCAssignableRangeLine.Insert(false);
+                                    Clear(TempARTAssignableRangeLine);
+                                    TempARTAssignableRangeLine.Init();
+                                    TempARTAssignableRangeLine."Assignable Range Code" := ARTExtensionObject."Assignable Range Code";
+                                    TempARTAssignableRangeLine."Object Type" := ARTExtensionObject."Object Type";
+                                    TempARTAssignableRangeLine."Object Range From" := CurrObjectID;
+                                    TempARTAssignableRangeLine."Object Range To" := CurrObjectID;
+                                    TempARTAssignableRangeLine.Insert(false);
                                 end;
                             end;
                         end;
-                    until C4BCExtensionObject.Next() < 1;
+                    until ARTExtensionObject.Next() < 1;
             end;
 
             trigger OnPostDataItem()
@@ -73,14 +73,14 @@ report 74179000 "C4BC Create License File"
 
                 CSVHeaderTxt: Label 'ObjectType,FromObjectID,ToObjectID,Read,Insert,Modify,Delete,Execute,AvailableRange,Used,ObjectTypeRemaining,CompanyObjectPermissionID', Locked = true;
             begin
-                Clear(TempC4BCAssignableRangeLine);
-                if not TempC4BCAssignableRangeLine.FindSet() then
+                Clear(TempARTAssignableRangeLine);
+                if not TempARTAssignableRangeLine.FindSet() then
                     exit;
 
                 ExportedText.AppendLine(CSVHeaderTxt);
                 repeat
-                    ExportedText.AppendLine(BuildLicenseLine(TempC4BCAssignableRangeLine));
-                until TempC4BCAssignableRangeLine.Next() < 1;
+                    ExportedText.AppendLine(BuildLicenseLine(TempARTAssignableRangeLine));
+                until TempARTAssignableRangeLine.Next() < 1;
                 ExportLicenseFile(ExportedText);
             end;
         }
@@ -99,7 +99,7 @@ report 74179000 "C4BC Create License File"
                     {
                         Caption = 'For Business Central Instance';
                         ToolTip = 'Specifies code of the Business Central instance for which we want to export the license.';
-                        TableRelation = "C4BC Business Central Instance".Code;
+                        TableRelation = "ART Business Central Instance".Code;
                         ApplicationArea = All;
                     }
                     field(ToDateField; ToDate)
@@ -119,18 +119,18 @@ report 74179000 "C4BC Create License File"
     end;
 
     var
-        TempC4BCAssignableRangeLine: Record "C4BC Assignable Range Line" temporary;
+        TempARTAssignableRangeLine: Record "ART Assignable Range Line" temporary;
         ForBCInstanceCode: Code[20];
         ToDate: Date;
 
     /// <summary> 
     /// Create a file line with license details for specific range of used objects
     /// </summary>
-    /// <param name="TempExpC4BCAssignableRangeLine">PRecord "C4BC Assignable Range Line" temporary, specifies details of the current range.</param>
+    /// <param name="TempExpARTAssignableRangeLine">PRecord "ART Assignable Range Line" temporary, specifies details of the current range.</param>
     /// <returns>Return variable "Text", details about current range in the requested format.</returns>
-    local procedure BuildLicenseLine(TempExpC4BCAssignableRangeLine: Record "C4BC Assignable Range Line" temporary): Text
+    local procedure BuildLicenseLine(TempExpARTAssignableRangeLine: Record "ART Assignable Range Line" temporary): Text
     var
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
 
         BuildedLine: TextBuilder;
         FirstRangeID, LastRangeID : Integer;
@@ -139,11 +139,11 @@ report 74179000 "C4BC Create License File"
         DirectPermissionTxt: Label 'Direct', Locked = true;
         NullTxt: Label '0', Locked = true;
     begin
-        BuildedLine.Append(Format(GetObjectTypeFormattedForLicenseGenerator(TempExpC4BCAssignableRangeLine."Object Type")));
+        BuildedLine.Append(Format(GetObjectTypeFormattedForLicenseGenerator(TempExpARTAssignableRangeLine."Object Type")));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range From"));
+        BuildedLine.Append(Format(TempExpARTAssignableRangeLine."Object Range From"));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range To"));
+        BuildedLine.Append(Format(TempExpARTAssignableRangeLine."Object Range To"));
         BuildedLine.Append(SplitingCharTxt);
         BuildedLine.Append(Format(DirectPermissionTxt));
         BuildedLine.Append(SplitingCharTxt);
@@ -156,13 +156,13 @@ report 74179000 "C4BC Create License File"
         BuildedLine.Append(Format(DirectPermissionTxt));
         BuildedLine.Append(SplitingCharTxt);
 
-        C4BCAssignableRangeHeader.Get(TempExpC4BCAssignableRangeLine."Assignable Range Code");
-        FirstRangeID := C4BCAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range From");
-        LastRangeID := C4BCAssignableRangeHeader.GetVeryLastObjectIDFromRangeBasedOnObjectID(TempExpC4BCAssignableRangeLine."Object Type", TempExpC4BCAssignableRangeLine."Object Range To");
+        ARTAssignableRangeHeader.Get(TempExpARTAssignableRangeLine."Assignable Range Code");
+        FirstRangeID := ARTAssignableRangeHeader.GetVeryFirstObjectIDFromRangeBasedOnObjectID(TempExpARTAssignableRangeLine."Object Type", TempExpARTAssignableRangeLine."Object Range From");
+        LastRangeID := ARTAssignableRangeHeader.GetVeryLastObjectIDFromRangeBasedOnObjectID(TempExpARTAssignableRangeLine."Object Type", TempExpARTAssignableRangeLine."Object Range To");
 
         BuildedLine.Append(Format(FirstRangeID) + ' - ' + Format(LastRangeID));
         BuildedLine.Append(SplitingCharTxt);
-        BuildedLine.Append(Format(TempExpC4BCAssignableRangeLine."Object Range To" - TempExpC4BCAssignableRangeLine."Object Range From" + 1));
+        BuildedLine.Append(Format(TempExpARTAssignableRangeLine."Object Range To" - TempExpARTAssignableRangeLine."Object Range From" + 1));
         BuildedLine.Append(SplitingCharTxt);
         BuildedLine.Append(NullTxt);
         BuildedLine.Append(SplitingCharTxt);
@@ -173,24 +173,24 @@ report 74179000 "C4BC Create License File"
     /// <summary> 
     /// Description for GetObjectTypeFormattedForLicenseGenerator.
     /// </summary>
-    /// <param name="OriginalC4BCObjectType">Parameter of type Enum "C4BC Object Type".</param>
+    /// <param name="OriginalARTObjectType">Parameter of type Enum "ART Object Type".</param>
     /// <returns>Return variable "Text".</returns>
-    local procedure GetObjectTypeFormattedForLicenseGenerator(OriginalC4BCObjectType: Enum "C4BC Object Type"): Text
+    local procedure GetObjectTypeFormattedForLicenseGenerator(OriginalARTObjectType: Enum "ART Object Type"): Text
     var
         IsHandled: Boolean;
         TempText: Text;
     begin
-        OnGetObjectTypeFormattedForLicenseGenerator(IsHandled, OriginalC4BCObjectType, TempText);
+        OnGetObjectTypeFormattedForLicenseGenerator(IsHandled, OriginalARTObjectType, TempText);
         if IsHandled then
             exit(TempText);
 
-        case OriginalC4BCObjectType of
-            OriginalC4BCObjectType::Table:
+        case OriginalARTObjectType of
+            OriginalARTObjectType::Table:
                 exit('TableData');
-            OriginalC4BCObjectType::"XML Port":
+            OriginalARTObjectType::"XML Port":
                 exit('XMLPort');
             else
-                exit(Format(OriginalC4BCObjectType));
+                exit(Format(OriginalARTObjectType));
         end;
     end;
 
@@ -215,9 +215,9 @@ report 74179000 "C4BC Create License File"
     /// Integration Event that is called when the object type enum is translated for license generator
     /// </summary>
     /// <param name="IsHandled">Boolean, if true, the value of ReturnAsObjectType parameter is returned and process ends.</param>
-    /// <param name="OriginalC4BCObjectType">Enum "C4BC Object Type", specifies which object type should be translated.</param>
+    /// <param name="OriginalARTObjectType">Enum "ART Object Type", specifies which object type should be translated.</param>
     /// <param name="ReturnAsObjectType">Text, return value (how the object type should be called in license generator).</param>
-    local procedure OnGetObjectTypeFormattedForLicenseGenerator(IsHandled: Boolean; OriginalC4BCObjectType: Enum "C4BC Object Type"; var ReturnAsObjectType: Text)
+    local procedure OnGetObjectTypeFormattedForLicenseGenerator(IsHandled: Boolean; OriginalARTObjectType: Enum "ART Object Type"; var ReturnAsObjectType: Text)
     begin
     end;
 }

@@ -1,4 +1,4 @@
-codeunit 79002 "C4BC Extension Tests"
+codeunit 79002 "ART Extension Tests"
 {
     Subtype = Test;
     TestPermissions = Disabled;
@@ -13,20 +13,20 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestCreatingNewExtensionAsUser()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
         Commit();
 
         //[THEN] then
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        Clear(C4BCExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        Clear(ARTExtensionHeader);
 
-        C4BCExtensionHeader.Init();
-        asserterror C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_02());
+        ARTExtensionHeader.Init();
+        asserterror ARTExtensionHeader.Validate("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_02());
         Assert.ExpectedError('must have a value');
     end;
 
@@ -36,42 +36,42 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestAssigningNewObjectIDsOnTheNewlyCreatedExtensionCardAsUser()
     var
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
-        C4BCExtensionCard: TestPage "C4BC Extension Card";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
+        ARTExtensionCard: TestPage "ART Extension Card";
         TempInt: Integer;
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
         Commit();
 
         //[THEN] then
-        C4BCExtensionCard.OpenNew();
-        C4BCExtensionCard."Assignable Range Code".SetValue(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Table);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC1');
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.OpenNew();
+        ARTExtensionCard."Assignable Range Code".SetValue(ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Table);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC1');
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Table);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC2');
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Table);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC2');
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 30001, StrSubstNo(BadNewIDErr, 30001, TempInt));
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Report);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC3');
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Report);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC3');
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::"XML Port");
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC4');
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::"XML Port");
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC4');
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 99000, StrSubstNo(BadNewIDErr, 99000, TempInt));
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::"XML Port");
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::"XML Port");
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 99001, StrSubstNo(BadNewIDErr, 99001, TempInt));
-        C4BCExtensionCard.Close();
-        Clear(C4BCExtensionCard);
+        ARTExtensionCard.Close();
+        Clear(ARTExtensionCard);
     end;
 
     [Test]
@@ -80,48 +80,48 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestAssigningNewObjectIDsForObjectTypeWithoutIDsOnTheNewlyCreatedExtensionCardAsUser()
     var
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
-        C4BCExtensionCard: TestPage "C4BC Extension Card";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
+        ARTExtensionCard: TestPage "ART Extension Card";
         TempInt: Integer;
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
         Commit();
 
         //[THEN] then
-        C4BCExtensionCard.OpenNew();
-        C4BCExtensionCard."Assignable Range Code".SetValue(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Table);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC1');
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform.Previous();
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.OpenNew();
+        ARTExtensionCard."Assignable Range Code".SetValue(ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Table);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC1');
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform.Previous();
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 30000, StrSubstNo(BadNewIDErr, 30000, TempInt));
-        C4BCExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform.Next();
 
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Interface);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC2');
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform.Previous();
-        Assert.IsTrue(C4BCExtensionCard.Subform."Object ID".Value() = '', StrSubstNo(BadNewIDErr, '', C4BCExtensionCard.Subform."Object ID".Value()));
-        C4BCExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Interface);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC2');
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform.Previous();
+        Assert.IsTrue(ARTExtensionCard.Subform."Object ID".Value() = '', StrSubstNo(BadNewIDErr, '', ARTExtensionCard.Subform."Object ID".Value()));
+        ARTExtensionCard.Subform.Next();
 
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Interface);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC3');
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform.Previous();
-        Assert.IsTrue(C4BCExtensionCard.Subform."Object ID".Value() = '', StrSubstNo(BadNewIDErr, '', C4BCExtensionCard.Subform."Object ID".Value()));
-        C4BCExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Interface);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC3');
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform.Previous();
+        Assert.IsTrue(ARTExtensionCard.Subform."Object ID".Value() = '', StrSubstNo(BadNewIDErr, '', ARTExtensionCard.Subform."Object ID".Value()));
+        ARTExtensionCard.Subform.Next();
 
-        C4BCExtensionCard.Subform."Object Type".SetValue("C4BC Object Type"::Table);
-        C4BCExtensionCard.Subform."Object Name".SetValue('ABC4');
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Subform.Previous();
-        Evaluate(TempInt, C4BCExtensionCard.Subform."Object ID".Value());
+        ARTExtensionCard.Subform."Object Type".SetValue("ART Object Type"::Table);
+        ARTExtensionCard.Subform."Object Name".SetValue('ABC4');
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Subform.Previous();
+        Evaluate(TempInt, ARTExtensionCard.Subform."Object ID".Value());
         Assert.IsTrue(TempInt = 30001, StrSubstNo(BadNewIDErr, 30001, TempInt));
-        C4BCExtensionCard.Subform.Next();
-        C4BCExtensionCard.Close();
-        Clear(C4BCExtensionCard);
+        ARTExtensionCard.Subform.Next();
+        ARTExtensionCard.Close();
+        Clear(ARTExtensionCard);
     end;
 
 
@@ -131,31 +131,31 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestObjectName()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        ARTObjectRangeTestLibrary.SetObjectNameTemplate();
         Commit();
 
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionObject.FindFirst();
+        ARTExtensionObject.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        asserterror C4BCExtensionObject.Validate("Object Name", 'C4BCMy Object');
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
+        asserterror ARTExtensionObject.Validate("Object Name", 'ARTMy Object');
         Assert.ExpectedError('does not meet template rules');
-        asserterror C4BCExtensionObject.Validate("Object Name", 'My Object C4BC');
+        asserterror ARTExtensionObject.Validate("Object Name", 'My Object ART');
         Assert.ExpectedError('does not meet template rules');
-        asserterror C4BCExtensionObject.Validate("Object Name", 'My Object');
+        asserterror ARTExtensionObject.Validate("Object Name", 'My Object');
         Assert.ExpectedError('does not meet template rules');
-        asserterror C4BCExtensionObject.Validate("Object Name", ' C4BC My Object');
+        asserterror ARTExtensionObject.Validate("Object Name", ' ART My Object');
         Assert.ExpectedError('does not meet template rules');
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
     end;
 
 
@@ -165,27 +165,27 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestObjectNameWithoutTemplate()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
         // No Template is set
         Commit();
 
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionObject.FindFirst();
+        ARTExtensionObject.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionObject.Validate("Object Name", 'C4BCMy Object');
-        C4BCExtensionObject.Validate("Object Name", 'My Object C4BC');
-        C4BCExtensionObject.Validate("Object Name", 'My Object');
-        C4BCExtensionObject.Validate("Object Name", ' C4BC My Object');
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
+        ARTExtensionObject.Validate("Object Name", 'ARTMy Object');
+        ARTExtensionObject.Validate("Object Name", 'My Object ART');
+        ARTExtensionObject.Validate("Object Name", 'My Object');
+        ARTExtensionObject.Validate("Object Name", ' ART My Object');
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
     end;
 
 
@@ -195,24 +195,24 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestEmptyObjectName()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
+        ARTObjectRangeTestLibrary.SetObjectNameTemplate();
         Commit();
 
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
-        C4BCExtensionObject.FindFirst();
+        ARTExtensionObject.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::Table);
+        ARTExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionObject.Validate("Object Name", 'C4BC XYZ MY Object');
-        asserterror C4BCExtensionObject.Validate("Object Name", '');
+        ARTExtensionObject.Validate("Object Name", 'ART XYZ MY Object');
+        asserterror ARTExtensionObject.Validate("Object Name", '');
         Assert.ExpectedError('must have a value');
     end;
 
@@ -223,28 +223,28 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestObjectNameDuplicityInTheSameExtension()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
-        C4BCExtensionObject.FindFirst();
+        ARTObjectRangeTestLibrary.SetObjectNameTemplate();
+        ARTExtensionObject.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::Table);
+        ARTExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionObject.Modify();
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
+        ARTExtensionObject.Modify();
 
         //[WHEN] when
-        C4BCExtensionObject.Next(1);
+        ARTExtensionObject.Next(1);
 
         //[THEN] then
-        asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        asserterror ARTExtensionObject.Validate("Object Name", 'ART My Object');
         Assert.ExpectedError('is already in use.');
     end;
 
@@ -255,23 +255,23 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestDeleteExtension()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
         Commit();
 
         //[WHEN] when
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.FindFirst();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.FindFirst();
 
         //[THEN] then
-        C4BCExtensionHeader.Delete(true);
-        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        Assert.RecordIsEmpty(C4BCExtensionObject);
+        ARTExtensionHeader.Delete(true);
+        ARTExtensionObject.SetRange("Extension Code", ARTExtensionHeader.Code);
+        Assert.RecordIsEmpty(ARTExtensionObject);
 
     end;
 
@@ -282,24 +282,24 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestExtensionIDDuplicity()
     var
-        C4BCExtensionHeader, HelperC4BCExtensionHeader : Record "C4BC Extension Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader, HelperARTExtensionHeader : Record "ART Extension Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
         Commit();
 
         //[WHEN] when
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_06());
-        C4BCExtensionHeader.FindFirst();
-        HelperC4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_04());
-        C4BCExtensionHeader.FindFirst();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_06());
+        ARTExtensionHeader.FindFirst();
+        HelperARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_04());
+        ARTExtensionHeader.FindFirst();
 
         //[THEN] then
-        asserterror HelperC4BCExtensionHeader.Validate(ID, C4BCExtensionHeader.ID);
+        asserterror HelperARTExtensionHeader.Validate(ID, ARTExtensionHeader.ID);
         Assert.ExpectedError('already exists');
-        HelperC4BCExtensionHeader.Validate(ID, CreateGuid());
+        HelperARTExtensionHeader.Validate(ID, CreateGuid());
     end;
 
 
@@ -309,19 +309,19 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestCreateExtensionID()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
         Commit();
 
         //[THEN] then
-        C4BCExtensionHeader.Init();
-        C4BCExtensionHeader.Validate("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.Validate(ID, CreateGuid());
-        C4BCExtensionHeader.Insert(true);
-        Clear(C4BCExtensionHeader);
+        ARTExtensionHeader.Init();
+        ARTExtensionHeader.Validate("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.Validate(ID, CreateGuid());
+        ARTExtensionHeader.Insert(true);
+        Clear(ARTExtensionHeader);
     end;
 
 
@@ -331,46 +331,46 @@ codeunit 79002 "C4BC Extension Tests"
     /// </summary>
     procedure TestAssigningNewFieldIDs()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTExtensionObjectLine: Record "ART Extension Object Line";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeAssignableFieldRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeAssignableFieldRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
         Commit();
 
         //[WHEN] when
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.FindFirst();
-        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::Table);
-        C4BCExtensionObject.FindFirst();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.FindFirst();
+        ARTExtensionObject.SetRange("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::Table);
+        ARTExtensionObject.FindFirst();
 
         //[THEN] then
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
-        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
-        C4BCExtensionObjectLine.Insert(true);
-        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200000, StrSubstNo(BadNewIDErr, 200000, C4BCExtensionObjectLine.ID));
-        Clear(C4BCExtensionObjectLine);
+        ARTExtensionObjectLine.Init();
+        ARTExtensionObjectLine.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObjectLine.Validate("Object Type", ARTExtensionObject."Object Type");
+        ARTExtensionObjectLine.Validate("Object ID", ARTExtensionObject."Object ID");
+        ARTExtensionObjectLine.Insert(true);
+        Assert.IsTrue(ARTExtensionObjectLine.ID = 200000, StrSubstNo(BadNewIDErr, 200000, ARTExtensionObjectLine.ID));
+        Clear(ARTExtensionObjectLine);
 
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
-        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
-        C4BCExtensionObjectLine.Insert(true);
-        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200001, StrSubstNo(BadNewIDErr, 200001, C4BCExtensionObjectLine.ID));
-        Clear(C4BCExtensionObjectLine);
+        ARTExtensionObjectLine.Init();
+        ARTExtensionObjectLine.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObjectLine.Validate("Object Type", ARTExtensionObject."Object Type");
+        ARTExtensionObjectLine.Validate("Object ID", ARTExtensionObject."Object ID");
+        ARTExtensionObjectLine.Insert(true);
+        Assert.IsTrue(ARTExtensionObjectLine.ID = 200001, StrSubstNo(BadNewIDErr, 200001, ARTExtensionObjectLine.ID));
+        Clear(ARTExtensionObjectLine);
 
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine.Validate("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObjectLine.Validate("Object Type", C4BCExtensionObject."Object Type");
-        C4BCExtensionObjectLine.Validate("Object ID", C4BCExtensionObject."Object ID");
-        C4BCExtensionObjectLine.Insert(true);
-        Assert.IsTrue(C4BCExtensionObjectLine.ID = 200002, StrSubstNo(BadNewIDErr, 200002, C4BCExtensionObjectLine.ID));
+        ARTExtensionObjectLine.Init();
+        ARTExtensionObjectLine.Validate("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObjectLine.Validate("Object Type", ARTExtensionObject."Object Type");
+        ARTExtensionObjectLine.Validate("Object ID", ARTExtensionObject."Object ID");
+        ARTExtensionObjectLine.Insert(true);
+        Assert.IsTrue(ARTExtensionObjectLine.ID = 200002, StrSubstNo(BadNewIDErr, 200002, ARTExtensionObjectLine.ID));
     end;
 }

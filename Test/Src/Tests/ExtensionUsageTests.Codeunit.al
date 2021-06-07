@@ -1,4 +1,4 @@
-codeunit 79001 "C4BC Extension Usage Tests"
+codeunit 79001 "ART Extension Usage Tests"
 {
     Subtype = Test;
     TestPermissions = Disabled;
@@ -13,30 +13,30 @@ codeunit 79001 "C4BC Extension Usage Tests"
     /// </summary>
     procedure TestObjectNameDuplicity()
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
-        C4BCObjectRangeTestLibrary.SetExtensionUsage();
-        C4BCExtensionObject.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.FindSet();
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionObject.Modify(true);
+        ARTObjectRangeTestLibrary.SetObjectNameTemplate();
+        ARTObjectRangeTestLibrary.SetExtensionUsage();
+        ARTExtensionObject.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::"Table Extension");
+        ARTExtensionObject.FindSet();
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
+        ARTExtensionObject.Modify(true);
         Commit();
 
-        C4BCExtensionObject.Next(1);
+        ARTExtensionObject.Next(1);
 
         //[THEN] then
         repeat
-            asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+            asserterror ARTExtensionObject.Validate("Object Name", 'ART My Object');
             Assert.ExpectedError('is already in use.');
-        until C4BCExtensionObject.Next() < 1;
+        until ARTExtensionObject.Next() < 1;
     end;
 
     [Test]
@@ -45,40 +45,40 @@ codeunit 79001 "C4BC Extension Usage Tests"
     /// </summary>
     procedure TestObjectNameDuplicityPerBusinessCentralInstance()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionObject: Record "C4BC Extension Object";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTExtensionObject: Record "ART Extension Object";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
         Commit();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetObjectNameTemplate();
-        C4BCObjectRangeTestLibrary.SetExtensionUsage();
-        C4BCAssignableRangeHeader.Get(C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCAssignableRangeHeader."Ranges per BC Instance" := true;
-        C4BCAssignableRangeHeader.Modify(false);
+        ARTObjectRangeTestLibrary.SetObjectNameTemplate();
+        ARTObjectRangeTestLibrary.SetExtensionUsage();
+        ARTAssignableRangeHeader.Get(ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTAssignableRangeHeader."Ranges per BC Instance" := true;
+        ARTAssignableRangeHeader.Modify(false);
         // Extension that has Usage
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.FindSet();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.FindSet();
 
-        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.FindFirst();
-        C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
-        C4BCExtensionObject.Modify(true);
+        ARTExtensionObject.SetRange("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::"Table Extension");
+        ARTExtensionObject.FindFirst();
+        ARTExtensionObject.Validate("Object Name", 'ART My Object');
+        ARTExtensionObject.Modify(true);
 
         //[THEN] then
-        Clear(C4BCExtensionObject);
+        Clear(ARTExtensionObject);
         // Extension that does not have Usage
-        C4BCExtensionHeader.Next(2);
-        C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
-        C4BCExtensionObject.SetRange("Object Type", C4BCExtensionObject."Object Type"::"Table Extension");
-        C4BCExtensionObject.FindFirst();
-        asserterror C4BCExtensionObject.Validate("Object Name", 'C4BC My Object');
+        ARTExtensionHeader.Next(2);
+        ARTExtensionObject.SetRange("Extension Code", ARTExtensionHeader.Code);
+        ARTExtensionObject.SetRange("Object Type", ARTExtensionObject."Object Type"::"Table Extension");
+        ARTExtensionObject.FindFirst();
+        asserterror ARTExtensionObject.Validate("Object Name", 'ART My Object');
         Assert.ExpectedError('There is no Extension Usage within the filter.');
     end;
 
@@ -88,22 +88,22 @@ codeunit 79001 "C4BC Extension Usage Tests"
     /// </summary>
     procedure TestDeleteExtension()
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCObjectRangeTestLibrary: Codeunit "C4BC Object Range Test Library";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTObjectRangeTestLibrary: Codeunit "ART Object Range Test Library";
     begin
         //[GIVEN] given
-        C4BCObjectRangeTestLibrary.InitializeAssignableRanges();
-        C4BCObjectRangeTestLibrary.InitializeExtensions();
+        ARTObjectRangeTestLibrary.InitializeAssignableRanges();
+        ARTObjectRangeTestLibrary.InitializeExtensions();
 
         //[WHEN] when
-        C4BCObjectRangeTestLibrary.SetExtensionUsage();
+        ARTObjectRangeTestLibrary.SetExtensionUsage();
         Commit();
 
-        C4BCExtensionHeader.SetRange("Assignable Range Code", C4BCObjectRangeTestLibrary.C4BCAssignableRangeHeader_Code_01());
-        C4BCExtensionHeader.FindFirst();
+        ARTExtensionHeader.SetRange("Assignable Range Code", ARTObjectRangeTestLibrary.ARTAssignableRangeHeader_Code_01());
+        ARTExtensionHeader.FindFirst();
 
         //[THEN] then
-        asserterror C4BCExtensionHeader.Delete(true);
+        asserterror ARTExtensionHeader.Delete(true);
         Assert.ExpectedError('Extension header cannot be deleted because it is used by atleast one Business Central instance');
     end;
 }

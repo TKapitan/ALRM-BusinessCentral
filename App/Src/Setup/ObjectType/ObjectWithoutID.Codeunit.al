@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC Object Without ID (ID 74179002) implements Interface C4BC IObject Type.
+/// Codeunit ART Object Without ID (ID 74179002) implements Interface ART IObject Type.
 /// </summary>
-codeunit 74179002 "C4BC Object Without ID" implements "C4BC IObject Type"
+codeunit 74179002 "ART Object Without ID" implements "ART IObject Type"
 {
     /// <summary> 
     /// Specifies whether the objects are licensed or are free to use

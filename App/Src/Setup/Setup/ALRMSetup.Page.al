@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC ALRM Setup (ID 74179016).
+/// Page ART ALRM Setup (ID 74179016).
 /// </summary>
-page 74179016 "C4BC ALRM Setup"
+page 74179016 "ART ALRM Setup"
 {
     Caption = 'ALRM Setup';
     PageType = Card;
@@ -9,7 +9,7 @@ page 74179016 "C4BC ALRM Setup"
     InsertAllowed = false;
     ApplicationArea = All;
     UsageCategory = Administration;
-    SourceTable = "C4BC ALRM Setup";
+    SourceTable = "ART ALRM Setup";
 
     layout
     {

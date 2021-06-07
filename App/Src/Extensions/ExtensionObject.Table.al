@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Extension Object (ID 74179003).
+/// Table ART Extension Object (ID 74179003).
 /// </summary>
-table 74179003 "C4BC Extension Object"
+table 74179003 "ART Extension Object"
 {
     Caption = 'Extension Object';
 
@@ -11,15 +11,15 @@ table 74179003 "C4BC Extension Object"
         {
             Caption = 'Extension Code';
             DataClassification = SystemMetadata;
-            TableRelation = "C4BC Extension Header".Code where(Code = field("Extension Code"));
+            TableRelation = "ART Extension Header".Code where(Code = field("Extension Code"));
         }
         field(2; "Extension ID"; Guid)
         {
             Caption = 'ID';
             DataClassification = SystemMetadata;
-            TableRelation = "C4BC Extension Header".ID;
+            TableRelation = "ART Extension Header".ID;
         }
-        field(3; "Object Type"; Enum "C4BC Object Type")
+        field(3; "Object Type"; Enum "ART Object Type")
         {
             Caption = 'Object Type';
             DataClassification = SystemMetadata;
@@ -74,7 +74,7 @@ table 74179003 "C4BC Extension Object"
 
             trigger OnValidate()
             var
-                IObjectType: Interface "C4BC IObject Type";
+                IObjectType: Interface "ART IObject Type";
                 DoesNotExtendsObjectErr: Label '%1 object type does not extend another object.', Comment = '%1 - object type that extends another object.';
             begin
                 if Rec."Extends Object Name" = '' then
@@ -91,7 +91,7 @@ table 74179003 "C4BC Extension Object"
             Caption = 'Assignable Range Code';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = lookup("C4BC Extension Header"."Assignable Range Code" where("Code" = field("Extension Code")));
+            CalcFormula = lookup("ART Extension Header"."Assignable Range Code" where("Code" = field("Extension Code")));
         }
         field(101; "Bus. Central Instance Filter"; Code[20])
         {
@@ -103,7 +103,7 @@ table 74179003 "C4BC Extension Object"
             Caption = 'Bus. Central Instance Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
+            CalcFormula = exist("ART Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
         }
     }
 
@@ -140,12 +140,12 @@ table 74179003 "C4BC Extension Object"
 
     trigger OnDelete()
     var
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+        ARTExtensionObjectLine: Record "ART Extension Object Line";
     begin
-        C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
-        C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
-        C4BCExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
-        C4BCExtensionObjectLine.DeleteAll(true);
+        ARTExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
+        ARTExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
+        ARTExtensionObjectLine.SetRange("Object ID", Rec."Object ID");
+        ARTExtensionObjectLine.DeleteAll(true);
     end;
 
     var
@@ -159,22 +159,22 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Integer", ID of the object.</returns>
     procedure GetNewObjectID(): Integer
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
 
-        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+        ARTALRMManagement: Codeunit "ART ALRM Management";
     begin
         if Rec."Object ID" <> 0 then
             exit(Rec."Object ID");
 
-        if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+        if not ARTALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             exit(GetNewImaginaryObjectID());
 
-        C4BCExtensionHeader.Get(Rec."Extension Code");
+        ARTExtensionHeader.Get(Rec."Extension Code");
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
-        C4BCAssignableRangeHeader.Get("Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
+        ARTAssignableRangeHeader.Get("Assignable Range Code");
+        exit(ARTAssignableRangeHeader.GetNewObjectID("Object Type", ARTExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary>
@@ -183,21 +183,21 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Integer", imaginary ID of the object.</returns>
     procedure GetNewImaginaryObjectID(): Integer
     var
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTExtensionObject: Record "ART Extension Object";
 
-        C4BCALRMManagement: Codeunit "C4BC ALRM Management";
+        ARTALRMManagement: Codeunit "ART ALRM Management";
     begin
         if Rec."Object ID" <> 0 then
             exit(Rec."Object ID");
 
-        if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+        if ARTALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
             exit(GetNewObjectID());
 
-        C4BCExtensionObject.LockTable();
-        C4BCExtensionObject.SetRange("Extension Code", Rec."Extension Code");
-        C4BCExtensionObject.SetRange("Object Type", Rec."Object Type");
-        if C4BCExtensionObject.FindLast() then
-            exit(C4BCExtensionObject."Object ID" + 1);
+        ARTExtensionObject.LockTable();
+        ARTExtensionObject.SetRange("Extension Code", Rec."Extension Code");
+        ARTExtensionObject.SetRange("Object Type", Rec."Object Type");
+        if ARTExtensionObject.FindLast() then
+            exit(ARTExtensionObject."Object ID" + 1);
         exit(1);
     end;
 
@@ -248,12 +248,12 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Boolean", true = duplicit</returns>
     local procedure CheckObjectIDDuplicity(): Boolean
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.IsObjectIDAlreadyInUse(Rec."Object Type", Rec."Object ID", C4BCExtensionHeader.GetUsageOfExtension()));
+        ARTExtensionHeader.Get(Rec."Extension Code");
+        ARTAssignableRangeHeader.Get(ARTExtensionHeader."Assignable Range Code");
+        exit(ARTAssignableRangeHeader.IsObjectIDAlreadyInUse(Rec."Object Type", Rec."Object ID", ARTExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary>
@@ -262,12 +262,12 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Boolean", true = the ID is within allowed ranges.</returns>
     local procedure IsObjectIDWithinRange(): Boolean
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.IsObjectIDFromRange(Rec."Object Type", Rec."Object ID"));
+        ARTExtensionHeader.Get(Rec."Extension Code");
+        ARTAssignableRangeHeader.Get(ARTExtensionHeader."Assignable Range Code");
+        exit(ARTAssignableRangeHeader.IsObjectIDFromRange(Rec."Object Type", Rec."Object ID"));
     end;
 
     /// <summary>
@@ -276,12 +276,12 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Boolean", true = duplicit</returns>
     local procedure CheckObjectNameDuplicity(): Boolean
     var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+        ARTExtensionHeader: Record "ART Extension Header";
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
     begin
-        C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.IsObjectNameAlreadyInUse(Rec."Object Type", Rec."Object Name", C4BCExtensionHeader.GetUsageOfExtension()));
+        ARTExtensionHeader.Get(Rec."Extension Code");
+        ARTAssignableRangeHeader.Get(ARTExtensionHeader."Assignable Range Code");
+        exit(ARTAssignableRangeHeader.IsObjectNameAlreadyInUse(Rec."Object Type", Rec."Object Name", ARTExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary> 
@@ -291,18 +291,18 @@ table 74179003 "C4BC Extension Object"
     /// <returns>Return variable "Boolean".</returns>
     local procedure ObjectNameTemplateRulesMet(var TemplateRule: Text): Boolean
     var
-        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
-        TempC4BCExtensionObject: Record "C4BC Extension Object" temporary;
+        ARTAssignableRangeHeader: Record "ART Assignable Range Header";
+        TempARTExtensionObject: Record "ART Extension Object" temporary;
     begin
         Rec.CalcFields("Assignable Range Code");
         Rec.TestField("Assignable Range Code");
-        if C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code") then
-            if C4BCAssignableRangeHeader."Object Name Template" <> '' then begin
-                TemplateRule := C4BCAssignableRangeHeader."Object Name Template";
-                TempC4BCExtensionObject."Object Name" := Rec."Object Name";
-                TempC4BCExtensionObject.Insert(false);
-                TempC4BCExtensionObject.SetFilter("Object Name", C4BCAssignableRangeHeader."Object Name Template");
-                if not TempC4BCExtensionObject.IsEmpty then
+        if ARTAssignableRangeHeader.Get(Rec."Assignable Range Code") then
+            if ARTAssignableRangeHeader."Object Name Template" <> '' then begin
+                TemplateRule := ARTAssignableRangeHeader."Object Name Template";
+                TempARTExtensionObject."Object Name" := Rec."Object Name";
+                TempARTExtensionObject.Insert(false);
+                TempARTExtensionObject.SetFilter("Object Name", ARTAssignableRangeHeader."Object Name Template");
+                if not TempARTExtensionObject.IsEmpty then
                     exit(true);
             end else
                 exit(true);

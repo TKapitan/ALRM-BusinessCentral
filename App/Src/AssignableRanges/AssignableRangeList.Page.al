@@ -1,14 +1,14 @@
 /// <summary>
-/// Page C4BC Assignable Range List (ID 74179001).
+/// Page ART Assignable Range List (ID 74179001).
 /// </summary>
-page 74179001 "C4BC Assignable Range List"
+page 74179001 "ART Assignable Range List"
 {
     Caption = 'Assignable Ranges';
     PageType = List;
     Editable = false;
     UsageCategory = Lists;
-    CardPageId = "C4BC Assignable Range Card";
-    SourceTable = "C4BC Assignable Range Header";
+    CardPageId = "ART Assignable Range Card";
+    SourceTable = "ART Assignable Range Header";
     ApplicationArea = All;
 
     layout
@@ -51,7 +51,7 @@ page 74179001 "C4BC Assignable Range List"
                 ToolTip = 'Allows to view and edit extensions.';
                 Enabled = (Rec.Code <> '');
                 Image = ExtendedDataEntry;
-                RunObject = page "C4BC Extension List";
+                RunObject = page "ART Extension List";
                 RunPageLink = "Assignable Range Code" = field("Code");
                 ApplicationArea = All;
             }

@@ -1,12 +1,12 @@
 /// <summary>
-/// Page C4BC Assignable Range Subform (ID 74179003).
+/// Page ART Assignable Range Subform (ID 74179003).
 /// </summary>
-page 74179003 "C4BC Assignable Range Subform"
+page 74179003 "ART Assignable Range Subform"
 {
     Caption = 'Lines';
     PageType = ListPart;
     DelayedInsert = true;
-    SourceTable = "C4BC Assignable Range Line";
+    SourceTable = "ART Assignable Range Line";
 
     layout
     {

@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension API (ID 74179006).
+/// Page ART Extension API (ID 74179006).
 /// </summary>
-page 74179006 "C4BC Extension API"
+page 74179006 "ART Extension API"
 {
     PageType = API;
     Caption = 'Extension API';
@@ -10,7 +10,7 @@ page 74179006 "C4BC Extension API"
     APIVersion = 'v1.0';
     EntityName = 'extension';
     EntitySetName = 'extensions';
-    SourceTable = "C4BC Extension Header";
+    SourceTable = "ART Extension Header";
     DelayedInsert = true;
 
     ObsoleteState = Pending;
@@ -64,7 +64,7 @@ page 74179006 "C4BC Extension API"
                 {
                     ApplicationArea = All;
                 }
-                part("Extension Objects"; "C4BC Extension Object API")
+                part("Extension Objects"; "ART Extension Object API")
                 {
                     ApplicationArea = All;
                     EntityName = 'extensionObject';
@@ -77,129 +77,129 @@ page 74179006 "C4BC Extension API"
 
     trigger OnAfterGetCurrRecord()
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
+        ARTALRMSetup: Record "ART ALRM Setup";
     begin
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
     end;
 
     [ServiceEnabled]
     /// <summary> 
     /// Create new object with specified name and type.
     /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectType">Enum "ART Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateObject(ObjectType: Enum "C4BC Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
+    procedure CreateObject(ObjectType: Enum "ART Object Type"; ObjectName: Text[100]; CreatedBy: Text[50]): Integer
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTALRMSetup: Record "ART ALRM Setup";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
 
-        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionObject.SetRange("Object Type", ObjectType);
-        C4BCExtensionObject.SetRange("Object Name", ObjectName);
-        if C4BCExtensionObject.FindFirst() then
-            exit(C4BCExtensionObject."Object ID");
+        ARTExtensionObject.SetRange("Extension Code", Rec.Code);
+        ARTExtensionObject.SetRange("Object Type", ObjectType);
+        ARTExtensionObject.SetRange("Object Name", ObjectName);
+        if ARTExtensionObject.FindFirst() then
+            exit(ARTExtensionObject."Object ID");
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject."Extension Code" := Rec.Code;
-        C4BCExtensionObject.Validate("Object Type", ObjectType);
-        C4BCExtensionObject.Validate("Object Name", ObjectName);
-        C4BCExtensionObject.Validate("Created By", CreatedBy);
-        C4BCExtensionObject.Insert(true);
-        exit(C4BCExtensionObject."Object ID");
+        ARTExtensionObject.Init();
+        ARTExtensionObject."Extension Code" := Rec.Code;
+        ARTExtensionObject.Validate("Object Type", ObjectType);
+        ARTExtensionObject.Validate("Object Name", ObjectName);
+        ARTExtensionObject.Validate("Created By", CreatedBy);
+        ARTExtensionObject.Insert(true);
+        exit(ARTExtensionObject."Object ID");
     end;
 
     [ServiceEnabled]
     /// <summary> 
     /// Create new object with specified name and type.
     /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectType">Enum "ART Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specify object name.</param>
     /// <param name="ObjectName">Text[100], Specifies object name.</param>
     /// <param name="CreatedBy">Text[50], Specifies identification of user who required object registration.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
+    procedure CreateObjectWithOwnID(ObjectType: Enum "ART Object Type"; ObjectID: Integer; ObjectName: Text[100]; CreatedBy: Text[50])
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
-        C4BCExtensionObject: Record "C4BC Extension Object";
+        ARTALRMSetup: Record "ART ALRM Setup";
+        ARTExtensionObject: Record "ART Extension Object";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
 
-        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionObject.SetRange("Object Type", ObjectType);
-        C4BCExtensionObject.SetRange("Object ID", ObjectID);
-        C4BCExtensionObject.SetRange("Object Name", ObjectName);
-        if not C4BCExtensionObject.IsEmpty() then
+        ARTExtensionObject.SetRange("Extension Code", Rec.Code);
+        ARTExtensionObject.SetRange("Object Type", ObjectType);
+        ARTExtensionObject.SetRange("Object ID", ObjectID);
+        ARTExtensionObject.SetRange("Object Name", ObjectName);
+        if not ARTExtensionObject.IsEmpty() then
             exit;
 
-        C4BCExtensionObject.Init();
-        C4BCExtensionObject."Extension Code" := Rec.Code;
-        C4BCExtensionObject.Validate("Object Type", ObjectType);
-        C4BCExtensionObject.Validate("Object ID", ObjectID);
-        C4BCExtensionObject.Validate("Object Name", ObjectName);
-        C4BCExtensionObject.Validate("Created By", CreatedBy);
-        C4BCExtensionObject.Insert(true);
+        ARTExtensionObject.Init();
+        ARTExtensionObject."Extension Code" := Rec.Code;
+        ARTExtensionObject.Validate("Object Type", ObjectType);
+        ARTExtensionObject.Validate("Object ID", ObjectID);
+        ARTExtensionObject.Validate("Object Name", ObjectName);
+        ARTExtensionObject.Validate("Created By", CreatedBy);
+        ARTExtensionObject.Insert(true);
     end;
 
     [ServiceEnabled]
     /// <summary>
     /// Create new object field for tableextensions or object value for enumextensions.
     /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectType">Enum "ART Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specifies Object ID</param>
     /// <param name="CreatedBy">Text[50], Specifies user who requested new ID.</param>
     /// <returns>Return variable "Integer", ID of the object line.</returns>
-    procedure CreateObjectFieldOrValue(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; CreatedBy: Text[50]): Integer
+    procedure CreateObjectFieldOrValue(ObjectType: Enum "ART Object Type"; ObjectID: Integer; CreatedBy: Text[50]): Integer
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+        ARTALRMSetup: Record "ART ALRM Setup";
+        ARTExtensionObjectLine: Record "ART Extension Object Line";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
 
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
-        C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
-        C4BCExtensionObjectLine.Validate("Object ID", ObjectID);
-        C4BCExtensionObjectLine.Validate("Created By", CreatedBy);
-        C4BCExtensionObjectLine.Insert(true);
-        exit(C4BCExtensionObjectLine.ID);
+        ARTExtensionObjectLine.Init();
+        ARTExtensionObjectLine.Validate("Extension Code", Rec."Code");
+        ARTExtensionObjectLine.Validate("Object Type", ObjectType);
+        ARTExtensionObjectLine.Validate("Object ID", ObjectID);
+        ARTExtensionObjectLine.Validate("Created By", CreatedBy);
+        ARTExtensionObjectLine.Insert(true);
+        exit(ARTExtensionObjectLine.ID);
     end;
 
     [ServiceEnabled]
     /// <summary>
     /// Create new object field for tableextensions or object value for enumextensions with existing ID.
     /// </summary>
-    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies type of the object that should be registered.</param>
+    /// <param name="ObjectType">Enum "ART Object Type", Specifies type of the object that should be registered.</param>
     /// <param name="ObjectID">Integer, Specifies Object ID</param>
     /// <param name="FieldOrValueID">Integer, Specifies object field or value ID</param>
     /// <param name="CreatedBy">Text[50], Specifies user who requested new ID.</param>
-    procedure CreateObjectFieldOrValueWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; FieldOrValueID: Integer; CreatedBy: Text[50])
+    procedure CreateObjectFieldOrValueWithOwnID(ObjectType: Enum "ART Object Type"; ObjectID: Integer; FieldOrValueID: Integer; CreatedBy: Text[50])
     var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
-        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+        ARTALRMSetup: Record "ART ALRM Setup";
+        ARTExtensionObjectLine: Record "ART Extension Object Line";
     begin
-        C4BCALRMSetup.FindFirst();
-        C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.0");
+        ARTALRMSetup.FindFirst();
+        ARTALRMSetup.CheckAPIVersion(ARTALRMSetup."Minimal API Version"::"v1.0");
 
-        C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
-        C4BCExtensionObjectLine.SetRange("Object ID", ObjectID);
-        C4BCExtensionObjectLine.SetRange(ID, FieldOrValueID);
-        if not C4BCExtensionObjectLine.IsEmpty() then
+        ARTExtensionObjectLine.SetRange("Extension Code", Rec.Code);
+        ARTExtensionObjectLine.SetRange("Object Type", ObjectType);
+        ARTExtensionObjectLine.SetRange("Object ID", ObjectID);
+        ARTExtensionObjectLine.SetRange(ID, FieldOrValueID);
+        if not ARTExtensionObjectLine.IsEmpty() then
             exit;
 
-        C4BCExtensionObjectLine.Init();
-        C4BCExtensionObjectLine.Validate("Extension Code", Rec."Code");
-        C4BCExtensionObjectLine.Validate("Object Type", ObjectType);
-        C4BCExtensionObjectLine.Validate("Object ID", ObjectID);
-        C4BCExtensionObjectLine.Validate(ID, FieldOrValueID);
-        C4BCExtensionObjectLine.Validate("Created By", CreatedBy);
-        C4BCExtensionObjectLine.Insert(true);
+        ARTExtensionObjectLine.Init();
+        ARTExtensionObjectLine.Validate("Extension Code", Rec."Code");
+        ARTExtensionObjectLine.Validate("Object Type", ObjectType);
+        ARTExtensionObjectLine.Validate("Object ID", ObjectID);
+        ARTExtensionObjectLine.Validate(ID, FieldOrValueID);
+        ARTExtensionObjectLine.Validate("Created By", CreatedBy);
+        ARTExtensionObjectLine.Insert(true);
     end;
 }

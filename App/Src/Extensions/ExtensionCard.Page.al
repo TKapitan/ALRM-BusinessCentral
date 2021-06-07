@@ -1,12 +1,12 @@
 /// <summary>
-/// Page C4BC Extension Card (ID 74179005).
+/// Page ART Extension Card (ID 74179005).
 /// </summary>
-page 74179005 "C4BC Extension Card"
+page 74179005 "ART Extension Card"
 {
     Caption = 'Extension Card';
     PageType = Card;
     UsageCategory = None;
-    SourceTable = "C4BC Extension Header";
+    SourceTable = "ART Extension Header";
 
 
     layout
@@ -38,7 +38,7 @@ page 74179005 "C4BC Extension Card"
                     ToolTip = 'Description of the extension';
                 }
             }
-            part("Subform"; "C4BC Extension Subform")
+            part("Subform"; "ART Extension Subform")
             {
                 Caption = 'Objects';
                 ApplicationArea = All;
@@ -57,7 +57,7 @@ page 74179005 "C4BC Extension Card"
                 ToolTip = 'Allows to view and edit usage of the current extension.';
                 Enabled = (Rec."Code" <> '');
                 Image = LinkWithExisting;
-                RunObject = page "C4BC Extension Usage List";
+                RunObject = page "ART Extension Usage List";
                 RunPageLink = "Extension Code" = field(Code);
                 ApplicationArea = All;
             }
@@ -67,7 +67,7 @@ page 74179005 "C4BC Extension Card"
                 ToolTip = 'Allows to view and edit current assignable range.';
                 Enabled = (Rec."Assignable Range Code" <> '');
                 Image = Ranges;
-                RunObject = page "C4BC Assignable Range Card";
+                RunObject = page "ART Assignable Range Card";
                 RunPageLink = Code = field("Assignable Range Code");
                 ApplicationArea = All;
             }
