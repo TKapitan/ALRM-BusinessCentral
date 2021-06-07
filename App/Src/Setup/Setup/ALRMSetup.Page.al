@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC ALRM Setup (ID 80016).
+/// Page C4BC ALRM Setup (ID 74179016).
 /// </summary>
-page 80016 "C4BC ALRM Setup"
+page 74179016 "C4BC ALRM Setup"
 {
     Caption = 'ALRM Setup';
     PageType = Card;

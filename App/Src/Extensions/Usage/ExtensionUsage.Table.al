@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Extension Usage (ID 80004).
+/// Table C4BC Extension Usage (ID 74179004).
 /// </summary>
-table 80004 "C4BC Extension Usage"
+table 74179004 "C4BC Extension Usage"
 {
     Caption = 'Extension Usage';
     LookupPageId = "C4BC Extension Usage List";

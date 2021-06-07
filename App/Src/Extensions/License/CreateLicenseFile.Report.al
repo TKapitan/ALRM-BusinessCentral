@@ -1,7 +1,7 @@
 /// <summary>
-/// Report C4BC Create License File (ID 80000).
+/// Report C4BC Create License File (ID 74179000).
 /// </summary>
-report 80000 "C4BC Create License File"
+report 74179000 "C4BC Create License File"
 {
     Caption = 'Create License Object Range CSV file';
     ProcessingOnly = true;

@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Assignable Range Card (ID 80002).
+/// Page C4BC Assignable Range Card (ID 74179002).
 /// </summary>
-page 80002 "C4BC Assignable Range Card"
+page 74179002 "C4BC Assignable Range Card"
 {
     Caption = 'Assignable Range';
     PageType = Card;

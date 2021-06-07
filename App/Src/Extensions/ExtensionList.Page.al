@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension List (ID 80000).
+/// Page C4BC Extension List (ID 74179000).
 /// </summary>
-page 80000 "C4BC Extension List"
+page 74179000 "C4BC Extension List"
 {
     Caption = 'Extension List';
     PageType = List;

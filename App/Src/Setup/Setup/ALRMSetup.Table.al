@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC ALRM Setup (ID 80007).
+/// Table C4BC ALRM Setup (ID 74179007).
 /// </summary>
-table 80007 "C4BC ALRM Setup"
+table 74179007 "C4BC ALRM Setup"
 {
     Caption = 'ALRM Setup';
     DrillDownPageId = "C4BC ALRM Setup";

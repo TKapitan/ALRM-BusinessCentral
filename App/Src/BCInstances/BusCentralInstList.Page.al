@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Bus. Central Inst. List (ID 80007).
+/// Page C4BC Bus. Central Inst. List (ID 74179007).
 /// </summary>
-page 80007 "C4BC Bus. Central Inst. List"
+page 74179007 "C4BC Bus. Central Inst. List"
 {
     Caption = 'Business Central Instances';
     PageType = List;

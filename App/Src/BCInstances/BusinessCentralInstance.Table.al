@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Business Central Instance (ID 80005).
+/// Table C4BC Business Central Instance (ID 74179005).
 /// </summary>
-table 80005 "C4BC Business Central Instance"
+table 74179005 "C4BC Business Central Instance"
 {
     Caption = 'Business Central Instance';
     LookupPageId = "C4BC Bus. Central Inst. List";

@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Usage List (ID 80008).
+/// Page C4BC Extension Usage List (ID 74179008).
 /// </summary>
-page 80008 "C4BC Extension Usage List"
+page 74179008 "C4BC Extension Usage List"
 {
     Caption = 'Extension Usage List';
     PageType = List;

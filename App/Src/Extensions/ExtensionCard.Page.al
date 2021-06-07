@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Card (ID 80005).
+/// Page C4BC Extension Card (ID 74179005).
 /// </summary>
-page 80005 "C4BC Extension Card"
+page 74179005 "C4BC Extension Card"
 {
     Caption = 'Extension Card';
     PageType = Card;

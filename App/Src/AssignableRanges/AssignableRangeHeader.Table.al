@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Assignable Range Header (ID 80001).
+/// Table C4BC Assignable Range Header (ID 74179001).
 /// </summary>
-table 80001 "C4BC Assignable Range Header"
+table 74179001 "C4BC Assignable Range Header"
 {
     Caption = 'Assignable Range Header';
     LookupPageId = "C4BC Assignable Range List";

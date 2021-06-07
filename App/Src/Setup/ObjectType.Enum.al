@@ -1,7 +1,7 @@
 /// <summary>
-/// Enum C4BC Object Type (ID 80000) implements Interface C4BC IObject Type.
+/// Enum C4BC Object Type (ID 74179000) implements Interface C4BC IObject Type.
 /// </summary>
-enum 80000 "C4BC Object Type" implements "C4BC IObject Type"
+enum 74179000 "C4BC Object Type" implements "C4BC IObject Type"
 {
     Extensible = true;
     DefaultImplementation = "C4BC IObject Type" = "C4BC Standard Object";

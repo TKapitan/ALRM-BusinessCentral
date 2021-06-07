@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC ALRM Installation (ID 80005).
+/// Codeunit C4BC ALRM Installation (ID 74179005).
 /// </summary>
-codeunit 80005 "C4BC ALRM Installation"
+codeunit 74179005 "C4BC ALRM Installation"
 {
     Subtype = Install;
 

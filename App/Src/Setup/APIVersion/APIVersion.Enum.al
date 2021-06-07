@@ -1,7 +1,7 @@
 /// <summary>
-/// Enum C4BC API Version (ID 80001).
+/// Enum C4BC API Version (ID 74179001).
 /// </summary>
-enum 80001 "C4BC API Version"
+enum 74179001 "C4BC API Version"
 {
     Extensible = true;
 

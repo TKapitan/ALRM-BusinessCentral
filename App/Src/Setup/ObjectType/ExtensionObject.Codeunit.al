@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC Extension Object (ID 80004) implements Interface C4BC IObject Type.
+/// Codeunit C4BC Extension Object (ID 74179004) implements Interface C4BC IObject Type.
 /// </summary>
-codeunit 80004 "C4BC Extension Object" implements "C4BC IObject Type"
+codeunit 74179004 "C4BC Extension Object" implements "C4BC IObject Type"
 {
     /// <summary> 
     /// Specifies whether the objects are licensed or are free to use

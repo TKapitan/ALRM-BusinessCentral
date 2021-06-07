@@ -1,7 +1,7 @@
 /// <summary>
-/// Codeunit C4BC ALRM Management (ID 80003).
+/// Codeunit C4BC ALRM Management (ID 74179003).
 /// </summary>
-codeunit 80003 "C4BC ALRM Management"
+codeunit 74179003 "C4BC ALRM Management"
 {
     SingleInstance = true;
 

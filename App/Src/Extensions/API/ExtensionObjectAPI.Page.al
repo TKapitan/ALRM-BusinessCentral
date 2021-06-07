@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Extension Object API (ID 80011).
+/// Page C4BC Extension Object API (ID 74179011).
 /// </summary>
-page 80011 "C4BC Extension Object API"
+page 74179011 "C4BC Extension Object API"
 {
     PageType = API;
     Caption = 'Extension Object API';

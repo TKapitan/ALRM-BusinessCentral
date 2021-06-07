@@ -16,8 +16,8 @@
   "application": "17.0.0.0",
   "idRanges": [
     {
-      "from": 80000,
-      "to": 80099
+      "from": 74179000,
+      "to": 74179099
     }
   ],
   "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/master-cloud/README.md",

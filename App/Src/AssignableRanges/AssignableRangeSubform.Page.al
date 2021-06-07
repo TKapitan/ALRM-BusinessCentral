@@ -1,7 +1,7 @@
 /// <summary>
-/// Page C4BC Assignable Range Subform (ID 80003).
+/// Page C4BC Assignable Range Subform (ID 74179003).
 /// </summary>
-page 80003 "C4BC Assignable Range Subform"
+page 74179003 "C4BC Assignable Range Subform"
 {
     Caption = 'Lines';
     PageType = ListPart;

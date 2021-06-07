@@ -1,7 +1,7 @@
 /// <summary>
-/// Table C4BC Extension Header (ID 80000).
+/// Table C4BC Extension Header (ID 74179000).
 /// </summary>
-table 80000 "C4BC Extension Header"
+table 74179000 "C4BC Extension Header"
 {
     Caption = 'Extension Header';
     LookupPageId = "C4BC Extension List";
