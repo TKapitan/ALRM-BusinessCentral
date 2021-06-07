@@ -1,12 +1,12 @@
 {
-  "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
-  "name": "ALRM: AL ID Range Manager",
-  "publisher": "ART AA AE from Czechia + Kepty.cz",
-  "version": "0.1.3.4",
+  "id": "387c89df-1def-40e2-8953-e467ea2a15dd",
+  "name": "AL ID Range Manager (ALRM)",
+  "publisher": "ARTEX informacni systemy spol. s r.o.",
+  "version": "0.1.3.5",
   "brief": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "description": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "privacyStatement": "https://docs-artex-is.azurewebsites.net/privacy-policy",
-  "EULA": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/Kepty/LICENSE.md",
+  "EULA": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/master-cloud/LICENSE.md",
   "help": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
   "url": "https://github.com/TKapitan/ALRM-BusinessCentral",
   "logo": "Resources/img/ALIDRangeManager.png",
@@ -20,7 +20,7 @@
       "to": 80099
     }
   ],
-  "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
+  "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/blob/master-cloud/README.md",
   "showMyCode": true,
   "runtime": "6.0",
   "features": [
