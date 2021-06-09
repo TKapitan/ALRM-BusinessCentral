@@ -61,6 +61,7 @@ page 80004 "C4BC Extension Subform"
                 Caption = 'Object Lines';
                 ToolTip = 'Opens a list of the lines associated with selected object, it is only possible to assign lines to objects of type Table Extension, Enum Extension';
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedIsBig = true;
                 PromotedCategory = Process;
                 Enabled = ObjectFieldsActionEnabled;

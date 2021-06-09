@@ -106,7 +106,7 @@ table 80001 "C4BC Assignable Range Header"
         {
             Caption = 'Field Range To';
             MinValue = 0;
-            DataClassification = ToBeClassified;
+            DataClassification = SystemMetadata;
 
             trigger OnValidate()
             begin

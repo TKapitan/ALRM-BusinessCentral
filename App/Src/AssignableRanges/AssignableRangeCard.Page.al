@@ -5,6 +5,7 @@ page 80002 "C4BC Assignable Range Card"
 {
     Caption = 'Assignable Range';
     PageType = Card;
+    UsageCategory = None;
     SourceTable = "C4BC Assignable Range Header";
 
     layout
