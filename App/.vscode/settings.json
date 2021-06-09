@@ -2,7 +2,9 @@
     "al.enableCodeAnalysis": true,
     "al.codeAnalyzers": [
         "${CodeCop}",
-        "${PerTenantExtensionCop}"
+        "${PerTenantExtensionCop}",
+        "${AppSourceCop}",
+        "${UICop}"
     ],
     "CRS.ObjectNamePrefix": "C4BC ",
     "al.ruleSetPath": "./.codeAnalysis/app.ruleset.json",
