@@ -29,7 +29,7 @@ table 80004 "C4BC Extension Usage"
         }
         field(11; "Ending Date"; Date)
         {
-            Caption = 'Starting Date';
+            Caption = 'Ending Date';
             DataClassification = CustomerContent;
 
             trigger OnValidate()

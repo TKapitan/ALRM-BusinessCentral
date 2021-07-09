@@ -108,6 +108,15 @@ page 80002 "C4BC Assignable Range Card"
                 RunPageLink = "Assignable Range Code" = field("Code");
                 ApplicationArea = All;
             }
+            action(AssignedObjects)
+            {
+                Caption = 'Assigned Objects';
+                ToolTip = 'View all objects assigned to this range.';
+                image = AllLines;
+                RunObject = page "C4BC Assigned Range Objects";
+                RunPageLink = "Assignable Range Code" = field("Code");
+                ApplicationArea = All;
+            }
         }
     }
 
