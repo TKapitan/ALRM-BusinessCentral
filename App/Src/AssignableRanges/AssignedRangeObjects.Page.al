@@ -1,10 +1,15 @@
+/// <summary>
+/// Page C4BC Assigned Range Objects (ID 80017).
+/// </summary>
 page 80017 "C4BC Assigned Range Objects"
 {
-
-    ApplicationArea = All;
     Caption = 'Assigned Range Object List';
+    ApplicationArea = All;
     PageType = List;
     SourceTable = "C4BC Extension Object";
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
     UsageCategory = Lists;
 
     layout
@@ -46,5 +51,4 @@ page 80017 "C4BC Assigned Range Objects"
             }
         }
     }
-
 }
