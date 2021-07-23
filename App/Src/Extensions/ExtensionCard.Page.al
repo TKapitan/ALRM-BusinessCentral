@@ -44,6 +44,20 @@ page 80005 "C4BC Extension Card"
                 ApplicationArea = All;
                 SubPageLink = "Extension Code" = field(Code);
             }
+            group(Invoicing)
+            {
+                Caption = 'Invoicing';
+                field("Sell as Item No."; Rec."Sell as Item No.")
+                {
+                    ToolTip = 'Specifies item no. that is used to sell the extension to customers. Based on this setting sales statistics are calculated.';
+                    ApplicationArea = All;
+                }
+                field("Flat-rate Inv. as Item No."; Rec."Flat-rate Inv. as Item No.")
+                {
+                    ToolTip = 'Specifies item no. that is used for flat-rate invoicing to customers. Flat-rate invoicing can be achieved using blanket sales orders created for clients who bought the extension.';
+                    ApplicationArea = All;
+                }
+            }
         }
     }
 
