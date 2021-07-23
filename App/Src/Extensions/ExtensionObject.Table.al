@@ -52,9 +52,20 @@ table 80003 "C4BC Extension Object"
 
             trigger OnValidate()
             var
+                C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
+
                 TemplateRule: Text;
+
+                MaxLengthOfNameErr: Label 'The maximal name length for %1 is %2 chars. The current name is %3 chars long.', Comment = '%1 - Object type name, %2 - maximal name length, %3 - current name length';
             begin
                 Rec.TestField("Object Name");
+                if C4BCObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
+                    Rec.TestField("Object Type");
+                    C4BCObjectTypeConfiguration.Get(Rec."Object Type");
+                    if C4BCObjectTypeConfiguration."Max Name Length" <> 0 then
+                        if StrLen(Rec."Object Name") > C4BCObjectTypeConfiguration."Max Name Length" then
+                            Error(MaxLengthOfNameErr, Rec."Object Type", StrLen(Rec."Object Name"), C4BCObjectTypeConfiguration."Max Name Length");
+                end;
                 if CheckObjectNameDuplicity() then
                     Error(DuplicitNameErr, Rec.FieldCaption("Object Name"), Rec."Object Name", Rec."Object Type");
                 if not ObjectNameTemplateRulesMet(TemplateRule) then

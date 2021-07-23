@@ -26,24 +26,24 @@ codeunit 80005 "C4BC ALRM Installation"
     var
         C4BCObjectType: Enum "C4BC Object Type";
     begin
-        CreateObjectTypeConfiguration(C4BCObjectType::Table, true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Table Extension", false, true, true);
-        CreateObjectTypeConfiguration(C4BCObjectType::Page, true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Page Extension", false, true, true);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Page Customization", false, false, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Codeunit, true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Report, true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Report Extension", false, true, true);
-        CreateObjectTypeConfiguration(C4BCObjectType::"XML Port", true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Query, true, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Enum, false, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Enum Extension", false, true, true);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Permission Set", false, true, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::"Permission Set Extension", false, true, true);
-        CreateObjectTypeConfiguration(C4BCObjectType::Entitlement, false, false, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Profile, false, false, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::Interface, false, false, false);
-        CreateObjectTypeConfiguration(C4BCObjectType::ControlAddin, false, false, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Table, 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Table Extension", 30, false, true, true);
+        CreateObjectTypeConfiguration(C4BCObjectType::Page, 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Page Extension", 30, false, true, true);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Page Customization", 30, false, false, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Codeunit, 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Report, 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Report Extension", 30, false, true, true);
+        CreateObjectTypeConfiguration(C4BCObjectType::"XML Port", 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Query, 30, true, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Enum, 30, false, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Enum Extension", 30, false, true, true);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Permission Set", 20, false, true, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::"Permission Set Extension", 20, false, true, true);
+        CreateObjectTypeConfiguration(C4BCObjectType::Entitlement, 30, false, false, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Profile, 30, false, false, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::Interface, 30, false, false, false);
+        CreateObjectTypeConfiguration(C4BCObjectType::ControlAddin, 30, false, false, false);
     end;
 
     local procedure FillEmptyExtensionObjectsID()
@@ -62,7 +62,7 @@ codeunit 80005 "C4BC ALRM Installation"
             until C4BCExtensionHeader.Next() < 1;
     end;
 
-    local procedure CreateObjectTypeConfiguration(C4BCObjectType: Enum "C4BC Object Type"; IsLicensed: Boolean; HasId: Boolean; ExtendsOtherObjects: Boolean)
+    local procedure CreateObjectTypeConfiguration(C4BCObjectType: Enum "C4BC Object Type"; MaxNameLength: Integer; IsLicensed: Boolean; HasId: Boolean; ExtendsOtherObjects: Boolean)
     var
         C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
     begin
@@ -73,6 +73,7 @@ codeunit 80005 "C4BC ALRM Installation"
         C4BCObjectTypeConfiguration.Validate("Is Licensed", IsLicensed);
         C4BCObjectTypeConfiguration.Validate("Has ID", HasId);
         C4BCObjectTypeConfiguration.Validate("Extends Other Objects", ExtendsOtherObjects);
+        C4BCObjectTypeConfiguration.Validate("Max Name Length", MaxNameLength);
         C4BCObjectTypeConfiguration.Insert(true);
     end;
 }

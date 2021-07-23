@@ -28,6 +28,12 @@ table 80008 "C4BC Object Type Configuration"
             Caption = 'Extends Other Objects';
             DataClassification = SystemMetadata;
         }
+
+        field(30; "Max Name Length"; Integer)
+        {
+            Caption = 'Max Name Length';
+            DataClassification = SystemMetadata;
+        }
     }
 
     keys

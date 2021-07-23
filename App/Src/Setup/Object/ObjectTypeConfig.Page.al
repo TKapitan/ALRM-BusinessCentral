@@ -23,6 +23,11 @@ page 80018 "C4BC Object Type Config."
                     ToolTip = 'Specifies type of object.';
                     ApplicationArea = All;
                 }
+                field("Max Name Length"; Rec."Max Name Length")
+                {
+                    ToolTip = 'Specifies maximal length for name of the object.';
+                    ApplicationArea = All;
+                }
                 field("Is Licensed"; Rec."Is Licensed")
                 {
                     ToolTip = 'Specifies whether the object type is licensed. Only licensed object types are included into license export.';
