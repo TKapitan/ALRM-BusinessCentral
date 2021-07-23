@@ -126,6 +126,8 @@ table 80003 "C4BC Extension Object"
     }
 
     trigger OnInsert()
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
     begin
         Rec.TestField("Object Type");
         if "Object ID" = 0 then
@@ -133,6 +135,8 @@ table 80003 "C4BC Extension Object"
         Rec.TestField("Object ID");
         Rec.TestField("Object Name");
 
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        "Extension ID" := C4BCExtensionHeader.ID;
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
     end;
