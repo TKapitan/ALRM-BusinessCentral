@@ -13,6 +13,7 @@ table 80005 "C4BC Business Central Instance"
         field(1; "Code"; Code[20])
         {
             Caption = 'Code';
+            NotBlank = true;
             DataClassification = CustomerContent;
         }
         field(2; Description; Text[100])

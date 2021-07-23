@@ -11,6 +11,7 @@ table 80000 "C4BC Extension Header"
         field(1; "Code"; Code[20])
         {
             Caption = 'Code';
+            NotBlank = true;
             DataClassification = CustomerContent;
         }
         field(2; ID; Guid)
