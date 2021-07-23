@@ -26,17 +26,27 @@ report 80000 "C4BC Create License File"
             trigger OnAfterGetRecord()
             var
                 C4BCExtensionObject: Record "C4BC Extension Object";
+                C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
 
                 C4BCIObjectLicensing: Interface "C4BC IObject Type";
                 CurrObjectID: Integer;
+                ObjectTypeLicensed: Boolean;
             begin
                 C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
                 C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
                 if C4BCExtensionObject.FindSet() then
                     repeat
                         CurrObjectID := C4BCExtensionObject."Object ID";
-                        C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
-                        if C4BCIObjectLicensing.IsLicensed() then begin
+                        if C4BCObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
+                            C4BCObjectTypeConfiguration.Get(C4BCExtensionObject."Object Type");
+                            ObjectTypeLicensed := C4BCObjectTypeConfiguration."Is Licensed";
+                        end else begin
+                            // Deprecated 2021/Q4 ->
+                            C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
+                            ObjectTypeLicensed := C4BCIObjectLicensing.IsLicensed();
+                            // Deprecated 2021/Q4 <-
+                        end;
+                        if ObjectTypeLicensed then begin
                             Clear(TempC4BCAssignableRangeLine);
 
                             TempC4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCExtensionObject."Assignable Range Code");

@@ -3,6 +3,10 @@
 /// </summary>
 interface "C4BC IObject Type"
 {
+    ObsoleteState = Pending;
+    ObsoleteTag = '2021/Q4';
+    ObsoleteReason = 'Replaced by configuration in table 80008 "C4BC Object Type"; Will be removed in 2021/Q4.';
+
     /// <summary> 
     /// Specifies whether the objects are licensed or are free to use
     /// </summary>

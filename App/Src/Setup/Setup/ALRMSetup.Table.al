@@ -19,6 +19,13 @@ table 80007 "C4BC ALRM Setup"
             Caption = 'Minimal API Version';
             DataClassification = CustomerContent;
         }
+        field(10; "Object Type Implementation"; Option)
+        {
+            Caption = 'Object Type Implementation';
+            OptionMembers = Interface,Table;
+            OptionCaption = 'Interface (obsolete),Table';
+            DataClassification = SystemMetadata;
+        }
     }
 
     keys

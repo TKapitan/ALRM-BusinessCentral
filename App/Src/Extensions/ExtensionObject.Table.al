@@ -74,6 +74,8 @@ table 80003 "C4BC Extension Object"
 
             trigger OnValidate()
             var
+                ObjectTypeConfiguration: Record "C4BC Object Type Configuration";
+
                 IObjectType: Interface "C4BC IObject Type";
                 DoesNotExtendsObjectErr: Label '%1 object type does not extend another object.', Comment = '%1 - object type that extends another object.';
             begin
@@ -81,9 +83,17 @@ table 80003 "C4BC Extension Object"
                     exit;
                 Rec.TestField("Object Type");
 
-                IObjectType := Rec."Object Type";
-                if not IObjectType.ExtendOtherObjects() then
-                    Error(DoesNotExtendsObjectErr, Rec."Object Type");
+                if ObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
+                    ObjectTypeConfiguration.Get(Rec."Object Type");
+                    if not ObjectTypeConfiguration."Extends Other Objects" then
+                        Error(DoesNotExtendsObjectErr, Rec."Object Type");
+                end else begin
+                    // Deprecated 2021/Q4 ->
+                    IObjectType := Rec."Object Type";
+                    if not IObjectType.ExtendOtherObjects() then
+                        Error(DoesNotExtendsObjectErr, Rec."Object Type");
+                    // Deprecated 2021/Q4 <-
+                end;
             end;
         }
         field(100; "Assignable Range Code"; Code[20])
