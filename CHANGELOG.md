@@ -12,6 +12,26 @@
 
 ## [Released Versions]
 
+### v0.2.0.2
+
+- Date of release 23/07/2021
+
+Major changes
+
+- PermissionSets defined using XML definitions were replaced by AL permission sets. Three permission sets are available - "ALRM Admin", "ALRM User", and "ALRM API User".
+- Heavy refactoring of AL Object Type definitions. Initially, the AL Object Types were defined using Enum, and all properties were defined using Interface implemented by specific codeunits. Now the AL Object Types are still defined using Enum, but the configuration of each type is defined in the new table "Object Type Configuration". The values in this table are created automatically during the extension installation and cannot be changed in UI. This change has been done because of a specific configuration for each object type. The Interface implementation is the default value but it is possible to switch to table definition in "ALRM Setup". The table definition will be made default implementation in upcoming version and Interface implementation will be removed in 2021/Q4.
+- New validation for object name length has been added. The max name length for each object type is 30 characters except PermissionSet & PermissionSetExtesion, with a limit of 20 characters.
+
+Other changes
+
+- "Sell as Item No." and "Flat-rate Invoicing as Item No." fields were added to the extension card & list. The fields specify which items are used for invoicing and can be used for sales evaluation of each extension in your own reports.
+- New page, "Assigned Range Object List", was added that list all objects from all extensions. The page is read-only.
+
+Fixes
+
+- Primary Keys in core tables (Assignable Range, Extension & Business Central Instance) have been made NonBlank.
+- The field "Extension ID" in the "Extension Object" table was empty.
+
 ### v0.1.3.4
 
 - Date of release 10/05/2021

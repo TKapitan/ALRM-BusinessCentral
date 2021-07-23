@@ -34,9 +34,24 @@ For TableExtension and EnumExtension object types, the IDs could be managed simi
 
 From the extension card, the list of usage can be shown. On the "Extension Usage List" you can define which extension is used in which BC Instance. This is neccessary setting for assignable ranges that are set as "Per BC Instance" and is also neccessary for generating template for the license file.
 
+You can also define fields "Sell as Item No." and "Flat-rate Invoicing as Item No." with a link to the item card (non-inventory) that is used for invoicing the extension to customers.
+
 ### Suggest Objects for Business Central License
 
 Once you have your own extension developed and properly set (with defined BC Instance in Extension Usage List), you can run "Create License File" from "Go To". This report create a downloadable file that can be imported to the Microsoft Partner Portal to assigne extension objects to the customer license.
+
+## Permissions
+
+Since v0.2.0.2, released in July 2021, the extension comes with three permission sets.
+
+1) ALRM Admin
+    - This permission set contains everything necessary for managing the configuration of ALRM.
+    Users with this permission can manage (create, modify, delete) assignable ranges, business central instances, and everything editable with the "ALRM User" permission set.
+2) ALRM User
+    - This permission set allows everything linked to extension management - create and edit extension, extension objects, extension object lines and also extension usage.
+    - User with this permission set cannot define or edit assignable ranges or business central instances.
+3) ALRM API User
+    - This permission set contains all necessary permissions for standard API calls made from the ALRM VS Code extension.
 
 ## Requirements
 
@@ -48,7 +63,14 @@ This Microsoft Dynamics 365 Business Central extension has no special requiremen
 
 To use the extension in the combination with ALRM VS Code extension (<https://github.com/TKapitan/ALRM-VSCode>) a few things have to be set up.
 
-1. At least one "Assignable Range" must be properly set.
+1. "ARLM Setup" contains two setup fields.
+    1. "Minimal API Version"
+        - Specifies the minimal API version that API queries must use. The default value is 1.0
+        - The default value will be changed to 1.1 in the next release (August 2021), version 1.0 will be removed entirely in 2021/Q3 (September 2021).
+    2. "Object Type Implementation"
+        - Specifies how object type properties are defined.
+        - Default value is "Interface (obsolete)" (properties are defined using Codeunits that implement the Interface). In the next release (August 2021), the default value will be changed to "Table" (properties defined using "Object Type Configuration" table values) and the "Interface (obsolete)" value will be removed in 2021/Q4 (November 2021).
+2. At least one "Assignable Range" must be properly set.
     - Assignable Ranges manage available object and field ranges for all extensions.
     - To create and set a new Assignable Range
         1. Open "Assignable Ranges" page
