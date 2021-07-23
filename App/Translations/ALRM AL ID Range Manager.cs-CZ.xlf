@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
-  <file datatype="xml" source-language="en-US" target-language="cs-CZ" original="AL ID Range Manager">
+  <file datatype="xml" source-language="en-US" target-language="cs-CZ" original="ALRM: AL ID Range Manager">
     <body>
       <group id="body">
         <trans-unit id="Table 2349809701 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -18,6 +18,16 @@
           <source>Minimal API Version</source><target>Minimální verze API</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Field Minimal API Version - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2349809701 - Field 1846057313 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Object Type Implementation</source><target>Typ implementace Typů Objektů</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Field Object Type Implementation - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2349809701 - Field 1846057313 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Interface (obsolete),Table</source><target>Interface (obsolete),Table</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC ALRM Setup - Field Object Type Implementation - Property OptionCaption</note>
         </trans-unit>
         <trans-unit id="Table 2349809701 - Field 1663593181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Primary Key</source><target>Primární klíč</target>
@@ -209,6 +219,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Header - Field Description - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 791698180 - Field 4211460113 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Flat-rate Invoicing as Item No.</source><target>Číslo zboží paušální fakturace</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Header - Field Flat-rate Inv. as Item No. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 791698180 - Field 3641927271 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>ID</source><target>ID</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -228,6 +243,11 @@
           <source>No. Series</source><target>Číselná řada</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Header - Field No. Series - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 791698180 - Field 1106721922 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sell as Item No.</source><target>Číslo zboží pro prodej</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Header - Field Sell as Item No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1651714670 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Extension Object</source><target>Objekt rozšíření</target>
@@ -265,7 +285,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Bus. Central Instance Linked - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 1651714670 - Field 2369664869 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Created By</source><target>Vytvořeno kým</target>
+          <source>Created By</source><target>Vytvořil(a)</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Created By - Property Caption</note>
         </trans-unit>
@@ -299,6 +319,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Object Name - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1651714670 - Field 1418569422 - Method 2126772001 - NamedType 3822092837" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The maximal name length for %1 is %2 chars. The current name is %3 chars long.</source><target>Maximální délka názvu %1 je %2 znaků. Aktuální délka je %3.</target>
+          <note from="Developer" annotates="general" priority="2">%1 - Object type name, %2 - maximal name length, %3 - current name length</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object - Field Object Name - Method OnValidate - NamedType MaxLengthOfNameErr</note>
+        </trans-unit>
         <trans-unit id="Table 1651714670 - Field 1085746399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Object Type</source><target>Typ objektu</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -325,7 +350,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object Line - Field Bus. Central Instance Linked - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 370124952 - Field 2369664869 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Created By</source><target>Vytvořeno kým</target>
+          <source>Created By</source><target>Vytvořil(a)</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Object Line - Field Created By - Property Caption</note>
         </trans-unit>
@@ -375,7 +400,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Usage - Field Business Central Instance Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Table 4050078670 - Field 458406397 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Starting Date</source><target>Počáteční datum</target>
+          <source>Ending Date</source><target>Koncové datum</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Usage - Field Ending Date - Property Caption</note>
         </trans-unit>
@@ -388,6 +413,31 @@
           <source>Starting Date</source><target>Počáteční datum</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Extension Usage - Field Starting Date - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 690988505 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Extends Other Objects</source><target>Rozšiřuje jiné objekty</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Extends Other Objects - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 3399811513 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Has ID</source><target>Má ID</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Has ID - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 3827709063 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Is Licensed</source><target>Je licencováno</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Is Licensed - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 699667073 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Max Name Length</source><target>Maximální délka názvu</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Max Name Length - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 1085746399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Object Type</source><target>Typ objektu</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Object Type - Property Caption</note>
         </trans-unit>
         <trans-unit id="Codeunit 2153790225 - Method 806641500 - NamedType 1466099935" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1 object type does not use IDs for identification.</source><target>Objekty typu %1 nepoužívají ID pro identifikaci.</target>
@@ -408,6 +458,11 @@
           <source>Specifies minimal version of API that can be called from external system. If a lower version of API is called, an error is returned instead of response.</source><target>Určuje minimální verzi API, která může být použita pro volání z externího systému. Pokud bude použita nižší verze, bude na API požadavek vrácena chyba.</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC ALRM Setup - Control Minimal API Version - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2349809701 - Control 1846057313 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies way how object type configuration is defined and evaluated.</source><target>Určuje způsob, jaký je vyhodnocováno nastavení typů objektů.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC ALRM Setup - Control Object Type Implementation - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2588326190 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Assignable Range API</source><target>API přiřaditelných rozsahů</target>
@@ -499,6 +554,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assignable Range Card - Control Ranges per BC Instance - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 2652038930 - Action 3120671810 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View all objects assigned to this range.</source><target>Zobrazit všechny objekty přiřazené tomuto rozsahu.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assignable Range Card - Action AssignedObjects - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2652038930 - Action 3120671810 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Assigned Objects</source><target>Přiřazené objekty</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assignable Range Card - Action AssignedObjects - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 2652038930 - Action 3979136067 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Allows to view and edit extensions.</source><target>Umožňuje zobrazit a upravit rozšíření.</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -569,6 +634,41 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assignable Range Subform - Control Object Type - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 3325756361 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Assigned Range Object List</source><target>Přehled přiřazených objektů</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 2369664869 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Created By field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Created By - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 2084357865 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Extends Object Name field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Extends Object Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 460859576 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Extension Code field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Extension Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 3711240756 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Object ID field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Object ID - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 1418569422 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Object Name field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Object Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3325756361 - Control 1085746399 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Object Type field</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Assigned Range Objects - Control Object Type - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1947454813 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Business Central Instances</source><target>Instance BC</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -629,6 +729,21 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Control Name - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 1537001501 - Control 1450094168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Invoicing</source><target>Fakturace</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Control Invoicing - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1537001501 - Control 4211460113 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies item no. that is used for flat-rate invoicing to customers. Flat-rate invoicing can be achieved using blanket sales orders created for clients who bought the extension.</source><target>Určuje číslo zboží, které je použito pro fakturaci paušálních částek zákazníkům. Paušální fakturaci lze provádět skrz hromadné prodejní objednávky.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Control Flat-rate Inv. as Item No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1537001501 - Control 1106721922 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies item no. that is used to sell the extension to customers. Based on this setting sales statistics are calculated.</source><target>Určuje číslo zboží, které je použito pro prodej rozšíření zákazníkům. Na základě tohoto pole lze počítat prodejní statistiky.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Card - Control Sell as Item No. - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1537001501 - Control 247568838 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Objects</source><target>Objekty</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -674,10 +789,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Control Description - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 1080754119 - Control 4211460113 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies item no. that is used for flat-rate invoicing to customers. Flat-rate invoicing can be achieved using blanket sales orders created for clients who bought the extension.</source><target>Určuje číslo zboží, které je použito pro fakturaci paušálních částek zákazníkům. Paušální fakturaci lze provádět skrz hromadné prodejní objednávky.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Control Flat-rate Inv. as Item No. - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 1080754119 - Control 2961552353 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Name of the extension</source><target>Název rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Control Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1080754119 - Control 1106721922 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies item no. that is used to sell the extension to customers. Based on this setting sales statistics are calculated.</source><target>Určuje číslo zboží, které je použito pro prodej rozšíření zákazníkům. Na základě tohoto pole lze počítat prodejní statistiky.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension List - Control Sell as Item No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1080754119 - Action 2560984784 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Allows to view and edit current assignable range.</source><target>Umožňuje zobrazit nebo upravit vybraný přiřaditelný rozsah.</target>
@@ -740,7 +865,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Object Lines - Control Name - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 999284711 - Control 2369664869 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Created By</source><target>Vytvořeno kým</target>
+          <source>Created By</source><target>Vytvořil(a)</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Subform - Control Created By - Property ToolTip</note>
         </trans-unit>
@@ -808,6 +933,36 @@
           <source>Extension</source><target>Rozšíření</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Extension Usage List - Action Extension - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Object Type Configurations</source><target>Nastavení typů objektů</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 690988505 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether object type extends some of others object types.</source><target>Určuje, zda tyto objekty rozšiřují objekty jiného typu.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Extends Other Objects - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 3399811513 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether the object type uses ID for its identification.</source><target>Určuje, zda typ objektu používá ID pro svou identifikaci.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Has ID - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 3827709063 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies whether the object type is licensed. Only licensed object types are included into license export.</source><target>Určuje, zda je tento typ objektu licencovaný. Pouze licencované objekty jsou zahrnuty do exportu podkladu pro licenci.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Is Licensed - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 699667073 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies maximal length for name of the object.</source><target>Určuje maximální délku názvu objektu.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Max Name Length - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 1085746399 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies type of object.</source><target>Určuje typ objektu.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Object Type - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Report 1914339001 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create License Object Range CSV file</source><target>Vytvořit licenční CSV soubor s rozsahy</target>
@@ -943,6 +1098,21 @@
           <source>XML Port</source><target>XML Port</target>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue XML Port - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PermissionSet 3942241861 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ALRM Admin</source><target>ALRM Admin</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PermissionSet C4BC ALRM Admin - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PermissionSet 2232017759 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ALRM API User</source><target>ALRM API Uživatel</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PermissionSet C4BC ALRM API User - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PermissionSet 2369845815 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>ALRM User</source><target>ALRM Uživatel</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PermissionSet C4BC ALRM User - Property Caption</note>
         </trans-unit>
       </group>
     </body>
