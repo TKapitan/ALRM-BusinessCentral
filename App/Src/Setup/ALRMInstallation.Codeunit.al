@@ -9,7 +9,6 @@ codeunit 80005 "C4BC ALRM Installation"
     begin
         InitALRMSetup();
         InitObjectTypeConfiguration();
-        FillEmptyExtensionObjectsID();
     end;
 
     local procedure InitALRMSetup()
@@ -22,7 +21,10 @@ codeunit 80005 "C4BC ALRM Installation"
         end;
     end;
 
-    local procedure InitObjectTypeConfiguration()
+    /// <summary>
+    /// Init records in "C4BC Object Type Configuration" tables with default setting for each object type.
+    /// </summary>
+    procedure InitObjectTypeConfiguration()
     var
         C4BCObjectType: Enum "C4BC Object Type";
     begin
@@ -44,22 +46,6 @@ codeunit 80005 "C4BC ALRM Installation"
         CreateObjectTypeConfiguration(C4BCObjectType::Profile, 30, false, false, false);
         CreateObjectTypeConfiguration(C4BCObjectType::Interface, 30, false, false, false);
         CreateObjectTypeConfiguration(C4BCObjectType::ControlAddin, 30, false, false, false);
-    end;
-
-    local procedure FillEmptyExtensionObjectsID()
-    var
-        C4BCExtensionHeader: Record "C4BC Extension Header";
-        C4BCExtensionObject: Record "C4BC Extension Object";
-
-        EmptyGuid: Guid;
-    begin
-        if C4BCExtensionHeader.FindSet() then
-            repeat
-                if C4BCExtensionObject."Extension ID" = EmptyGuid then begin
-                    C4BCExtensionObject."Extension ID" := C4BCExtensionHeader.ID;
-                    C4BCExtensionObject.Modify(false);
-                end;
-            until C4BCExtensionHeader.Next() < 1;
     end;
 
     local procedure CreateObjectTypeConfiguration(C4BCObjectType: Enum "C4BC Object Type"; MaxNameLength: Integer; IsLicensed: Boolean; HasId: Boolean; ExtendsOtherObjects: Boolean)
