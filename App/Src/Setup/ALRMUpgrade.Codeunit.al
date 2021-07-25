@@ -26,10 +26,14 @@ codeunit 80006 "C4BC ALRM Upgrade"
     begin
         if C4BCExtensionHeader.FindSet() then
             repeat
-                if C4BCExtensionObject."Extension ID" = EmptyGuid then begin
-                    C4BCExtensionObject."Extension ID" := C4BCExtensionHeader.ID;
-                    C4BCExtensionObject.Modify(false);
-                end;
+                C4BCExtensionObject.SetRange("Extension Code", C4BCExtensionHeader.Code);
+                if C4BCExtensionObject.FindSet() then
+                    repeat
+                        if C4BCExtensionObject."Extension ID" = EmptyGuid then begin
+                            C4BCExtensionObject."Extension ID" := C4BCExtensionHeader.ID;
+                            C4BCExtensionObject.Modify(false);
+                        end;
+                    until C4BCExtensionObject.Next() < 1;
             until C4BCExtensionHeader.Next() < 1;
     end;
 }
