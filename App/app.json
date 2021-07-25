@@ -2,7 +2,7 @@
   "id": "387c89df-1def-40e2-8953-e467ea2a15dc",
   "name": "ALRM: AL ID Range Manager",
   "publisher": "ART AA AE from Czechia + Kepty.cz",
-  "version": "0.1.5.2",
+  "version": "0.1.5.3",
   "brief": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "description": "Manage object IDs in of your AL projects using combination of VS Code extension and this Business Central extension.",
   "privacyStatement": "https://docs-artex-is.azurewebsites.net/privacy-policy",
