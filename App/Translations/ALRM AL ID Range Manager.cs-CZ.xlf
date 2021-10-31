@@ -424,6 +424,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Has ID - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 177263378 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Included Object ID From</source><target>Zahrnuté ID objektu od</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Included Object ID From - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2007262925 - Field 2891927213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Included Object ID To</source><target>Zahrnuté ID objektu do</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table C4BC Object Type Configuration - Field Included Object ID To - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 2007262925 - Field 3827709063 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Is Licensed</source><target>Je licencováno</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -944,6 +954,16 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Extends Other Objects - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 1059904822 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the starting ID (included) of the range included in the base BC license.</source><target>Určuje počáteční ID (včetně) rozsahu objektů zahrnutého v základní licenci BC.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Free Object ID From - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 4007022977 - Control 2124370761 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the ending ID (included) of the range included in the base BC license.</source><target>Určuje koncové ID (včetně) rozsahu objektů zahrnutého v základní licenci BC.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page C4BC Object Type Config. - Control Free Object ID To - Property ToolTip</note>
+        </trans-unit>
         <trans-unit id="Page 4007022977 - Control 3399811513 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies whether the object type uses ID for its identification.</source><target>Určuje, zda typ objektu používá ID pro svou identifikaci.</target>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -1005,7 +1025,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC API Version - EnumValue v1.1 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3476159189 - EnumValue 1371923692 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source></source><target> </target>
+          <source></source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum C4BC Object Type - EnumValue   - Property Caption</note>
         </trans-unit>
