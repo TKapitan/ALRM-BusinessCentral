@@ -29,7 +29,7 @@ report 80000 "C4BC Create License File"
                 C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
 
                 C4BCIObjectLicensing: Interface "C4BC IObject Type";
-                CurrObjectID, ObjectIDRangeTo : Integer;
+                CurrObjectID, ObjectRangeTo : Integer;
                 ObjectTypeLicensed: Boolean;
             begin
                 C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
@@ -58,12 +58,12 @@ report 80000 "C4BC Create License File"
                                 TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
                                 if not TempC4BCAssignableRangeLine.IsEmpty() then begin
                                     // save the ending ID of the current range and delete it
-                                    ObjectIDRangeTo := TempC4BCAssignableRangeLine."Object Range To";
+                                    ObjectRangeTo := TempC4BCAssignableRangeLine."Object Range To";
                                     TempC4BCAssignableRangeLine.Delete(false);
 
                                     // find the new range and move its ending to the saved ID
                                     TempC4BCAssignableRangeLine.FindFirst();
-                                    TempC4BCAssignableRangeLine.Validate("Object Range To", ObjectIDRangeTo);
+                                    TempC4BCAssignableRangeLine.Validate("Object Range To", ObjectRangeTo);
                                     TempC4BCAssignableRangeLine.Modify(false);
                                 end else
                                     // Add new object at the beginning of existing range
