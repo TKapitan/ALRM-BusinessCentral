@@ -30,7 +30,7 @@ report 80000 "C4BC Create License File"
 
                 C4BCIObjectLicensing: Interface "C4BC IObject Type";
                 CurrObjectID: Integer;
-                ObjectTypeLicensed: Boolean;
+                ObjectTypeLicensed, IncludedObjectID : Boolean;
             begin
                 C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
                 C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
@@ -40,13 +40,15 @@ report 80000 "C4BC Create License File"
                         if C4BCObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
                             C4BCObjectTypeConfiguration.Get(C4BCExtensionObject."Object Type");
                             ObjectTypeLicensed := C4BCObjectTypeConfiguration."Is Licensed";
+                            IncludedObjectID := C4BCObjectTypeConfiguration.IsObjectIDIncluded(CurrObjectID);
                         end else begin
                             // Deprecated 2021/Q4 ->
                             C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
                             ObjectTypeLicensed := C4BCIObjectLicensing.IsLicensed();
+                            IncludedObjectID := false;
                             // Deprecated 2021/Q4 <-
                         end;
-                        if ObjectTypeLicensed then begin
+                        if ObjectTypeLicensed and not IncludedObjectID then begin
                             Clear(TempC4BCAssignableRangeLine);
 
                             TempC4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCExtensionObject."Assignable Range Code");
