@@ -16,7 +16,7 @@ report 80000 "C4BC Create License File"
             begin
                 "C4BC Extension Usage".SetRange("Business Central Instance Code", ForBCInstanceCode);
                 if ToDate <> 0D then begin
-                    "C4BC Extension Usage".SetFilter("Starting Date", '<=%1', ToDate);
+                    "C4BC Extension Usage".SetFilter("Starting Date", '<=%1|%2', ToDate, 0D);
                     "C4BC Extension Usage".SetFilter("Ending Date", '>=%1|%2', ToDate, 0D);
                 end;
 
