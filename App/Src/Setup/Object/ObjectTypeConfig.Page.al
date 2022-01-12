@@ -43,6 +43,18 @@ page 80018 "C4BC Object Type Config."
                     ToolTip = 'Specifies whether object type extends some of others object types.';
                     ApplicationArea = All;
                 }
+                field("Free Object ID From"; Rec."Included Object ID From")
+                {
+                    ToolTip = 'Specifies the starting ID (included) of the range included in the base BC license.';
+                    ApplicationArea = All;
+                    Editable = Rec."Is Licensed" and Rec."Has ID";
+                }
+                field("Free Object ID To"; Rec."Included Object ID To")
+                {
+                    ToolTip = 'Specifies the ending ID (included) of the range included in the base BC license.';
+                    ApplicationArea = All;
+                    Editable = Rec."Is Licensed" and Rec."Has ID";
+                }
             }
         }
     }

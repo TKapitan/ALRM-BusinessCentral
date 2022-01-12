@@ -28,8 +28,7 @@ report 80000 "C4BC Create License File"
                 C4BCExtensionObject: Record "C4BC Extension Object";
                 C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
 
-                CurrObjectID: Integer;
-                ObjectTypeLicensed: Boolean;
+                CurrObjectID, ObjectRangeTo : Integer;
             begin
                 C4BCExtensionObject.SetAutoCalcFields("Assignable Range Code");
                 C4BCExtensionObject.SetRange("Extension Code", "C4BC Extension Usage"."Extension Code");
@@ -37,17 +36,29 @@ report 80000 "C4BC Create License File"
                     repeat
                         CurrObjectID := C4BCExtensionObject."Object ID";
                         C4BCObjectTypeConfiguration.Get(C4BCExtensionObject."Object Type");
-                        ObjectTypeLicensed := C4BCObjectTypeConfiguration."Is Licensed";
-                        if ObjectTypeLicensed then begin
+                        if C4BCObjectTypeConfiguration."Is Licensed" and not C4BCObjectTypeConfiguration.IsObjectIDIncluded(CurrObjectID) then begin
                             Clear(TempC4BCAssignableRangeLine);
 
                             TempC4BCAssignableRangeLine.SetRange("Assignable Range Code", C4BCExtensionObject."Assignable Range Code");
                             TempC4BCAssignableRangeLine.SetRange("Object Type", C4BCExtensionObject."Object Type");
                             TempC4BCAssignableRangeLine.SetRange("Object Range From", CurrObjectID + 1);
-                            if TempC4BCAssignableRangeLine.FindFirst() then
-                                // Add new object at the beginning of existing range
-                                TempC4BCAssignableRangeLine.Rename(C4BCExtensionObject."Assignable Range Code", C4BCExtensionObject."Object Type", CurrObjectID)
-                            else begin
+                            if TempC4BCAssignableRangeLine.FindFirst() then begin
+                                // Try to join two adjacent ranges
+                                TempC4BCAssignableRangeLine.SetRange("Object Range From");
+                                TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
+                                if not TempC4BCAssignableRangeLine.IsEmpty() then begin
+                                    // save the ending ID of the current range and delete it
+                                    ObjectRangeTo := TempC4BCAssignableRangeLine."Object Range To";
+                                    TempC4BCAssignableRangeLine.Delete(false);
+
+                                    // find the new range and move its ending to the saved ID
+                                    TempC4BCAssignableRangeLine.FindFirst();
+                                    TempC4BCAssignableRangeLine.Validate("Object Range To", ObjectRangeTo);
+                                    TempC4BCAssignableRangeLine.Modify(false);
+                                end else
+                                    // Add new object at the beginning of existing range
+                                    TempC4BCAssignableRangeLine.Rename(C4BCExtensionObject."Assignable Range Code", C4BCExtensionObject."Object Type", CurrObjectID);
+                            end else begin
                                 TempC4BCAssignableRangeLine.SetRange("Object Range From");
                                 TempC4BCAssignableRangeLine.SetRange("Object Range To", CurrObjectID - 1);
                                 if TempC4BCAssignableRangeLine.FindFirst() then begin
