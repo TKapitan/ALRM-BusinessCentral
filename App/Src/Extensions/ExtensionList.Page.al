@@ -26,6 +26,11 @@ page 80000 "C4BC Extension List"
                     ApplicationArea = All;
                     ToolTip = 'Defines type of the id range used for this extension';
                 }
+                field("Alternate Assign. Range Code"; Rec."Alternate Assign. Range Code")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Defines alternate type of the id range used for this extension. This range is not mandatory and can be used for example to define a range for AppSource range.';
+                }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;

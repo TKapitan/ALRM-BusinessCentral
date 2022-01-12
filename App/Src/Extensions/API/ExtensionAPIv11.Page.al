@@ -29,6 +29,10 @@ page 80013 "C4BC Extension API v1.1"
                 {
                     ApplicationArea = All;
                 }
+                field(alternateRangeCode; Rec."Alternate Assign. Range Code")
+                {
+                    ApplicationArea = All;
+                }
                 field("code"; Rec.Code)
                 {
                     ApplicationArea = All;

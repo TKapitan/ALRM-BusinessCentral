@@ -27,6 +27,17 @@ page 80005 "C4BC Extension Card"
                         CurrPage.Update();
                     end;
                 }
+                field("Alternate Assign. Range Code"; Rec."Alternate Assign. Range Code")
+                {
+                    ApplicationArea = All;
+                    Importance = Additional;
+                    ToolTip = 'Defines alternate type of the id range used for this extension. This range is not mandatory and can be used for example to define a range for AppSource range.';
+
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update();
+                    end;
+                }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;

@@ -26,7 +26,12 @@ table 80003 "C4BC Extension Object"
 
             trigger OnValidate()
             begin
-                "Object ID" := GetNewObjectID();
+                Rec.TestField("Assignable Range Code");
+                Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
+
+                "Object ID" := GetNewObjectID(Rec."Assignable Range Code", false);
+                if Rec."Alternate Assign. Range Code" <> '' then
+                    "Alternate Object ID" := GetNewObjectID(Rec."Alternate Assign. Range Code", true);
             end;
         }
         field(4; "Object ID"; Integer)
@@ -39,9 +44,11 @@ table 80003 "C4BC Extension Object"
             trigger OnValidate()
             begin
                 Rec.TestField("Object ID");
-                if CheckObjectIDDuplicity() then
+                Rec.TestField("Assignable Range Code");
+                Rec.CalcFields("Assignable Range Code");
+                if CheckObjectIDDuplicity(Rec."Assignable Range Code", Rec."Object ID") then
                     Error(DuplicitNameErr, Rec.FieldCaption("Object ID"), Rec."Object ID", Rec."Object Type");
-                if not IsObjectIDWithinRange() then
+                if not IsObjectIDWithinRange(Rec."Assignable Range Code", Rec."Object ID") then
                     Error(InvalidObjectIDErr, Rec."Object ID", Rec."Object Type");
             end;
         }
@@ -115,6 +122,32 @@ table 80003 "C4BC Extension Object"
             FieldClass = FlowField;
             CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
         }
+        field(103; "Alternate Assign. Range Code"; Code[20])
+        {
+            Caption = 'Alternate Assignable Range Code';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Extension Header"."Alternate Assign. Range Code" where("Code" = field("Extension Code")));
+        }
+        field(150; "Alternate Object ID"; Integer)
+        {
+            Caption = 'Alternate Object ID';
+            BlankZero = true;
+            Editable = false;
+            DataClassification = SystemMetadata;
+
+            trigger OnValidate()
+            begin
+                Rec.TestField("Object ID");
+                Rec.TestField("Alternate Object ID");
+                Rec.TestField("Alternate Assign. Range Code");
+                Rec.CalcFields("Alternate Assign. Range Code");
+                if CheckObjectIDDuplicity(Rec."Alternate Assign. Range Code", Rec."Alternate Object ID") then
+                    Error(DuplicitNameErr, Rec.FieldCaption("Alternate Object ID"), Rec."Alternate Object ID", Rec."Object Type");
+                if not IsObjectIDWithinRange(Rec."Alternate Assign. Range Code", Rec."Alternate Object ID") then
+                    Error(InvalidObjectIDErr, Rec."Alternate Object ID", Rec."Object Type");
+            end;
+        }
     }
 
     keys
@@ -130,9 +163,13 @@ table 80003 "C4BC Extension Object"
         C4BCExtensionHeader: Record "C4BC Extension Header";
     begin
         Rec.TestField("Object Type");
+        Rec.TestField("Assignable Range Code");
+        Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
         if "Object ID" = 0 then
-            "Object ID" := GetNewObjectID();
+            "Object ID" := GetNewObjectID(Rec."Assignable Range Code", false);
         Rec.TestField("Object ID");
+        if (Rec."Alternate Object ID" = 0) and (Rec."Alternate Assign. Range Code" <> '') then
+            "Alternate Object ID" := GetNewObjectID(Rec."Alternate Assign. Range Code", true);
         Rec.TestField("Object Name");
 
         C4BCExtensionHeader.Get(Rec."Extension Code");
@@ -170,8 +207,10 @@ table 80003 "C4BC Extension Object"
     /// <summary> 
     /// Return a new object ID for this line. If the line already has ID, the ID is returned and new is not assigned.
     /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
+    /// <param name="Alternate">Boolean, Specifies whether the newly generated ID is primary or alternate ID. This setting defines whether the imaginary ID for object types without ID should be generated.</param>
     /// <returns>Return variable "Integer", ID of the object.</returns>
-    procedure GetNewObjectID(): Integer
+    procedure GetNewObjectID(AssignableRangeCode: Code[20]; Alternate: Boolean): Integer
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
@@ -181,21 +220,20 @@ table 80003 "C4BC Extension Object"
         if Rec."Object ID" <> 0 then
             exit(Rec."Object ID");
 
-        if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
-            exit(GetNewImaginaryObjectID());
+        if not Alternate and not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+            exit(GetNewImaginaryObjectID(AssignableRangeCode));
 
         C4BCExtensionHeader.Get(Rec."Extension Code");
-        Rec.CalcFields("Assignable Range Code");
-        Rec.TestField("Assignable Range Code");
-        C4BCAssignableRangeHeader.Get("Assignable Range Code");
+        C4BCAssignableRangeHeader.Get(AssignableRangeCode);
         exit(C4BCAssignableRangeHeader.GetNewObjectID("Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary>
     /// Return a new imaginary object ID that is created just as a placeholder for object types that do not use IDs for identification. The ID is unique, but is managed internally.
     /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
     /// <returns>Return variable "Integer", imaginary ID of the object.</returns>
-    procedure GetNewImaginaryObjectID(): Integer
+    procedure GetNewImaginaryObjectID(AssignableRangeCode: Code[20]): Integer
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
 
@@ -205,7 +243,7 @@ table 80003 "C4BC Extension Object"
             exit(Rec."Object ID");
 
         if C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
-            exit(GetNewObjectID());
+            exit(GetNewObjectID(AssignableRangeCode, false));
 
         C4BCExtensionObject.LockTable();
         C4BCExtensionObject.SetRange("Extension Code", Rec."Extension Code");
@@ -259,29 +297,33 @@ table 80003 "C4BC Extension Object"
     /// <summary>
     /// Return a boolean value indicating whether the specified object ID already exists for currenct object type.
     /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
+    /// <param name="ObjectID">Integer, Object ID that should be checked for duplicity.</param>
     /// <returns>Return variable "Boolean", true = duplicit</returns>
-    local procedure CheckObjectIDDuplicity(): Boolean
+    local procedure CheckObjectIDDuplicity(AssignableRangeCode: Code[20]; ObjectID: Integer): Boolean
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
         C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.IsObjectIDAlreadyInUse(Rec."Object Type", Rec."Object ID", C4BCExtensionHeader.GetUsageOfExtension()));
+        C4BCAssignableRangeHeader.Get(AssignableRangeCode);
+        exit(C4BCAssignableRangeHeader.IsObjectIDAlreadyInUse(Rec."Object Type", ObjectID, C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
     /// <summary>
     /// Return a boolean value indicating whether the specified object ID is within allowed range for the object type and assignable range.
     /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>/// 
+    /// <param name="ObjectID">Integer, Object ID that should be checked for duplicity.</param>
     /// <returns>Return variable "Boolean", true = the ID is within allowed ranges.</returns>
-    local procedure IsObjectIDWithinRange(): Boolean
+    local procedure IsObjectIDWithinRange(AssignableRangeCode: Code[20]; ObjectID: Integer): Boolean
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
         C4BCExtensionHeader.Get(Rec."Extension Code");
-        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
-        exit(C4BCAssignableRangeHeader.IsObjectIDFromRange(Rec."Object Type", Rec."Object ID"));
+        C4BCAssignableRangeHeader.Get(AssignableRangeCode);
+        exit(C4BCAssignableRangeHeader.IsObjectIDFromRange(Rec."Object Type", ObjectID));
     end;
 
     /// <summary>

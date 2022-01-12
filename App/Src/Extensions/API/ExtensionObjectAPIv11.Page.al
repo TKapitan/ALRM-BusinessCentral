@@ -21,6 +21,9 @@ page 80014 "C4BC Extension Object API v1.1"
             {
                 field(systemId; Rec.SystemId) { }
                 field(rangeCode; Rec."Assignable Range Code") { }
+                field(alternateRangeCode; Rec."Alternate Assign. Range Code") { }
+                field(objectID; Rec."Object ID") { }
+                field(alternateObjectID; Rec."Alternate Object ID") { }
                 field("code"; Rec."Extension Code") { }
                 field(systemCreatedAt; Rec.SystemCreatedAt) { }
                 field(systemCreatedBy; Rec.SystemCreatedBy) { }

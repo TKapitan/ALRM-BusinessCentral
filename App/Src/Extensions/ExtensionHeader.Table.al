@@ -78,6 +78,31 @@ table 80000 "C4BC Extension Header"
             TableRelation = Item."No." where(Type = const("Non-Inventory"));
             DataClassification = CustomerContent;
         }
+        field(150; "Alternate Assign. Range Code"; Code[20])
+        {
+            Caption = 'Alternate Assignable Range Code';
+            DataClassification = CustomerContent;
+            TableRelation = "C4BC Assignable Range Header".Code;
+
+            trigger OnValidate()
+            var
+                AssignableRangeHeader: Record "C4BC Assignable Range Header";
+                AssignableRangeHeader2: Record "C4BC Assignable Range Header";
+                NoSerisManagement: Codeunit NoSeriesManagement;
+            begin
+                Rec.TestField("Assignable Range Code");
+                if Rec."Alternate Assign. Range Code" = '' then
+                    exit;
+                if Rec."Assignable Range Code" = Rec."Alternate Assign. Range Code" then
+                    Rec.FieldError("Assignable Range Code");
+
+                AssignableRangeHeader.Get(Rec."Assignable Range Code");
+                AssignableRangeHeader2.Get(Rec."Alternate Assign. Range Code");
+                AssignableRangeHeader2.TestField("Ranges per BC Instance", AssignableRangeHeader."Ranges per BC Instance");
+                AssignableRangeHeader2.TestField("Object Name Template", AssignableRangeHeader."Object Name Template");
+                Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series for Extensions", Today, true, true);
+            end;
+        }
     }
 
     keys

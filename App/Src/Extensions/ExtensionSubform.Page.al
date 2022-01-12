@@ -33,6 +33,11 @@ page 80004 "C4BC Extension Subform"
                     HideValue = HideValueForObjectID;
                     ToolTip = 'Object ID';
                 }
+                field("Alternate Object ID"; Rec."Alternate Object ID")
+                {
+                    ToolTip = 'Specifies alternate ID of the object. Alternate ID is not mandatory and can be generated only when the extension has alternate assignable range defined.';
+                    ApplicationArea = All;
+                }
                 field("Object Name"; Rec."Object Name")
                 {
                     ApplicationArea = All;

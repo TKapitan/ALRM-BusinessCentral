@@ -32,11 +32,19 @@ page 80015 "C4BC Extension Obj.L. API v1.1"
                 {
                     ApplicationArea = All;
                 }
+                field(alternateObjectID; Rec."Alternate Object ID")
+                {
+                    ApplicationArea = All;
+                }
                 field(objectType; Rec."Object Type")
                 {
                     ApplicationArea = All;
                 }
                 field(id; Rec.ID)
+                {
+                    ApplicationArea = All;
+                }
+                field(alternateID; Rec."Alternate ID")
                 {
                     ApplicationArea = All;
                 }

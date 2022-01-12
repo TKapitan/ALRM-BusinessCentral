@@ -19,6 +19,11 @@ page 80010 "C4BC Extension Object Lines"
                     ApplicationArea = All;
                     ToolTip = 'ID of the field or the enum value';
                 }
+                field("Alternate ID"; Rec."Alternate ID")
+                {
+                    ToolTip = 'Specifies alternate ID of the field. Alternate ID is not mandatory and can be generated only when the extension has alternate assignable range defined.';
+                    ApplicationArea = All;
+                }
                 field(Name; Rec.Name)
                 {
                     ToolTip = 'Specifies name of the field. The evidence of field names is optional.';
