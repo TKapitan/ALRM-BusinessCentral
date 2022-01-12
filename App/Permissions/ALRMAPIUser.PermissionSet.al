@@ -27,19 +27,12 @@ permissionset 80002 "C4BC ALRM API User"
     tabledata "C4BC Extension Object" = RIMD,
     table "C4BC Extension Object Line" = X,
     tabledata "C4BC Extension Object Line" = RIMD,
-    page "C4BC Extension API" = X,
     page "C4BC Extension API v1.1" = X,
     page "C4BC Extension Obj.L. API v1.1" = X,
-    page "C4BC Extension Object API" = X,
     page "C4BC Extension Object API v1.1" = X,
-    page "C4BC Extension Object L. API" = X,
 
     table "C4BC Extension Usage" = X,
     tabledata "C4BC Extension Usage" = RIMD,
 
-    codeunit "C4BC ALRM Management" = X,
-    codeunit "C4BC Extension Object" = X,
-    codeunit "C4BC Object Without ID" = X,
-    codeunit "C4BC Standard Licensed Object" = X,
-    codeunit "C4BC Standard Object" = X;
+    codeunit "C4BC ALRM Management" = X;
 }

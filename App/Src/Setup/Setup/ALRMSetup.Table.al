@@ -24,6 +24,8 @@ table 80007 "C4BC ALRM Setup"
             Caption = 'Object Type Implementation';
             OptionMembers = Interface,Table;
             OptionCaption = 'Interface (obsolete),Table';
+            ObsoleteState = Removed;
+            ObsoleteReason = 'Only one implementation is now supported. This setting makes no sense anymore.';
             DataClassification = SystemMetadata;
         }
     }

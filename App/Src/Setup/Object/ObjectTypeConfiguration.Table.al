@@ -43,18 +43,4 @@ table 80008 "C4BC Object Type Configuration"
             Clustered = true;
         }
     }
-
-    /// <summary>
-    /// Specifies whether this table is used for configuration.
-    /// </summary>
-    /// <returns>Return value of type Boolean.</returns>
-    procedure IsObjectTypeConfigurationUsed(): Boolean
-    var
-        C4BCALRMSetup: Record "C4BC ALRM Setup";
-    begin
-        C4BCALRMSetup.FindFirst();
-        if C4BCALRMSetup."Object Type Implementation" = C4BCALRMSetup."Object Type Implementation"::Table then
-            exit(true);
-        exit(false);
-    end;
 }

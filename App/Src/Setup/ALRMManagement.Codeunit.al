@@ -15,22 +15,13 @@ codeunit 80003 "C4BC ALRM Management"
     var
         C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
 
-        IObjectType: Interface "C4BC IObject Type";
         ObjectTypeDoesNotUseIDsErr: Label '%1 object type does not use IDs for identification.', Comment = '%1 - Object type that does not use IDs for identification.';
 
         HasID: Boolean;
     begin
-        if C4BCObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
-            C4BCObjectTypeConfiguration.Get(ForObjectType);
-            HasID := C4BCObjectTypeConfiguration."Has ID";
-        end else begin
-            // Deprecated 2021/Q4 ->
-            IObjectType := ForObjectType;
-            HasID := IObjectType.HasIDs();
-            // Deprecated 2021/Q4 <-
-        end;
+        C4BCObjectTypeConfiguration.Get(ForObjectType);
+        HasID := C4BCObjectTypeConfiguration."Has ID";
 
-        IObjectType := ForObjectType;
         if not HasID then begin
             if ShowError then
                 Error(ObjectTypeDoesNotUseIDsErr, ForObjectType);

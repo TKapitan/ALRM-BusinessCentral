@@ -43,10 +43,6 @@ permissionset 80001 "C4BC ALRM User"
     page "C4BC Extension Usage List" = X,
 
     codeunit "C4BC ALRM Management" = X,
-    codeunit "C4BC Extension Object" = X,
-    codeunit "C4BC Object Without ID" = X,
-    codeunit "C4BC Standard Licensed Object" = X,
-    codeunit "C4BC Standard Object" = X,
 
     report "C4BC Create License File" = X;
 }

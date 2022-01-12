@@ -28,7 +28,6 @@ report 80000 "C4BC Create License File"
                 C4BCExtensionObject: Record "C4BC Extension Object";
                 C4BCObjectTypeConfiguration: Record "C4BC Object Type Configuration";
 
-                C4BCIObjectLicensing: Interface "C4BC IObject Type";
                 CurrObjectID: Integer;
                 ObjectTypeLicensed: Boolean;
             begin
@@ -37,15 +36,8 @@ report 80000 "C4BC Create License File"
                 if C4BCExtensionObject.FindSet() then
                     repeat
                         CurrObjectID := C4BCExtensionObject."Object ID";
-                        if C4BCObjectTypeConfiguration.IsObjectTypeConfigurationUsed() then begin
-                            C4BCObjectTypeConfiguration.Get(C4BCExtensionObject."Object Type");
-                            ObjectTypeLicensed := C4BCObjectTypeConfiguration."Is Licensed";
-                        end else begin
-                            // Deprecated 2021/Q4 ->
-                            C4BCIObjectLicensing := C4BCExtensionObject."Object Type";
-                            ObjectTypeLicensed := C4BCIObjectLicensing.IsLicensed();
-                            // Deprecated 2021/Q4 <-
-                        end;
+                        C4BCObjectTypeConfiguration.Get(C4BCExtensionObject."Object Type");
+                        ObjectTypeLicensed := C4BCObjectTypeConfiguration."Is Licensed";
                         if ObjectTypeLicensed then begin
                             Clear(TempC4BCAssignableRangeLine);
 
