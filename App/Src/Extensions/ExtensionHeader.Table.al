@@ -88,7 +88,6 @@ table 80000 "C4BC Extension Header"
             var
                 AssignableRangeHeader: Record "C4BC Assignable Range Header";
                 AssignableRangeHeader2: Record "C4BC Assignable Range Header";
-                NoSerisManagement: Codeunit NoSeriesManagement;
             begin
                 Rec.TestField("Assignable Range Code");
                 if Rec."Alternate Assign. Range Code" = '' then
@@ -100,7 +99,6 @@ table 80000 "C4BC Extension Header"
                 AssignableRangeHeader2.Get(Rec."Alternate Assign. Range Code");
                 AssignableRangeHeader2.TestField("Ranges per BC Instance", AssignableRangeHeader."Ranges per BC Instance");
                 AssignableRangeHeader2.TestField("Object Name Template", AssignableRangeHeader."Object Name Template");
-                Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series for Extensions", Today, true, true);
             end;
         }
     }
