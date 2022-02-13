@@ -53,6 +53,17 @@ table 80004 "C4BC Extension Usage"
         TestRangesPerInstanceUsage()
     end;
 
+    trigger OnRename()
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        C4BCExtensionHeader.TestField("Assignable Range Code");
+        C4BCAssignableRangeHeader.Get(C4BCExtensionHeader."Assignable Range Code");
+        C4BCAssignableRangeHeader.TestField("Ranges per BC Instance", false);
+    end;
+
     local procedure TestRangesPerInstanceUsage()
     var
         C4BCExtensionUsage: Record "C4BC Extension Usage";
