@@ -12,6 +12,21 @@
 
 ## [Released Versions]
 
+### v0.1.6.0
+
+- Date of release 13/02/2022
+
+Major changes
+
+- All OBSOLETE objects that were marked to be removed in 2021 were finally removed.
+- Support for alternate object IDs (to have two ranges for the same extension - one for the on-premises, the second one for cloud).
+- Add setting to assignable range to skip default, non-licensed, object ids.
+
+Other changes
+
+- Generated ranges in license file generation have merged ranges if the range is the whole range.
+- The extension usage is now renameable (only those extensions that aren't per bc instance).
+
 ### v0.1.5.3
 
 - Date of release 23/07/2021
