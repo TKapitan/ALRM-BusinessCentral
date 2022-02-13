@@ -53,13 +53,6 @@ table 80004 "C4BC Extension Usage"
         TestRangesPerInstanceUsage()
     end;
 
-    trigger OnRename()
-    var
-        CannotBeRenamedErr: Label 'The record can not be renamed.';
-    begin
-        Error(CannotBeRenamedErr);
-    end;
-
     local procedure TestRangesPerInstanceUsage()
     var
         C4BCExtensionUsage: Record "C4BC Extension Usage";
