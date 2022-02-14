@@ -40,8 +40,18 @@ table 80000 "C4BC Extension Header"
             trigger OnValidate()
             var
                 AssignableRangeHeader: Record "C4BC Assignable Range Header";
+                ExtensionObject: Record "C4BC Extension Object";
                 NoSerisManagement: Codeunit NoSeriesManagement;
+
+                ObjectIDsGeneratedErr: Label 'Object IDs are already generated. The assignable range can not be changed.';
             begin
+                if (xRec."Assignable Range Code" <> '') and (Rec."Assignable Range Code" <> xRec."Assignable Range Code") then begin
+                    ExtensionObject.SetRange("Extension Code", Rec.Code);
+                    ExtensionObject.SetFilter("Object ID", '<>0');
+                    if not ExtensionObject.IsEmpty() then
+                        Error(ObjectIDsGeneratedErr);
+                end;
+
                 if (Rec.Code = '') and (Rec."Assignable Range Code" <> '') then begin
                     AssignableRangeHeader.Get(Rec."Assignable Range Code");
                     AssignableRangeHeader.TestField("No. Series for Extensions");
@@ -88,6 +98,9 @@ table 80000 "C4BC Extension Header"
             var
                 AssignableRangeHeader: Record "C4BC Assignable Range Header";
                 AssignableRangeHeader2: Record "C4BC Assignable Range Header";
+                ExtensionObject: Record "C4BC Extension Object";
+
+                AlternateObjectIDsGeneratedErr: Label 'Alternate object IDs are already generated. The assignable range can not be changed.';
             begin
                 Rec.TestField("Assignable Range Code");
                 if Rec."Alternate Assign. Range Code" = '' then
@@ -95,10 +108,25 @@ table 80000 "C4BC Extension Header"
                 if Rec."Assignable Range Code" = Rec."Alternate Assign. Range Code" then
                     Rec.FieldError("Assignable Range Code");
 
+                if (xRec."Alternate Assign. Range Code" <> '') and (Rec."Alternate Assign. Range Code" <> xRec."Alternate Assign. Range Code") then begin
+                    ExtensionObject.SetRange("Extension Code", Rec.Code);
+                    ExtensionObject.SetFilter("Alternate Object ID", '<>0');
+                    if not ExtensionObject.IsEmpty() then
+                        Error(AlternateObjectIDsGeneratedErr);
+                end;
+
                 AssignableRangeHeader.Get(Rec."Assignable Range Code");
                 AssignableRangeHeader2.Get(Rec."Alternate Assign. Range Code");
                 AssignableRangeHeader2.TestField("Ranges per BC Instance", AssignableRangeHeader."Ranges per BC Instance");
                 AssignableRangeHeader2.TestField("Object Name Template", AssignableRangeHeader."Object Name Template");
+
+                Clear(ExtensionObject);
+                ExtensionObject.SetRange("Extension Code", Rec.Code);
+                if ExtensionObject.FindSet() then
+                    repeat
+                        ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
+                        ExtensionObject.Modify(true);
+                    until ExtensionObject.Next() < 1;
             end;
         }
     }
