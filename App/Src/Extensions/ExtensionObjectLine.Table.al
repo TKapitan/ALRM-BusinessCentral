@@ -89,6 +89,7 @@ table 80006 "C4BC Extension Object Line"
             Clustered = true;
         }
         key(Fields; "Object Type", "ID") { }
+        key(AlternateFields; "Object Type", "Alternate ID") { }
     }
 
     trigger OnInsert()
@@ -109,7 +110,7 @@ table 80006 "C4BC Extension Object Line"
     /// </summary>
     /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
     /// <returns>Return variable "Integer", new ID.</returns>
-    local procedure GetNewFieldLineID(AssignableRangeCode: Code[20]): Integer
+    procedure GetNewFieldLineID(AssignableRangeCode: Code[20]): Integer
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";

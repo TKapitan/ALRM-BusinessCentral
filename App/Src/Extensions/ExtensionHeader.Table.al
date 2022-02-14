@@ -98,7 +98,9 @@ table 80000 "C4BC Extension Header"
             var
                 AssignableRangeHeader: Record "C4BC Assignable Range Header";
                 AssignableRangeHeader2: Record "C4BC Assignable Range Header";
+
                 ExtensionObject: Record "C4BC Extension Object";
+                ExtensionObjectLine: Record "C4BC Extension Object Line";
 
                 AlternateObjectIDsGeneratedErr: Label 'Alternate object IDs are already generated. The assignable range can not be changed.';
             begin
@@ -129,6 +131,14 @@ table 80000 "C4BC Extension Header"
                         ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
                         ExtensionObject.Modify(true);
                     until ExtensionObject.Next() < 1;
+
+                ExtensionObjectLine.SetCurrentKey("Object Type", "ID");
+                ExtensionObjectLine.SetRange("Extension Code", ExtensionObject."Extension Code");
+                if ExtensionObjectLine.FindSet() then
+                    repeat
+                        ExtensionObjectLine."Alternate ID" := ExtensionObjectLine.GetNewFieldLineID(Rec."Alternate Assign. Range Code");
+                        ExtensionObjectLine.Modify(true)
+                    until ExtensionObjectLine.Next() < 1;
             end;
         }
     }
