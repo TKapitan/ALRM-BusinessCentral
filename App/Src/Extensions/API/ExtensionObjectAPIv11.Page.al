@@ -20,6 +20,7 @@ page 80014 "C4BC Extension Object API v1.1"
             repeater(GroupName)
             {
                 field(systemId; Rec.SystemId) { }
+                field(extensionID; Rec."Extension ID") { }
                 field(rangeCode; Rec."Assignable Range Code") { }
                 field(alternateRangeCode; Rec."Alternate Assign. Range Code") { }
                 field(objectID; Rec."Object ID") { }
