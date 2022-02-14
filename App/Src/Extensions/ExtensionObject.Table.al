@@ -217,11 +217,15 @@ table 80003 "C4BC Extension Object"
 
         C4BCALRMManagement: Codeunit "C4BC ALRM Management";
     begin
-        if Rec."Object ID" <> 0 then
-            exit(Rec."Object ID");
-
-        if not Alternate and not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
-            exit(GetNewImaginaryObjectID(AssignableRangeCode));
+        if Alternate then begin
+            if Rec."Alternate Object ID" <> 0 then
+                exit(Rec."Alternate Object ID");
+        end else begin
+            if Rec."Object ID" <> 0 then
+                exit(Rec."Object ID");
+            if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+                exit(GetNewImaginaryObjectID(AssignableRangeCode));
+        end;
 
         C4BCExtensionHeader.Get(Rec."Extension Code");
         C4BCAssignableRangeHeader.Get(AssignableRangeCode);
