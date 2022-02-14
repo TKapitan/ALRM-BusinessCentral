@@ -103,8 +103,6 @@ table 80000 "C4BC Extension Header"
                 AlternateObjectIDsGeneratedErr: Label 'Alternate object IDs are already generated. The assignable range can not be changed.';
             begin
                 Rec.TestField("Assignable Range Code");
-                if Rec."Alternate Assign. Range Code" = '' then
-                    exit;
                 if Rec."Assignable Range Code" = Rec."Alternate Assign. Range Code" then
                     Rec.FieldError("Assignable Range Code");
 
@@ -114,11 +112,15 @@ table 80000 "C4BC Extension Header"
                     if not ExtensionObject.IsEmpty() then
                         Error(AlternateObjectIDsGeneratedErr);
                 end;
+                if Rec."Alternate Assign. Range Code" = '' then
+                    exit;
 
                 AssignableRangeHeader.Get(Rec."Assignable Range Code");
                 AssignableRangeHeader2.Get(Rec."Alternate Assign. Range Code");
                 AssignableRangeHeader2.TestField("Ranges per BC Instance", AssignableRangeHeader."Ranges per BC Instance");
                 AssignableRangeHeader2.TestField("Object Name Template", AssignableRangeHeader."Object Name Template");
+
+                Rec.Modify(true);
 
                 Clear(ExtensionObject);
                 ExtensionObject.SetRange("Extension Code", Rec.Code);
