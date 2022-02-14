@@ -126,15 +126,31 @@ page 80013 "C4BC Extension API v1.1"
     procedure CreateObjectWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; ObjectName: Text[100]; ExtendsObjectName: Text[100]; CreatedBy: Text[50])
     var
         C4BCALRMSetup: Record "C4BC ALRM Setup";
+        C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCExtensionObject: Record "C4BC Extension Object";
+
+        AlternateObjectIDNotFoundErr: Label 'Alternate object ID %1 for object type %2 was not found.', Comment = '%1 - Received object ID, %2 - Received object type';
     begin
         C4BCALRMSetup.FindFirst();
         C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
 
-        C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionObject.SetRange("Object Type", ObjectType);
-        C4BCExtensionObject.SetRange("Object ID", ObjectID);
-        C4BCExtensionObject.SetRange("Object Name", ObjectName);
+        // Alternate & normal ID
+        C4BCExtensionHeader.Get(Rec.Code);
+        if (C4BCExtensionHeader."Alternate Assign. Range Code" <> '') and not C4BCExtensionObject.IsObjectIDWithinRange(C4BCExtensionHeader."Assignable Range Code", ObjectType, ObjectID) then begin
+            C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
+            C4BCExtensionObject.SetRange("Object Type", ObjectType);
+            C4BCExtensionObject.SetRange("Alternate Object ID", ObjectID);
+            C4BCExtensionObject.SetRange("Object Name", ObjectName);
+            if not C4BCExtensionObject.FindFirst() then
+                Error(AlternateObjectIDNotFoundErr, ObjectID, ObjectType);
+        end else begin
+            C4BCExtensionObject.SetRange("Extension Code", Rec.Code);
+            C4BCExtensionObject.SetRange("Object Type", ObjectType);
+            C4BCExtensionObject.SetRange("Object ID", ObjectID);
+            C4BCExtensionObject.SetRange("Object Name", ObjectName);
+        end;
+
+        // If exists, update extended object name
         if C4BCExtensionObject.FindFirst() then begin
             C4BCExtensionObject.Validate("Extends Object Name", ExtendsObjectName);
             C4BCExtensionObject.Modify(true);
