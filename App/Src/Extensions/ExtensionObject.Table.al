@@ -156,6 +156,7 @@ table 80003 "C4BC Extension Object"
         {
             Clustered = true;
         }
+        key(AlternateObjectID; "Extension Code", "Object Type", "Alternate Object ID") { }
     }
 
     trigger OnInsert()
