@@ -26,8 +26,8 @@ table 80003 "C4BC Extension Object"
 
             trigger OnValidate()
             begin
-                Rec.TestField("Assignable Range Code");
                 Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
+                Rec.TestField("Assignable Range Code");
 
                 "Object ID" := GetNewObjectID(Rec."Assignable Range Code", false);
                 if Rec."Alternate Assign. Range Code" <> '' then
@@ -44,8 +44,8 @@ table 80003 "C4BC Extension Object"
             trigger OnValidate()
             begin
                 Rec.TestField("Object ID");
-                Rec.TestField("Assignable Range Code");
                 Rec.CalcFields("Assignable Range Code");
+                Rec.TestField("Assignable Range Code");
                 if CheckObjectIDDuplicity(Rec."Assignable Range Code", Rec."Object ID") then
                     Error(DuplicitNameErr, Rec.FieldCaption("Object ID"), Rec."Object ID", Rec."Object Type");
                 if not IsObjectIDWithinRange(Rec."Assignable Range Code", Rec."Object ID") then
@@ -140,8 +140,8 @@ table 80003 "C4BC Extension Object"
             begin
                 Rec.TestField("Object ID");
                 Rec.TestField("Alternate Object ID");
-                Rec.TestField("Alternate Assign. Range Code");
                 Rec.CalcFields("Alternate Assign. Range Code");
+                Rec.TestField("Alternate Assign. Range Code");
                 if CheckObjectIDDuplicity(Rec."Alternate Assign. Range Code", Rec."Alternate Object ID") then
                     Error(DuplicitNameErr, Rec.FieldCaption("Alternate Object ID"), Rec."Alternate Object ID", Rec."Object Type");
                 if not IsObjectIDWithinRange(Rec."Alternate Assign. Range Code", Rec."Alternate Object ID") then
@@ -164,8 +164,8 @@ table 80003 "C4BC Extension Object"
         C4BCExtensionHeader: Record "C4BC Extension Header";
     begin
         Rec.TestField("Object Type");
-        Rec.TestField("Assignable Range Code");
         Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
+        Rec.TestField("Assignable Range Code");
         if "Object ID" = 0 then
             "Object ID" := GetNewObjectID(Rec."Assignable Range Code", false);
         Rec.TestField("Object ID");
