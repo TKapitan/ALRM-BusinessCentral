@@ -1,7 +1,7 @@
 /// <summary>
 /// Page C4BC Assigned Range Objects (ID 80017).
 /// </summary>
-page 80017 "C4BC Assigned Range Objects"
+page 79517 "C4BC Assigned Range Objects"
 {
     Caption = 'Assigned Range Object List';
     ApplicationArea = All;

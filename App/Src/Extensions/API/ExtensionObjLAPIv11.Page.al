@@ -1,7 +1,7 @@
 /// <summary>
 /// Page C4BC Extension Obj.L. API v1.1 (ID 80015).
 /// </summary>
-page 80015 "C4BC Extension Obj.L. API v1.1"
+page 79515 "C4BC Extension Obj.L. API v1.1"
 {
     PageType = API;
     Caption = 'Extension Object Lines API';

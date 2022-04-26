@@ -1,7 +1,7 @@
 /// <summary>
 /// Page C4BC Extension Subform (ID 80004).
 /// </summary>
-page 80004 "C4BC Extension Subform"
+page 79504 "C4BC Extension Subform"
 {
     PageType = ListPart;
     UsageCategory = None;

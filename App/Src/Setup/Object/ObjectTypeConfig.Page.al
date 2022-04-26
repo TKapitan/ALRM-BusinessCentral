@@ -1,7 +1,7 @@
 /// <summary>
 /// Page C4BC Object Type Config. (ID 80018).
 /// </summary>
-page 80018 "C4BC Object Type Config."
+page 79518 "C4BC Object Type Config."
 {
     Caption = 'Object Type Configurations';
     PageType = List;

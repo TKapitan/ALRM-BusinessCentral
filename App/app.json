@@ -16,8 +16,8 @@
   "application": "17.0.0.0",
   "idRanges": [
     {
-      "from": 80000,
-      "to": 80099
+      "from": 79000,
+      "to": 89999
     }
   ],
   "contextSensitiveHelpUrl": "https://github.com/TKapitan/ALRM-BusinessCentral/issues",
