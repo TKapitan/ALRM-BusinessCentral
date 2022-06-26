@@ -127,18 +127,18 @@ table 80000 "C4BC Extension Header"
                 Clear(ExtensionObject);
                 ExtensionObject.SetRange("Extension Code", Rec.Code);
                 if ExtensionObject.FindSet() then
-                    repeat
-                        ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
-                        ExtensionObject.Modify(true);
-                    until ExtensionObject.Next() < 1;
+                        repeat
+                            ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
+                            ExtensionObject.Modify(true);
+                        until ExtensionObject.Next() < 1;
 
                 ExtensionObjectLine.SetCurrentKey("Object Type", "ID");
                 ExtensionObjectLine.SetRange("Extension Code", ExtensionObject."Extension Code");
                 if ExtensionObjectLine.FindSet() then
-                    repeat
-                        ExtensionObjectLine."Alternate ID" := ExtensionObjectLine.GetNewFieldLineID(Rec."Alternate Assign. Range Code");
-                        ExtensionObjectLine.Modify(true)
-                    until ExtensionObjectLine.Next() < 1;
+                        repeat
+                            ExtensionObjectLine."Alternate ID" := ExtensionObjectLine.GetNewFieldLineID(Rec."Alternate Assign. Range Code", true);
+                            ExtensionObjectLine.Modify(true)
+                        until ExtensionObjectLine.Next() < 1;
             end;
         }
     }

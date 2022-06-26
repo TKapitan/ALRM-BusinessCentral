@@ -97,9 +97,9 @@ table 80006 "C4BC Extension Object Line"
         Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
         Rec.TestField("Assignable Range Code");
         if ID = 0 then
-            ID := GetNewFieldLineID(Rec."Assignable Range Code");
+            ID := GetNewFieldLineID(Rec."Assignable Range Code", false);
         if ("Alternate ID" = 0) and (Rec."Alternate Assign. Range Code" <> '') then
-            "Alternate ID" := GetNewFieldLineID(Rec."Alternate Assign. Range Code");
+            "Alternate ID" := GetNewFieldLineID(Rec."Alternate Assign. Range Code", true);
 
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
@@ -109,12 +109,24 @@ table 80006 "C4BC Extension Object Line"
     /// Return new field ID for a field
     /// </summary>
     /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
+    /// <param name="Alternate">Boolean, Specifies whether the ID is from alternate range or normal one.</param>
     /// <returns>Return variable "Integer", new ID.</returns>
-    procedure GetNewFieldLineID(AssignableRangeCode: Code[20]): Integer
+    procedure GetNewFieldLineID(AssignableRangeCode: Code[20]; Alternate: Boolean): Integer
     var
         C4BCExtensionHeader: Record "C4BC Extension Header";
+        C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
         C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
     begin
+        if Alternate then begin
+            C4BCExtensionObjectLine.SetRange("Extension Code", Rec."Extension Code");
+            C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
+            C4BCExtensionObjectLine.SetFilter("Object ID", '<>%1', Rec."Object ID");
+            C4BCExtensionObjectLine.SetRange(ID, Rec.ID);
+            C4BCExtensionObjectLine.SetFilter("Alternate ID", '<>''''');
+            if C4BCExtensionObjectLine.FindFirst() then
+                exit(C4BCExtensionObjectLine.ID);
+        end;
+
         C4BCExtensionHeader.Get(Rec."Extension Code");
         C4BCAssignableRangeHeader.Get(AssignableRangeCode);
         exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
