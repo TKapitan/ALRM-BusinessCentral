@@ -21,50 +21,17 @@ page 79513 "C4BC Extension API v1.1"
             repeater(GroupName)
             {
 
-                field(systemId; Rec.SystemId)
-                {
-                    ApplicationArea = All;
-                }
-                field(rangeCode; Rec."Assignable Range Code")
-                {
-                    ApplicationArea = All;
-                }
-                field(alternateRangeCode; Rec."Alternate Assign. Range Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("code"; Rec.Code)
-                {
-                    ApplicationArea = All;
-                }
-                field(description; Rec.Description)
-                {
-                    ApplicationArea = All;
-                }
-                field(id; Rec.ID)
-                {
-                    ApplicationArea = All;
-                }
-                field(name; Rec.Name)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemCreatedAt; Rec.SystemCreatedAt)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemCreatedBy; Rec.SystemCreatedBy)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemModifiedAt; Rec.SystemModifiedAt)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemModifiedBy; Rec.SystemModifiedBy)
-                {
-                    ApplicationArea = All;
-                }
+                field(systemId; Rec.SystemId) { }
+                field(rangeCode; Rec."Assignable Range Code") { }
+                field(alternateRangeCode; Rec."Alternate Assign. Range Code") { }
+                field("code"; Rec.Code) { }
+                field(description; Rec.Description) { }
+                field(id; Rec.ID) { }
+                field(name; Rec.Name) { }
+                field(systemCreatedAt; Rec.SystemCreatedAt) { }
+                field(systemCreatedBy; Rec.SystemCreatedBy) { }
+                field(systemModifiedAt; Rec.SystemModifiedAt) { }
+                field(systemModifiedBy; Rec.SystemModifiedBy) { }
             }
         }
     }
