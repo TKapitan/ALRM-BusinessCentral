@@ -142,4 +142,29 @@ table 80006 "C4BC Extension Object Line"
         exit(C4BCAssignableRangeHeader.GetNewFieldID(Rec."Object Type", C4BCExtensionHeader.GetUsageOfExtension()));
     end;
 
+    /// <summary>
+    /// Return a boolean value indicating whether the specified field ID is within allowed range for the field and assignable range.
+    /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>
+    /// <param name="FieldID">Integer, Field ID that should be checked for duplicity.</param>
+    /// <returns>Return variable "Boolean", true = the ID is within allowed ranges.</returns>
+    procedure IsObjectLineIDWithinRange(AssignableRangeCode: Code[20]; FieldID: Integer): Boolean
+    begin
+        exit(IsObjectLineIDWithinRange(AssignableRangeCode, Rec."Object Type", FieldID));
+    end;
+
+    /// <summary>
+    /// Return a boolean value indicating whether the specified object ID is within allowed range for the object type and assignable range.
+    /// </summary>
+    /// <param name="AssignableRangeCode">Code[20], Specifies code of assignable range from which the ID should be generated.</param>/// 
+    /// <param name="ObjectType">Enum "C4BC Object Type", Specifies the object type.</param>
+    /// <param name="FieldID">Integer, Field ID that should be checked for duplicity.</param>
+    /// <returns>Return variable "Boolean", true = the ID is within allowed ranges.</returns>
+    procedure IsObjectLineIDWithinRange(AssignableRangeCode: Code[20]; ObjectType: Enum "C4BC Object Type"; FieldID: Integer): Boolean
+    var
+        C4BCAssignableRangeHeader: Record "C4BC Assignable Range Header";
+    begin
+        C4BCAssignableRangeHeader.Get(AssignableRangeCode);
+        exit(C4BCAssignableRangeHeader.IsObjectIDFromRange(ObjectType, FieldID));
+    end;
 }

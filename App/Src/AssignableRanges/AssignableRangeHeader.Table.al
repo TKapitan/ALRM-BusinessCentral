@@ -397,13 +397,26 @@ table 80001 "C4BC Assignable Range Header"
 
         if LastUsedFieldID <> 0 then begin
             NewFieldID := LastUsedFieldID + 1;
-            if (Rec."Field Range From" <= NewFieldID) and (Rec."Field Range To" >= NewFieldID) then
+            if IsObjectFieldIDFromRange(ForObjectType, NewFieldID) then
                 exit(NewFieldID);
             Error(NoAvailableFieldIDsErr);
         end;
 
         Rec.TestField("Field Range From");
         exit(Rec."Field Range From");
+    end;
+
+    /// <summary> 
+    /// Specifies whether the combination of the object type and field ID is from any range specified by this assignable range code.
+    /// </summary>
+    /// <param name="ForObjectType">Enum "C4BC Object Type", The object type for which we want to check, whether the ID is within the range.</param> 
+    /// <param name="ID">Integer, specifies ID of the field which we want to check.</param>
+    /// <returns>Return variable "Boolean" - specifies whether the field ID is within any range in this assignable range code.</returns>
+    procedure IsObjectFieldIDFromRange(ForObjectType: Enum "C4BC Object Type"; ID: Integer): Boolean
+    begin
+        if (Rec."Field Range From" <= ID) and (Rec."Field Range To" >= ID) then
+            exit(true);
+        exit(false);
     end;
 
     /// <summary> 
@@ -524,35 +537,35 @@ table 80001 "C4BC Assignable Range Header"
             C4BCAssignableRangeLine.SetRange("Object Type", ForObjectType);
             C4BCAssignableRangeLine.SetRange("Fill Object ID Gaps", true);
             if C4BCAssignableRangeLine.FindSet() then
-                repeat
-                    TempC4BCAssignableRangeLine."Object Range From" := C4BCAssignableRangeLine."Object Range From";
-                    TempC4BCAssignableRangeLine."Object Range To" := C4BCAssignableRangeLine."Object Range To";
-                    TempC4BCAssignableRangeLine.Insert();
-                until C4BCAssignableRangeLine.Next() < 1;
+                    repeat
+                        TempC4BCAssignableRangeLine."Object Range From" := C4BCAssignableRangeLine."Object Range From";
+                        TempC4BCAssignableRangeLine."Object Range To" := C4BCAssignableRangeLine."Object Range To";
+                        TempC4BCAssignableRangeLine.Insert();
+                    until C4BCAssignableRangeLine.Next() < 1;
         end;
 
         TempPlanningBuffer := InitUsedIDBuffer(C4BCExtensionObject, ForObjectType);
         if TempC4BCAssignableRangeLine.FindSet() then
             repeat
-                PrevID := 0;
+                    PrevID := 0;
                 IDDiff := TempC4BCAssignableRangeLine."Object Range To" - TempC4BCAssignableRangeLine."Object Range From" + 1;
                 TempPlanningBuffer.SetRange("Buffer No.", TempC4BCAssignableRangeLine."Object Range From", TempC4BCAssignableRangeLine."Object Range To");
                 if IDDiff > TempPlanningBuffer.Count() then begin
                     TempPlanningBuffer.SetRange("Buffer No.");
                     if TempPlanningBuffer.FindSet() then
-                        repeat
-                            if PrevID = 0 then begin
-                                NewObjectID := TempC4BCAssignableRangeLine."Object Range From";
-                                if TempPlanningBuffer."Buffer No." <> NewObjectID then
-                                    if IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                            repeat
+                                if PrevID = 0 then begin
+                                    NewObjectID := TempC4BCAssignableRangeLine."Object Range From";
+                                    if TempPlanningBuffer."Buffer No." <> NewObjectID then
+                                        if IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                                            exit(true);
+                                end else begin
+                                    NewObjectID := PrevID + 1;
+                                    if (NewObjectID < TempPlanningBuffer."Buffer No.") and IsObjectIDFromRange(ForObjectType, NewObjectID) then
                                         exit(true);
-                            end else begin
-                                NewObjectID := PrevID + 1;
-                                if (NewObjectID < TempPlanningBuffer."Buffer No.") and IsObjectIDFromRange(ForObjectType, NewObjectID) then
-                                    exit(true);
-                            end;
-                            PrevID := TempPlanningBuffer."Buffer No.";
-                        until TempPlanningBuffer.Next() < 1;
+                                end;
+                                PrevID := TempPlanningBuffer."Buffer No.";
+                            until TempPlanningBuffer.Next() < 1;
                 end;
             until TempC4BCAssignableRangeLine.Next() < 1;
         Clear(NewObjectID);

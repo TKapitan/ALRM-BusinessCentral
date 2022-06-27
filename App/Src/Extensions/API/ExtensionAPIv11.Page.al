@@ -170,15 +170,29 @@ page 79513 "C4BC Extension API v1.1"
     procedure CreateObjectFieldOrValueWithOwnID(ObjectType: Enum "C4BC Object Type"; ObjectID: Integer; FieldOrValueID: Integer; CreatedBy: Text[50])
     var
         C4BCALRMSetup: Record "C4BC ALRM Setup";
+        C4BCExtensionHeader: Record "C4BC Extension Header";
         C4BCExtensionObjectLine: Record "C4BC Extension Object Line";
+
+        AlternateObjectFieldIDNotFoundErr: Label 'Alternate object field ID %1 for object type %2 was not found.', Comment = '%1 - Received field ID, %2 - Received object type';
     begin
         C4BCALRMSetup.FindFirst();
         C4BCALRMSetup.CheckAPIVersion(C4BCALRMSetup."Minimal API Version"::"v1.1");
 
-        C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
-        C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
-        C4BCExtensionObjectLine.SetRange("Object ID", ObjectID);
-        C4BCExtensionObjectLine.SetRange(ID, FieldOrValueID);
+        // Alternate & normal ID
+        C4BCExtensionHeader.Get(Rec.Code);
+        if (C4BCExtensionHeader."Alternate Assign. Range Code" <> '') and not C4BCExtensionObjectLine.IsObjectLineIDWithinRange(C4BCExtensionHeader."Assignable Range Code", ObjectType, ObjectID) then begin
+            C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
+            C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
+            C4BCExtensionObjectLine.SetRange("Alternate Object ID", ObjectID);
+            C4BCExtensionObjectLine.SetRange("Alternate ID", FieldOrValueID);
+            if not C4BCExtensionObjectLine.FindFirst() then
+                Error(AlternateObjectFieldIDNotFoundErr, ObjectID, ObjectType);
+        end else begin
+            C4BCExtensionObjectLine.SetRange("Extension Code", Rec.Code);
+            C4BCExtensionObjectLine.SetRange("Object Type", ObjectType);
+            C4BCExtensionObjectLine.SetRange("Object ID", ObjectID);
+            C4BCExtensionObjectLine.SetRange(ID, FieldOrValueID);
+        end;
         if not C4BCExtensionObjectLine.IsEmpty() then
             exit;
 
