@@ -20,54 +20,19 @@ page 79515 "C4BC Extension Obj.L. API v1.1"
             repeater(GroupName)
             {
 
-                field(systemId; Rec.SystemId)
-                {
-                    ApplicationArea = All;
-                }
-                field("code"; Rec."Extension Code")
-                {
-                    ApplicationArea = All;
-                }
-                field(objectID; Rec."Object ID")
-                {
-                    ApplicationArea = All;
-                }
-                field(alternateObjectID; Rec."Alternate Object ID")
-                {
-                    ApplicationArea = All;
-                }
-                field(objectType; Rec."Object Type")
-                {
-                    ApplicationArea = All;
-                }
-                field(id; Rec.ID)
-                {
-                    ApplicationArea = All;
-                }
-                field(alternateID; Rec."Alternate ID")
-                {
-                    ApplicationArea = All;
-                }
-                field(name; Rec.Name)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemCreatedAt; Rec.SystemCreatedAt)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemCreatedBy; Rec.SystemCreatedBy)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemModifiedAt; Rec.SystemModifiedAt)
-                {
-                    ApplicationArea = All;
-                }
-                field(systemModifiedBy; Rec.SystemModifiedBy)
-                {
-                    ApplicationArea = All;
-                }
+                field(systemId; Rec.SystemId) { }
+                field("code"; Rec."Extension Code") { }
+                field(extensionID; Rec."Extension ID") { }
+                field(objectID; Rec."Object ID") { }
+                field(alternateObjectID; Rec."Alternate Object ID") { }
+                field(objectType; Rec."Object Type") { }
+                field(id; Rec.ID) { }
+                field(alternateID; Rec."Alternate ID") { }
+                field(name; Rec.Name) { }
+                field(systemCreatedAt; Rec.SystemCreatedAt) { }
+                field(systemCreatedBy; Rec.SystemCreatedBy) { }
+                field(systemModifiedAt; Rec.SystemModifiedAt) { }
+                field(systemModifiedBy; Rec.SystemModifiedBy) { }
             }
         }
     }

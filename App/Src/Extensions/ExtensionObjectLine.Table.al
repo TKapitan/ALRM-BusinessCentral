@@ -13,6 +13,12 @@ table 80006 "C4BC Extension Object Line"
             DataClassification = SystemMetadata;
             TableRelation = "C4BC Extension Header".Code where(Code = field("Extension Code"));
         }
+        field(2; "Extension ID"; Guid)
+        {
+            Caption = 'ID';
+            DataClassification = SystemMetadata;
+            TableRelation = "C4BC Extension Header".ID;
+        }
         field(3; "Object Type"; Enum "C4BC Object Type")
         {
             Caption = 'Object Type';
@@ -93,6 +99,8 @@ table 80006 "C4BC Extension Object Line"
     }
 
     trigger OnInsert()
+    var
+        C4BCExtensionHeader: Record "C4BC Extension Header";
     begin
         Rec.CalcFields("Assignable Range Code", "Alternate Assign. Range Code");
         Rec.TestField("Assignable Range Code");
@@ -101,6 +109,8 @@ table 80006 "C4BC Extension Object Line"
         if ("Alternate ID" = 0) and (Rec."Alternate Assign. Range Code" <> '') then
             "Alternate ID" := GetNewFieldLineID(Rec."Alternate Assign. Range Code", true);
 
+        C4BCExtensionHeader.Get(Rec."Extension Code");
+        "Extension ID" := C4BCExtensionHeader.ID;
         if GuiAllowed then
             "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
     end;
@@ -122,9 +132,9 @@ table 80006 "C4BC Extension Object Line"
             C4BCExtensionObjectLine.SetRange("Object Type", Rec."Object Type");
             C4BCExtensionObjectLine.SetFilter("Object ID", '<>%1', Rec."Object ID");
             C4BCExtensionObjectLine.SetRange(ID, Rec.ID);
-            C4BCExtensionObjectLine.SetFilter("Alternate ID", '<>''''');
+            C4BCExtensionObjectLine.SetFilter("Alternate ID", '<>0');
             if C4BCExtensionObjectLine.FindFirst() then
-                exit(C4BCExtensionObjectLine.ID);
+                exit(C4BCExtensionObjectLine."Alternate ID");
         end;
 
         C4BCExtensionHeader.Get(Rec."Extension Code");

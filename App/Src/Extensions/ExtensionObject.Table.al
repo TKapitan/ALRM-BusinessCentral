@@ -221,6 +221,8 @@ table 80003 "C4BC Extension Object"
         if Alternate then begin
             if Rec."Alternate Object ID" <> 0 then
                 exit(Rec."Alternate Object ID");
+            if not C4BCALRMManagement.UseObjectTypeIDs(Rec."Object Type", false) then
+                exit(0);
         end else begin
             if Rec."Object ID" <> 0 then
                 exit(Rec."Object ID");
