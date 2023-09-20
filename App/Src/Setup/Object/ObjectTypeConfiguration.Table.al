@@ -56,8 +56,10 @@ table 80008 "C4BC Object Type Configuration"
 
             trigger OnValidate()
             begin
-                Rec.TestField("Is Licensed");
-                Rec.TestField("Has ID");
+                if Rec."Included Object ID From" <> 0 then begin
+                    Rec.TestField("Is Licensed");
+                    Rec.TestField("Has ID");
+                end;
 
                 if Rec."Included Object ID From" > Rec."Included Object ID To" then
                     if Rec."Included Object ID To" = 0 then
@@ -75,8 +77,10 @@ table 80008 "C4BC Object Type Configuration"
 
             trigger OnValidate()
             begin
-                Rec.TestField("Is Licensed");
-                Rec.TestField("Has ID");
+                if Rec."Included Object ID To" <> 0 then begin
+                    Rec.TestField("Is Licensed");
+                    Rec.TestField("Has ID");
+                end;
 
                 if Rec."Included Object ID To" < Rec."Included Object ID From" then
                     Rec.FieldError("Included Object ID To");
