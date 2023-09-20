@@ -224,6 +224,7 @@ table 80001 "C4BC Assignable Range Header"
         if C4BCExtensionObject.FindLast() then
             if LastUsedObjectID < C4BCExtensionObject."Alternate Object ID" then
                 LastUsedObjectID := C4BCExtensionObject."Alternate Object ID";
+        C4BCExtensionObject.SetRange("Alternate Object ID");
 
         // No ID in use yet, find the first one
         if LastUsedObjectID = 0 then begin
@@ -537,42 +538,42 @@ table 80001 "C4BC Assignable Range Header"
             C4BCAssignableRangeLine.SetRange("Object Type", ForObjectType);
             C4BCAssignableRangeLine.SetRange("Fill Object ID Gaps", true);
             if C4BCAssignableRangeLine.FindSet() then
-                    repeat
-                        TempC4BCAssignableRangeLine."Object Range From" := C4BCAssignableRangeLine."Object Range From";
-                        TempC4BCAssignableRangeLine."Object Range To" := C4BCAssignableRangeLine."Object Range To";
-                        TempC4BCAssignableRangeLine.Insert();
-                    until C4BCAssignableRangeLine.Next() < 1;
+                repeat
+                    TempC4BCAssignableRangeLine."Object Range From" := C4BCAssignableRangeLine."Object Range From";
+                    TempC4BCAssignableRangeLine."Object Range To" := C4BCAssignableRangeLine."Object Range To";
+                    TempC4BCAssignableRangeLine.Insert();
+                until C4BCAssignableRangeLine.Next() < 1;
         end;
 
-        TempPlanningBuffer := InitUsedIDBuffer(C4BCExtensionObject, ForObjectType);
+        InitUsedIDBuffer(C4BCExtensionObject, ForObjectType, TempPlanningBuffer);
         if TempC4BCAssignableRangeLine.FindSet() then
             repeat
-                    PrevID := 0;
+                PrevID := 0;
                 IDDiff := TempC4BCAssignableRangeLine."Object Range To" - TempC4BCAssignableRangeLine."Object Range From" + 1;
                 TempPlanningBuffer.SetRange("Buffer No.", TempC4BCAssignableRangeLine."Object Range From", TempC4BCAssignableRangeLine."Object Range To");
                 if IDDiff > TempPlanningBuffer.Count() then begin
                     TempPlanningBuffer.SetRange("Buffer No.");
                     if TempPlanningBuffer.FindSet() then
-                            repeat
-                                if PrevID = 0 then begin
-                                    NewObjectID := TempC4BCAssignableRangeLine."Object Range From";
-                                    if TempPlanningBuffer."Buffer No." <> NewObjectID then
-                                        if IsObjectIDFromRange(ForObjectType, NewObjectID) then
-                                            exit(true);
-                                end else begin
-                                    NewObjectID := PrevID + 1;
-                                    if (NewObjectID < TempPlanningBuffer."Buffer No.") and IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                        repeat
+                            if PrevID = 0 then begin
+                                NewObjectID := TempC4BCAssignableRangeLine."Object Range From";
+                                if TempPlanningBuffer."Buffer No." <> NewObjectID then
+                                    if IsObjectIDFromRange(ForObjectType, NewObjectID) then
                                         exit(true);
-                                end;
-                                PrevID := TempPlanningBuffer."Buffer No.";
-                            until TempPlanningBuffer.Next() < 1;
+                            end else begin
+                                NewObjectID := PrevID + 1;
+                                if (NewObjectID < TempPlanningBuffer."Buffer No.") and IsObjectIDFromRange(ForObjectType, NewObjectID) then
+                                    exit(true);
+                            end;
+                            PrevID := TempPlanningBuffer."Buffer No.";
+                        until TempPlanningBuffer.Next() < 1;
                 end;
             until TempC4BCAssignableRangeLine.Next() < 1;
         Clear(NewObjectID);
         exit(false);
     end;
 
-    local procedure InitUsedIDBuffer(var C4BCExtensionObject: Record "C4BC Extension Object"; ForObjectType: Enum "C4BC Object Type") TempPlanningBuffer: Record "Planning Buffer" temporary
+    local procedure InitUsedIDBuffer(var C4BCExtensionObject: Record "C4BC Extension Object"; ForObjectType: Enum "C4BC Object Type"; var TempPlanningBuffer: Record "Planning Buffer" temporary)
     var
         C4BCExtensionObject2: Record "C4BC Extension Object";
 
@@ -581,30 +582,33 @@ table 80001 "C4BC Assignable Range Header"
         AssignableRangeCode: Code[10];
         NoAssignableRangeDefinedErr: Label 'No assignable range defined for the newly generated object ID. It is programming error.';
     begin
-        C4BCExtensionObject2 := C4BCExtensionObject;
+        TempPlanningBuffer.Reset();
+        TempPlanningBuffer.DeleteAll();
+
+        if not C4BCALRMManagement.UseObjectTypeIDs(ForObjectType, false) then
+            exit;
+
         AssignableRangeCode := CopyStr(C4BCExtensionObject.GetFilter("Assignable Range Code"), 1, MaxStrLen(AssignableRangeCode));
         if AssignableRangeCode = '' then
             AssignableRangeCode := CopyStr(C4BCExtensionObject.GetFilter("Alternate Assign. Range Code"), 1, MaxStrLen(AssignableRangeCode));
         if AssignableRangeCode = '' then
             Error(NoAssignableRangeDefinedErr);
 
-        TempPlanningBuffer.DeleteAll();
-
+        C4BCExtensionObject2.Copy(C4BCExtensionObject);
         C4BCExtensionObject2.SetRange("Alternate Assign. Range Code");
         C4BCExtensionObject2.SetRange("Assignable Range Code", AssignableRangeCode);
-        repeat
-            if not C4BCALRMManagement.UseObjectTypeIDs(ForObjectType, false) then begin
+        if C4BCExtensionObject2.FindSet() then
+            repeat
                 TempPlanningBuffer."Buffer No." := C4BCExtensionObject2."Object ID";
-                if not C4BCExtensionObject2.Insert() then;
-            end;
-        until C4BCExtensionObject2.Next() < 1;
+                if not TempPlanningBuffer.Insert() then;
+            until C4BCExtensionObject2.Next() < 1;
+
         C4BCExtensionObject2.SetRange("Assignable Range Code");
         C4BCExtensionObject2.SetRange("Alternate Assign. Range Code", AssignableRangeCode);
-        repeat
-            if not C4BCALRMManagement.UseObjectTypeIDs(ForObjectType, false) then begin
+        if C4BCExtensionObject2.FindSet() then
+            repeat
                 TempPlanningBuffer."Buffer No." := C4BCExtensionObject2."Alternate Object ID";
-                if not C4BCExtensionObject2.Insert() then;
-            end;
-        until C4BCExtensionObject2.Next() < 1;
+                if not TempPlanningBuffer.Insert() then;
+            until C4BCExtensionObject2.Next() < 1;
     end;
 }
