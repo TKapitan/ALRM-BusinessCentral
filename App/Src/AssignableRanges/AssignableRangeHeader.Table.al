@@ -378,6 +378,7 @@ table 80001 "C4BC Assignable Range Header"
         C4BCExtensionObjectLine.SetAscending("ID", true);
         C4BCExtensionObjectLine.SetRange("Object Type", ForObjectType);
         C4BCExtensionObjectLine.SetRange("Assignable Range Code", Rec."Code");
+        C4BCExtensionObjectLine.SetRange(ID, Rec."Field Range From", Rec."Field Range To");
         if Rec."Ranges per BC Instance" then begin
             // Find extension object lines that are installed on specific business central instance
             C4BCExtensionObjectLine.SetRange("Bus. Central Instance Filter", ForBusinessCentralInstance);
