@@ -175,8 +175,8 @@ table 80003 "C4BC Extension Object"
 
         C4BCExtensionHeader.Get(Rec."Extension Code");
         "Extension ID" := C4BCExtensionHeader.ID;
-        if GuiAllowed then
-            "Created By" := CopyStr(UserId(), 1, MaxStrLen("Created By"));
+        if GuiAllowed or (Rec."Created By" = '') then
+            Rec."Created By" := CopyStr(UserId(), 1, MaxStrLen(Rec."Created By"));
     end;
 
     trigger OnModify()
