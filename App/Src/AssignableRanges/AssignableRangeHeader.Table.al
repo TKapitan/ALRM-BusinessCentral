@@ -435,10 +435,10 @@ table 80001 "C4BC Assignable Range Header"
     /// <summary> 
     /// Validate changes to default ranges to verify, whether the old range is not in use
     /// </summary>
-    /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>
+    /// <param name="ForRangeType">Option (From,To), specify type of the range we want to validate.</param>
     /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
     /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
-    local procedure ValidateChangeToDefaultRanges(RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
+    local procedure ValidateChangeToDefaultRanges(ForRangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
 
@@ -449,9 +449,9 @@ table 80001 "C4BC Assignable Range Header"
         OldRangeIsInUseErr: Label 'The range can not be change as there are extension lines with IDs from the existing range.';
     begin
         C4BCExtensionObject.SetRange("Assignable Range Code", Rec.Code);
-        if not C4BCExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
+        if not C4BCExtensionObject.ShouldCheckChange(ForRangeType, OldRange, NewRange) then
             exit;
-        C4BCExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
+        C4BCExtensionObject.SetFilterOnRangeChange(ForRangeType, OldRange, NewRange);
         if C4BCExtensionObject.IsEmpty() then
             exit;
 

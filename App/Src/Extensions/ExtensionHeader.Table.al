@@ -55,7 +55,7 @@ table 80000 "C4BC Extension Header"
                 if (Rec.Code = '') and (Rec."Assignable Range Code" <> '') then begin
                     AssignableRangeHeader.Get(Rec."Assignable Range Code");
                     AssignableRangeHeader.TestField("No. Series for Extensions");
-                    Rec.Code := NoSerisManagement.GetNextNo3(AssignableRangeHeader."No. Series for Extensions", Today, true, true);
+                    Rec.Code := NoSerisManagement.DoGetNextNo(AssignableRangeHeader."No. Series for Extensions", Today, true, true);
                 end;
             end;
         }
@@ -127,18 +127,18 @@ table 80000 "C4BC Extension Header"
                 Clear(ExtensionObject);
                 ExtensionObject.SetRange("Extension Code", Rec.Code);
                 if ExtensionObject.FindSet() then
-                        repeat
-                            ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
-                            ExtensionObject.Modify(true);
-                        until ExtensionObject.Next() < 1;
+                    repeat
+                        ExtensionObject."Alternate Object ID" := ExtensionObject.GetNewObjectID(Rec."Alternate Assign. Range Code", true);
+                        ExtensionObject.Modify(true);
+                    until ExtensionObject.Next() < 1;
 
                 ExtensionObjectLine.SetCurrentKey("Object Type", "ID");
                 ExtensionObjectLine.SetRange("Extension Code", ExtensionObject."Extension Code");
                 if ExtensionObjectLine.FindSet() then
-                        repeat
-                            ExtensionObjectLine."Alternate ID" := ExtensionObjectLine.GetNewFieldLineID(Rec."Alternate Assign. Range Code", true);
-                            ExtensionObjectLine.Modify(true)
-                        until ExtensionObjectLine.Next() < 1;
+                    repeat
+                        ExtensionObjectLine."Alternate ID" := ExtensionObjectLine.GetNewFieldLineID(Rec."Alternate Assign. Range Code", true);
+                        ExtensionObjectLine.Modify(true)
+                    until ExtensionObjectLine.Next() < 1;
             end;
         }
     }

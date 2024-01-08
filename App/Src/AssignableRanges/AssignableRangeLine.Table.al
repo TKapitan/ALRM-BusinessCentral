@@ -141,10 +141,10 @@ table 80002 "C4BC Assignable Range Line"
     /// Validate changes to ranges to verify, whether the old range is not in use
     /// </summary>
     /// <param name="C4BCObjectType">Parameter of type Enum "C4BC Object Type".</param>
-    /// <param name="RangeType">Option (From,To), specify type of the range we want to validate.</param>/// 
+    /// <param name="ForRangeType">Option (From,To), specify type of the range we want to validate.</param>/// 
     /// <param name="OldRange">Integer, specify old range (the one before the change).</param>
     /// <param name="NewRange">Integer, specify new range (the one after the change).</param>
-    local procedure ValidateChangeToRanges(C4BCObjectType: Enum "C4BC Object Type"; RangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
+    local procedure ValidateChangeToRanges(C4BCObjectType: Enum "C4BC Object Type"; ForRangeType: Option From,"To"; OldRange: Integer; NewRange: Integer)
     var
         C4BCExtensionObject: Record "C4BC Extension Object";
 
@@ -152,9 +152,9 @@ table 80002 "C4BC Assignable Range Line"
     begin
         C4BCExtensionObject.SetRange("Assignable Range Code", Rec."Assignable Range Code");
         C4BCExtensionObject.SetRange("Object Type", C4BCObjectType);
-        if not C4BCExtensionObject.ShouldCheckChange(RangeType, OldRange, NewRange) then
+        if not C4BCExtensionObject.ShouldCheckChange(ForRangeType, OldRange, NewRange) then
             exit;
-        C4BCExtensionObject.SetFilterOnRangeChange(RangeType, OldRange, NewRange);
+        C4BCExtensionObject.SetFilterOnRangeChange(ForRangeType, OldRange, NewRange);
         if not C4BCExtensionObject.IsEmpty() then
             Error(OldRangeIsInUseErr);
     end;
