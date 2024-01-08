@@ -6,9 +6,23 @@ codeunit 80005 "C4BC ALRM Installation"
     Subtype = Install;
 
     trigger OnInstallAppPerCompany()
+    var
+        ALRMUpgrade: Codeunit "C4BC ALRM Upgrade";
+        ModuleInfo: ModuleInfo;
+    begin
+        NavApp.GetCurrentModuleInfo(ModuleInfo);
+        if ModuleInfo.DataVersion = Version.Create(0, 0, 0, 0) then
+            RunOnInstallAppPerCompanyFreshInstall()
+        else
+            ALRMUpgrade.RunOnUpgradePerCompany();
+    end;
+
+    procedure RunOnInstallAppPerCompanyFreshInstall()
     begin
         InitALRMSetup();
         InitObjectTypeConfiguration();
+
+        UpgradeTag.SetAllUpgradeTags();
     end;
 
     local procedure InitALRMSetup()
@@ -73,4 +87,7 @@ codeunit 80005 "C4BC ALRM Installation"
         C4BCObjectTypeConfiguration.Validate("Included Object ID To", IncludedObjectIDTo);
         C4BCObjectTypeConfiguration.Insert(true);
     end;
+
+    var
+        UpgradeTag: Codeunit "Upgrade Tag";
 }
