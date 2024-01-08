@@ -141,6 +141,23 @@ table 80000 "C4BC Extension Header"
                     until ExtensionObjectLine.Next() < 1;
             end;
         }
+        field(200; "BC Instance for Assign. Range"; Code[20])
+        {
+            Caption = 'BC Instance used for Assignable Range';
+            TableRelation = "C4BC Business Central Instance".Code;
+            DataClassification = CustomerContent;
+
+            trigger OnValidate()
+            var
+                AssignableRangeHeader: Record "C4BC Assignable Range Header";
+            begin
+                if Rec."BC Instance for Assign. Range" = '' then
+                    exit;
+                Rec.TestField("Assignable Range Code");
+                AssignableRangeHeader.Get(Rec."Assignable Range Code");
+                AssignableRangeHeader.TestField("Ranges per BC Instance");
+            end;
+        }
     }
 
     keys
@@ -222,8 +239,8 @@ table 80000 "C4BC Extension Header"
         Rec.TestField("Assignable Range Code");
         C4BCAssignableRangeHeader.Get(Rec."Assignable Range Code");
         if C4BCAssignableRangeHeader."Ranges per BC Instance" then begin
-            C4BCExtensionUsage.FindFirst();
-            exit(C4BCExtensionUsage."Business Central Instance Code");
+            Rec.TestField("BC Instance for Assign. Range");
+            exit(Rec."BC Instance for Assign. Range");
         end else
             if C4BCExtensionUsage.FindFirst() then
                 exit(C4BCExtensionUsage."Business Central Instance Code");

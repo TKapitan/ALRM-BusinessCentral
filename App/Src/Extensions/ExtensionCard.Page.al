@@ -48,6 +48,11 @@ page 79505 "C4BC Extension Card"
                     ApplicationArea = All;
                     ToolTip = 'Description of the extension';
                 }
+                field("BC Instance for Assign. Range"; Rec."BC Instance for Assign. Range")
+                {
+                    ToolTip = 'Specifies Business Central instance that is used to assign ids for this extension. This setting is used only for ranges per BC instance.';
+                    ApplicationArea = All;
+                }
             }
             part("Subform"; "C4BC Extension Subform")
             {

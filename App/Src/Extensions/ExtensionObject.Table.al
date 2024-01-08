@@ -120,7 +120,7 @@ table 80003 "C4BC Extension Object"
             Caption = 'Bus. Central Instance Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
+            CalcFormula = exist("C4BC Extension Header" where("Code" = field("Extension Code"), "BC Instance for Assign. Range" = field("Bus. Central Instance Filter")));
         }
         field(103; "Alternate Assign. Range Code"; Code[20])
         {
