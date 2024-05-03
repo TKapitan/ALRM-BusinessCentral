@@ -114,6 +114,9 @@ table 80003 "C4BC Extension Object"
         {
             Caption = 'Business Central Instance Filter';
             FieldClass = FlowFilter;
+
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Replaced by FlowField "Bus. Central Instance"';
         }
         field(102; "Bus. Central Instance Linked"; Boolean)
         {
@@ -121,6 +124,9 @@ table 80003 "C4BC Extension Object"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = exist("C4BC Extension Header" where("Code" = field("Extension Code"), "BC Instance for Assign. Range" = field("Bus. Central Instance Filter")));
+
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Replaced by FlowField "Bus. Central Instance"';
         }
         field(103; "Alternate Assign. Range Code"; Code[20])
         {
@@ -128,6 +134,13 @@ table 80003 "C4BC Extension Object"
             Editable = false;
             FieldClass = FlowField;
             CalcFormula = lookup("C4BC Extension Header"."Alternate Assign. Range Code" where("Code" = field("Extension Code")));
+        }
+        field(105; "Bus. Central Instance"; Code[20])
+        {
+            Caption = 'Business Central Instance';
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup("C4BC Extension Header"."BC Instance for Assign. Range" where(Code = field("Extension Code")));
         }
         field(150; "Alternate Object ID"; Integer)
         {

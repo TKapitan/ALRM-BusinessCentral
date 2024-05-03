@@ -68,7 +68,7 @@ table 80006 "C4BC Extension Object Line"
             Caption = 'Bus. Central Instance Linked';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = exist("C4BC Extension Usage" where("Extension Code" = field("Extension Code"), "Business Central Instance Code" = field("Bus. Central Instance Filter")));
+            CalcFormula = exist("C4BC Extension Header" where("Code" = field("Extension Code"), "BC Instance for Assign. Range" = field("Bus. Central Instance Filter")));
 
             ObsoleteState = Pending;
             ObsoleteReason = 'Replaced by FlowField "Bus. Central Instance"';
